@@ -55,8 +55,7 @@ final class MemoryHomePastWeekView: BaseView {
         
         addSubview(emptyLabel)
         emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleView.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
     
