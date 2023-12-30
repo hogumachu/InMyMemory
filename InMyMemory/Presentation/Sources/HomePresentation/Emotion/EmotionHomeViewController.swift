@@ -21,6 +21,7 @@ final class EmotionHomeViewController: UIViewController {
     
     private let recordView = EmotionHomeRecordView()
     private let pastWeekView = EmotionHomePastWeekView()
+    private let graphView = EmotionHomeGraphView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ final class EmotionHomeViewController: UIViewController {
         
         stackView.addArrangedSubview(recordView)
         stackView.addArrangedSubview(pastWeekView)
+        stackView.addArrangedSubview(graphView)
     }
     
     private func setupAttributes() {
@@ -71,6 +73,18 @@ final class EmotionHomeViewController: UIViewController {
                 .init(score: 7, emotion: "좋아요"),
                 .init(score: 10, emotion: "그냥 그래요"),
                 .init(score: 3, emotion: "나빠요"),
+            ]))
+        }
+        
+        graphView.do {
+            $0.setup(model: .init(items: [
+                .init(rate: 1.0, date: "23일"),
+                .init(rate: -0.2, date: "24일"),
+                .init(rate: -0.3, date: "25일"),
+                .init(rate: 0.5, date: "26일"),
+                .init(rate: -1.0, date: "27일"),
+                .init(rate: 0.7, date: "28일"),
+                .init(rate: 0.6, date: "29일"),
             ]))
         }
     }
