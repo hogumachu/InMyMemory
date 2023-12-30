@@ -4,17 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "PersistentStorages",
+    name: "Data",
     platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "SwiftDataStorage",
-            targets: ["SwiftDataStorage"]
+            name: "PersistentStorages",
+            targets: ["PersistentStorages"]
+        ),
+        .library(
+            name: "Repositories",
+            targets: ["Repositories"]
         ),
     ],
     targets: [
         .target(
-            name: "SwiftDataStorage",
+            name: "PersistentStorages",
+            dependencies: []
+        ),
+        .target(
+            name: "Repositories",
             dependencies: []
         )
     ]

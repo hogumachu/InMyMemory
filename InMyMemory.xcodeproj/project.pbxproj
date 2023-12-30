@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F139C6DF2B401F9900D38162 /* BasePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F139C6DE2B401F9900D38162 /* BasePresentation */; };
 		F139C6E12B401F9900D38162 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = F139C6E02B401F9900D38162 /* DesignKit */; };
+		F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A162B4020BC0079E84E /* PersistentStorages */; };
+		F1EC5A192B4020BC0079E84E /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A182B4020BC0079E84E /* Repositories */; };
 		F1F2E3272B3F07E900D607F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */; };
 		F1F2E3292B3F07E900D607F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2E3282B3F07E900D607F1 /* SceneDelegate.swift */; };
 		F1F2E3302B3F07EC00D607F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1F2E32F2B3F07EC00D607F1 /* Assets.xcassets */; };
@@ -30,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F139C6E22B401FE700D38162 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 		F1C3FDC12B401F34004B4FA8 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 		F1F2E3232B3F07E900D607F1 /* InMyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InMyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,8 +43,6 @@
 		F1F2E33C2B3F0BEA00D607F1 /* Entities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Entities; sourceTree = "<group>"; };
 		F1F2E33D2B3F0C1A00D607F1 /* UseCases */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UseCases; sourceTree = "<group>"; };
 		F1F2E33E2B3F0C3300D607F1 /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Interfaces; sourceTree = "<group>"; };
-		F1F2E3402B3F0CB700D607F1 /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Repositories; sourceTree = "<group>"; };
-		F1F2E3412B3F0CF000D607F1 /* PersistentStorages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PersistentStorages; sourceTree = "<group>"; };
 		F1F2E3792B3FD10500D607F1 /* GmarketSansLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansLight.otf; sourceTree = "<group>"; };
 		F1F2E37A2B3FD10500D607F1 /* GmarketSansMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansMedium.otf; sourceTree = "<group>"; };
 		F1F2E37B2B3FD10500D607F1 /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
@@ -52,7 +53,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1EC5A192B4020BC0079E84E /* Repositories in Frameworks */,
 				F139C6E12B401F9900D38162 /* DesignKit in Frameworks */,
+				F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */,
 				F1F2E36E2B3FCE6300D607F1 /* UseCases in Frameworks */,
 				F1F2E3442B3F10C300D607F1 /* SnapKit in Frameworks */,
 				F1F2E3492B3F10E200D607F1 /* RxBlocking in Frameworks */,
@@ -91,8 +94,8 @@
 		F1F2E3252B3F07E900D607F1 /* InMyMemory */ = {
 			isa = PBXGroup;
 			children = (
+				F139C6E22B401FE700D38162 /* Data */,
 				F1C3FDC12B401F34004B4FA8 /* Presentation */,
-				F1F2E33F2B3F0C6300D607F1 /* Data */,
 				F1F2E33B2B3F0B9000D607F1 /* Domain */,
 				F1F2E33A2B3F0AAC00D607F1 /* Application */,
 			);
@@ -119,15 +122,6 @@
 				F1F2E33C2B3F0BEA00D607F1 /* Entities */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		F1F2E33F2B3F0C6300D607F1 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				F1F2E3412B3F0CF000D607F1 /* PersistentStorages */,
-				F1F2E3402B3F0CB700D607F1 /* Repositories */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		F1F2E3622B3FCE6300D607F1 /* Frameworks */ = {
@@ -186,6 +180,8 @@
 				F1F2E36D2B3FCE6300D607F1 /* UseCases */,
 				F139C6DE2B401F9900D38162 /* BasePresentation */,
 				F139C6E02B401F9900D38162 /* DesignKit */,
+				F1EC5A162B4020BC0079E84E /* PersistentStorages */,
+				F1EC5A182B4020BC0079E84E /* Repositories */,
 			);
 			productName = InMyMemory;
 			productReference = F1F2E3232B3F07E900D607F1 /* InMyMemory.app */;
@@ -526,6 +522,14 @@
 		F139C6E02B401F9900D38162 /* DesignKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignKit;
+		};
+		F1EC5A162B4020BC0079E84E /* PersistentStorages */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PersistentStorages;
+		};
+		F1EC5A182B4020BC0079E84E /* Repositories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repositories;
 		};
 		F1F2E3432B3F10C300D607F1 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
