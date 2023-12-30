@@ -5,16 +5,17 @@ import PackageDescription
 
 let package = Package(
     name: "PersistentStorages",
+    platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "PersistentStorages",
-            targets: ["PersistentStorages"]),
+            name: "SwiftDataStorage",
+            targets: ["SwiftDataStorage"]
+        ),
     ],
     targets: [
         .target(
-            name: "PersistentStorages"),
-        .testTarget(
-            name: "PersistentStoragesTests",
-            dependencies: ["PersistentStorages"]),
+            name: "SwiftDataStorage",
+            dependencies: []
+        )
     ]
 )
