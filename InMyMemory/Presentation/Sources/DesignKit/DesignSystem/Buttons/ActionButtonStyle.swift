@@ -67,8 +67,8 @@ public enum ActionButtonStyle {
     
     var font: UIFont {
         switch self {
-        case .normal: return .gmarketSans(type: .medium, size: 22)
-        case .border: return .gmarketSans(type: .medium, size: 22)
+        case .normal: return .gmarketSans(type: .medium, size: 21)
+        case .border: return .gmarketSans(type: .medium, size: 21)
         }
     }
     

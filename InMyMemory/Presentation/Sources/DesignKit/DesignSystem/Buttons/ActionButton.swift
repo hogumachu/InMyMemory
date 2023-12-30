@@ -23,6 +23,11 @@ open class ActionButton: UIButton {
         didSet { updateStyle() }
     }
     
+    open override func tintColorDidChange() {
+        super.tintColorDidChange()
+        updateBorder()
+    }
+    
     private let pressedView = UIView()
     
     public override init(frame: CGRect) {
