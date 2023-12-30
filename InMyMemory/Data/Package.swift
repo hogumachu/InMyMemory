@@ -16,10 +16,15 @@ let package = Package(
             targets: ["Repositories"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
+    ],
     targets: [
         .target(
             name: "PersistentStorages",
-            dependencies: []
+            dependencies: [
+                "RxSwift"
+            ]
         ),
         .target(
             name: "Repositories",

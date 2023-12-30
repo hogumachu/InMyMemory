@@ -21,8 +21,8 @@ open class BaseViewController<ReactorType: Reactor>: UIViewController, View {
         setupAttributes()
     }
     
-    public func setupLayout() {}
-    public func setupAttributes() {}
-    public func bind(reactor: ReactorType) {}
+    open func setupLayout() {}
+    open func setupAttributes() {}
+    open func bind(reactor: ReactorType) {}
     
 }

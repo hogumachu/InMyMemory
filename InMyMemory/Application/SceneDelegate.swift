@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxFlow
+import HomePresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -15,8 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
         self.window = window
-        window.rootViewController = UIViewController()
-        window.makeKeyAndVisible()
+        let homeFlow = HomeFlow()
+        
+        Flows.use(homeFlow, when: .created) { root in
+            window.rootViewController = root
+            window.makeKeyAndVisible()
+        }
     }
     
 }
