@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import Then
 
 open class ActionButton: UIButton {
@@ -39,12 +40,9 @@ open class ActionButton: UIButton {
     private func setupLayout() {
         addSubview(pressedView)
         
-        NSLayoutConstraint.activate([
-            pressedView.topAnchor.constraint(equalTo: topAnchor),
-            pressedView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            pressedView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pressedView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        pressedView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func setupAttributes() {
@@ -54,7 +52,6 @@ open class ActionButton: UIButton {
         pressedView.do {
             $0.isUserInteractionEnabled = false
             $0.isHidden = true
-            $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
