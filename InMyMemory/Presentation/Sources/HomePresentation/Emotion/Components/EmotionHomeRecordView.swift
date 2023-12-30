@@ -1,5 +1,5 @@
 //
-//  MemoryHomeRecordView.swift
+//  EmotionHomeRecordView.swift
 //
 //
 //  Created by 홍성준 on 12/30/23.
@@ -11,7 +11,7 @@ import DesignKit
 import SnapKit
 import Then
 
-final class MemoryHomeRecordView: BaseView {
+final class EmotionHomeRecordView: BaseView {
     
     private let titleView = HomeTitleView()
     private let recordButton = ActionButton()
@@ -34,7 +34,7 @@ final class MemoryHomeRecordView: BaseView {
     
     override func setupAttributes() {
         titleView.do {
-            $0.title = "오늘 하루 어떠신가요?"
+            $0.title = "지금 기분이 어떠신가요?"
         }
         
         recordButton.do {

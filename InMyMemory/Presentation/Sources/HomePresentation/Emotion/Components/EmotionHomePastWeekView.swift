@@ -1,5 +1,5 @@
 //
-//  MemoryHomeTodoView.swift
+//  EmotionHomePastWeekView.swift
 //
 //
 //  Created by 홍성준 on 12/30/23.
@@ -11,39 +11,35 @@ import DesignKit
 import SnapKit
 import Then
 
-struct MemoryHomeTodoViewModel {
-    let items: [MemoryHomeTodoContentViewModel]
+struct EmotionHomePastWeekViewModel {
+    let items: [EmotionHomePastWeekContentViewModel]
 }
 
-final class MemoryHomeTodoView: BaseView {
+final class EmotionHomePastWeekView: BaseView {
     
     private let titleView = HomeTitleView()
     private let stackView = UIStackView()
     
-    func setup(model: MemoryHomeTodoViewModel) {
+    func setup(model: EmotionHomePastWeekViewModel) {
         stackView.subviews.forEach { $0.removeFromSuperview() }
         
         model.items.forEach { item in
-            let view = MemoryHomeTodoContentView()
-            view.layer.cornerRadius = 20
+            let view = EmotionHomePastWeekContentView()
             view.setup(model: item)
             stackView.addArrangedSubview(view)
-            view.snp.makeConstraints { make in
-                make.height.equalTo(40)
-            }
         }
     }
     
     override func setupLayout() {
         addSubview(titleView)
         titleView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.trailing.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
         }
         
         addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(titleView.snp.bottom).offset(10)
+            make.top.equalTo(titleView.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
@@ -51,7 +47,7 @@ final class MemoryHomeTodoView: BaseView {
     
     override func setupAttributes() {
         titleView.do {
-            $0.title = "이번주 할 일 "
+            $0.title = "최근 7일간의 감정"
         }
         
         stackView.do {
