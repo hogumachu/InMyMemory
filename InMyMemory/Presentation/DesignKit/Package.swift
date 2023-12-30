@@ -10,11 +10,18 @@ let package = Package(
             name: "DesignKit",
             targets: ["DesignKit"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
+    ],
     targets: [
         .target(
             name: "DesignKit",
-            resources: [.process("Resources")]
+            dependencies: [
+                "Then"
+            ],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .testTarget(
             name: "DesignKitTests",
