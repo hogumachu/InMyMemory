@@ -13,7 +13,7 @@ import Then
 
 final class MemoryHomeRecordView: BaseView {
     
-    private let titleView = MemoryHomeTitleView()
+    private let titleView = HomeTitleView()
     private let recordButton = ActionButton()
     
     override func setupLayout() {

@@ -1,5 +1,5 @@
 //
-//  MemoryHomeTitleView.swift
+//  HomeTitleView.swift
 //
 //
 //  Created by 홍성준 on 12/30/23.
@@ -11,7 +11,7 @@ import DesignKit
 import SnapKit
 import Then
 
-final class MemoryHomeTitleView: BaseView {
+final class HomeTitleView: BaseView {
     
     var title: String? = nil {
         didSet { titleLabel.text = title }

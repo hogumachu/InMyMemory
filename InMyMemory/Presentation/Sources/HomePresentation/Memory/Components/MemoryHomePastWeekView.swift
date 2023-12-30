@@ -17,7 +17,7 @@ struct MemoryHomePastWeekViewModel {
 
 final class MemoryHomePastWeekView: BaseView {
     
-    private let titleView = MemoryHomeTitleView()
+    private let titleView = HomeTitleView()
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let emptyLabel = UILabel()
