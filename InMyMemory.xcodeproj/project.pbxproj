@@ -13,6 +13,7 @@
 		F15C61142B40246A00241C10 /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61132B40246A00241C10 /* Interfaces */; };
 		F15C61162B40246A00241C10 /* UseCases in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61152B40246A00241C10 /* UseCases */; };
 		F15C61182B40262100241C10 /* HomePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61172B40262100241C10 /* HomePresentation */; };
+		F15C611B2B402C9900241C10 /* CoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = F15C611A2B402C9900241C10 /* CoreKit */; };
 		F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A162B4020BC0079E84E /* PersistentStorages */; };
 		F1EC5A192B4020BC0079E84E /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A182B4020BC0079E84E /* Repositories */; };
 		F1F2E3272B3F07E900D607F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		F139C6E22B401FE700D38162 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
+		F15C61192B402BF900241C10 /* Shared */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Shared; sourceTree = "<group>"; };
 		F1C3FDC12B401F34004B4FA8 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 		F1EC5A1A2B4020EC0079E84E /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 		F1F2E3232B3F07E900D607F1 /* InMyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InMyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 				F15C61122B40246A00241C10 /* Entities in Frameworks */,
 				F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */,
 				F15C61182B40262100241C10 /* HomePresentation in Frameworks */,
+				F15C611B2B402C9900241C10 /* CoreKit in Frameworks */,
 				F1F2E3442B3F10C300D607F1 /* SnapKit in Frameworks */,
 				F1F2E3492B3F10E200D607F1 /* RxBlocking in Frameworks */,
 				F1F2E3542B3F10FD00D607F1 /* ReactorKit in Frameworks */,
@@ -94,6 +97,7 @@
 		F1F2E3252B3F07E900D607F1 /* InMyMemory */ = {
 			isa = PBXGroup;
 			children = (
+				F15C61192B402BF900241C10 /* Shared */,
 				F1EC5A1A2B4020EC0079E84E /* Domain */,
 				F139C6E22B401FE700D38162 /* Data */,
 				F1C3FDC12B401F34004B4FA8 /* Presentation */,
@@ -173,6 +177,7 @@
 				F15C61132B40246A00241C10 /* Interfaces */,
 				F15C61152B40246A00241C10 /* UseCases */,
 				F15C61172B40262100241C10 /* HomePresentation */,
+				F15C611A2B402C9900241C10 /* CoreKit */,
 			);
 			productName = InMyMemory;
 			productReference = F1F2E3232B3F07E900D607F1 /* InMyMemory.app */;
@@ -529,6 +534,10 @@
 		F15C61172B40262100241C10 /* HomePresentation */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HomePresentation;
+		};
+		F15C611A2B402C9900241C10 /* CoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreKit;
 		};
 		F1EC5A162B4020BC0079E84E /* PersistentStorages */ = {
 			isa = XCSwiftPackageProductDependency;
