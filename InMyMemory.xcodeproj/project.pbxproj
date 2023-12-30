@@ -30,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F19CEF882B401A8700A7B864 /* BasePresentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = BasePresentation; sourceTree = "<group>"; };
 		F1F2E3232B3F07E900D607F1 /* InMyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InMyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F2E3282B3F07E900D607F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		F1F2E3602B3FCAD700D607F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				F19CEF882B401A8700A7B864 /* BasePresentation */,
 				F1F2E3612B3FCAF900D607F1 /* DesignKit */,
 			);
 			path = Presentation;
