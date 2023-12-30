@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F139C6DF2B401F9900D38162 /* BasePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F139C6DE2B401F9900D38162 /* BasePresentation */; };
+		F139C6E12B401F9900D38162 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = F139C6E02B401F9900D38162 /* DesignKit */; };
+		F15C61122B40246A00241C10 /* Entities in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61112B40246A00241C10 /* Entities */; };
+		F15C61142B40246A00241C10 /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61132B40246A00241C10 /* Interfaces */; };
+		F15C61162B40246A00241C10 /* UseCases in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61152B40246A00241C10 /* UseCases */; };
+		F15C61182B40262100241C10 /* HomePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61172B40262100241C10 /* HomePresentation */; };
+		F15C611B2B402C9900241C10 /* CoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = F15C611A2B402C9900241C10 /* CoreKit */; };
+		F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A162B4020BC0079E84E /* PersistentStorages */; };
+		F1EC5A192B4020BC0079E84E /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A182B4020BC0079E84E /* Repositories */; };
 		F1F2E3272B3F07E900D607F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */; };
 		F1F2E3292B3F07E900D607F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2E3282B3F07E900D607F1 /* SceneDelegate.swift */; };
 		F1F2E3302B3F07EC00D607F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1F2E32F2B3F07EC00D607F1 /* Assets.xcassets */; };
@@ -19,29 +28,22 @@
 		F1F2E3572B3F110C00D607F1 /* RxFlow in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E3562B3F110C00D607F1 /* RxFlow */; };
 		F1F2E35A2B3F112900D607F1 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E3592B3F112900D607F1 /* Then */; };
 		F1F2E35D2B3F114100D607F1 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E35C2B3F114100D607F1 /* Swinject */; };
-		F1F2E3642B3FCE6300D607F1 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E3632B3FCE6300D607F1 /* DesignKit */; };
-		F1F2E3662B3FCE6300D607F1 /* Entities in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E3652B3FCE6300D607F1 /* Entities */; };
-		F1F2E3682B3FCE6300D607F1 /* Interfaces in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E3672B3FCE6300D607F1 /* Interfaces */; };
-		F1F2E36E2B3FCE6300D607F1 /* UseCases in Frameworks */ = {isa = PBXBuildFile; productRef = F1F2E36D2B3FCE6300D607F1 /* UseCases */; };
-		F1F2E3762B3FD0DA00D607F1 /* DesignKit in Resources */ = {isa = PBXBuildFile; fileRef = F1F2E3612B3FCAF900D607F1 /* DesignKit */; };
 		F1F2E37C2B3FD10500D607F1 /* GmarketSansLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = F1F2E3792B3FD10500D607F1 /* GmarketSansLight.otf */; };
 		F1F2E37D2B3FD10500D607F1 /* GmarketSansMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F1F2E37A2B3FD10500D607F1 /* GmarketSansMedium.otf */; };
 		F1F2E37E2B3FD10500D607F1 /* GmarketSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F1F2E37B2B3FD10500D607F1 /* GmarketSansBold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F139C6E22B401FE700D38162 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
+		F15C61192B402BF900241C10 /* Shared */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Shared; sourceTree = "<group>"; };
+		F1C3FDC12B401F34004B4FA8 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
+		F1EC5A1A2B4020EC0079E84E /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 		F1F2E3232B3F07E900D607F1 /* InMyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InMyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F2E3282B3F07E900D607F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F1F2E32F2B3F07EC00D607F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1F2E3322B3F07EC00D607F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1F2E3342B3F07EC00D607F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F1F2E33C2B3F0BEA00D607F1 /* Entities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Entities; sourceTree = "<group>"; };
-		F1F2E33D2B3F0C1A00D607F1 /* UseCases */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UseCases; sourceTree = "<group>"; };
-		F1F2E33E2B3F0C3300D607F1 /* Interfaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Interfaces; sourceTree = "<group>"; };
-		F1F2E3402B3F0CB700D607F1 /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Repositories; sourceTree = "<group>"; };
-		F1F2E3412B3F0CF000D607F1 /* PersistentStorages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PersistentStorages; sourceTree = "<group>"; };
-		F1F2E3612B3FCAF900D607F1 /* DesignKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignKit; sourceTree = "<group>"; };
 		F1F2E3792B3FD10500D607F1 /* GmarketSansLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansLight.otf; sourceTree = "<group>"; };
 		F1F2E37A2B3FD10500D607F1 /* GmarketSansMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansMedium.otf; sourceTree = "<group>"; };
 		F1F2E37B2B3FD10500D607F1 /* GmarketSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansBold.otf; sourceTree = "<group>"; };
@@ -52,18 +54,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1F2E36E2B3FCE6300D607F1 /* UseCases in Frameworks */,
-				F1F2E3642B3FCE6300D607F1 /* DesignKit in Frameworks */,
+				F15C61162B40246A00241C10 /* UseCases in Frameworks */,
+				F1EC5A192B4020BC0079E84E /* Repositories in Frameworks */,
+				F139C6E12B401F9900D38162 /* DesignKit in Frameworks */,
+				F15C61122B40246A00241C10 /* Entities in Frameworks */,
+				F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */,
+				F15C61182B40262100241C10 /* HomePresentation in Frameworks */,
+				F15C611B2B402C9900241C10 /* CoreKit in Frameworks */,
 				F1F2E3442B3F10C300D607F1 /* SnapKit in Frameworks */,
 				F1F2E3492B3F10E200D607F1 /* RxBlocking in Frameworks */,
 				F1F2E3542B3F10FD00D607F1 /* ReactorKit in Frameworks */,
 				F1F2E3572B3F110C00D607F1 /* RxFlow in Frameworks */,
 				F1F2E3512B3F10E200D607F1 /* RxRelay in Frameworks */,
 				F1F2E35D2B3F114100D607F1 /* Swinject in Frameworks */,
-				F1F2E3682B3FCE6300D607F1 /* Interfaces in Frameworks */,
-				F1F2E3662B3FCE6300D607F1 /* Entities in Frameworks */,
 				F1F2E35A2B3F112900D607F1 /* Then in Frameworks */,
 				F1F2E34D2B3F10E200D607F1 /* RxCocoa in Frameworks */,
+				F15C61142B40246A00241C10 /* Interfaces in Frameworks */,
+				F139C6DF2B401F9900D38162 /* BasePresentation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,9 +97,10 @@
 		F1F2E3252B3F07E900D607F1 /* InMyMemory */ = {
 			isa = PBXGroup;
 			children = (
-				F1F2E3602B3FCAD700D607F1 /* Presentation */,
-				F1F2E33F2B3F0C6300D607F1 /* Data */,
-				F1F2E33B2B3F0B9000D607F1 /* Domain */,
+				F15C61192B402BF900241C10 /* Shared */,
+				F1EC5A1A2B4020EC0079E84E /* Domain */,
+				F139C6E22B401FE700D38162 /* Data */,
+				F1C3FDC12B401F34004B4FA8 /* Presentation */,
 				F1F2E33A2B3F0AAC00D607F1 /* Application */,
 			);
 			path = InMyMemory;
@@ -108,33 +116,6 @@
 				F1F2E3342B3F07EC00D607F1 /* Info.plist */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		F1F2E33B2B3F0B9000D607F1 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				F1F2E33E2B3F0C3300D607F1 /* Interfaces */,
-				F1F2E33D2B3F0C1A00D607F1 /* UseCases */,
-				F1F2E33C2B3F0BEA00D607F1 /* Entities */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		F1F2E33F2B3F0C6300D607F1 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				F1F2E3412B3F0CF000D607F1 /* PersistentStorages */,
-				F1F2E3402B3F0CB700D607F1 /* Repositories */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		F1F2E3602B3FCAD700D607F1 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				F1F2E3612B3FCAF900D607F1 /* DesignKit */,
-			);
-			path = Presentation;
 			sourceTree = "<group>";
 		};
 		F1F2E3622B3FCE6300D607F1 /* Frameworks */ = {
@@ -188,10 +169,15 @@
 				F1F2E3562B3F110C00D607F1 /* RxFlow */,
 				F1F2E3592B3F112900D607F1 /* Then */,
 				F1F2E35C2B3F114100D607F1 /* Swinject */,
-				F1F2E3632B3FCE6300D607F1 /* DesignKit */,
-				F1F2E3652B3FCE6300D607F1 /* Entities */,
-				F1F2E3672B3FCE6300D607F1 /* Interfaces */,
-				F1F2E36D2B3FCE6300D607F1 /* UseCases */,
+				F139C6DE2B401F9900D38162 /* BasePresentation */,
+				F139C6E02B401F9900D38162 /* DesignKit */,
+				F1EC5A162B4020BC0079E84E /* PersistentStorages */,
+				F1EC5A182B4020BC0079E84E /* Repositories */,
+				F15C61112B40246A00241C10 /* Entities */,
+				F15C61132B40246A00241C10 /* Interfaces */,
+				F15C61152B40246A00241C10 /* UseCases */,
+				F15C61172B40262100241C10 /* HomePresentation */,
+				F15C611A2B402C9900241C10 /* CoreKit */,
 			);
 			productName = InMyMemory;
 			productReference = F1F2E3232B3F07E900D607F1 /* InMyMemory.app */;
@@ -243,7 +229,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1F2E3762B3FD0DA00D607F1 /* DesignKit in Resources */,
 				F1F2E37E2B3FD10500D607F1 /* GmarketSansBold.otf in Resources */,
 				F1F2E3332B3F07EC00D607F1 /* LaunchScreen.storyboard in Resources */,
 				F1F2E3302B3F07EC00D607F1 /* Assets.xcassets in Resources */,
@@ -526,6 +511,42 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F139C6DE2B401F9900D38162 /* BasePresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BasePresentation;
+		};
+		F139C6E02B401F9900D38162 /* DesignKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignKit;
+		};
+		F15C61112B40246A00241C10 /* Entities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Entities;
+		};
+		F15C61132B40246A00241C10 /* Interfaces */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Interfaces;
+		};
+		F15C61152B40246A00241C10 /* UseCases */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UseCases;
+		};
+		F15C61172B40262100241C10 /* HomePresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomePresentation;
+		};
+		F15C611A2B402C9900241C10 /* CoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreKit;
+		};
+		F1EC5A162B4020BC0079E84E /* PersistentStorages */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PersistentStorages;
+		};
+		F1EC5A182B4020BC0079E84E /* Repositories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repositories;
+		};
 		F1F2E3432B3F10C300D607F1 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F1F2E3422B3F10C300D607F1 /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -565,22 +586,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F1F2E35B2B3F114100D607F1 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-		F1F2E3632B3FCE6300D607F1 /* DesignKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DesignKit;
-		};
-		F1F2E3652B3FCE6300D607F1 /* Entities */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Entities;
-		};
-		F1F2E3672B3FCE6300D607F1 /* Interfaces */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Interfaces;
-		};
-		F1F2E36D2B3FCE6300D607F1 /* UseCases */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = UseCases;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

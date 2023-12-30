@@ -4,17 +4,16 @@
 import PackageDescription
 
 let package = Package(
-    name: "UseCases",
+    name: "Shared",
     products: [
         .library(
-            name: "UseCases",
-            targets: ["UseCases"]),
+            name: "CoreKit",
+            targets: ["CoreKit"]
+        ),
     ],
     targets: [
         .target(
-            name: "UseCases"),
-        .testTarget(
-            name: "UseCasesTests",
-            dependencies: ["UseCases"]),
+            name: "CoreKit"
+        ),
     ]
 )
