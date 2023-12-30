@@ -13,7 +13,8 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(
-            name: "DesignKit"
+            name: "DesignKit",
+            resources: [.process("Resources")]
         ),
         .testTarget(
             name: "DesignKitTests",
