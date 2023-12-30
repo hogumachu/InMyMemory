@@ -19,13 +19,15 @@ final class MemoryHomeRecordView: BaseView {
     override func setupLayout() {
         addSubview(titleView)
         titleView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.trailing.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
         }
         
         addSubview(recordButton)
         recordButton.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(10)
-            make.leading.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+            make.bottom.equalToSuperview()
             make.size.equalTo(CGSize(width: 120, height: 40))
         }
     }
