@@ -17,18 +17,27 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(path: "../Shared"),
+        .package(path: "../Domain"),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
     ],
     targets: [
         .target(
             name: "PersistentStorages",
             dependencies: [
-                "RxSwift"
+                "RxSwift",
+                .product(name: "Entities", package: "Domain"),
             ]
         ),
         .target(
             name: "Repositories",
-            dependencies: []
+            dependencies: [
+                "RxSwift",
+                "PersistentStorages",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
         )
     ]
 )

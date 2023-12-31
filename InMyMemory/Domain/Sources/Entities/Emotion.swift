@@ -9,21 +9,21 @@ import Foundation
 
 public struct Emotion {
     
+    public let id: UUID
     public let note: String
     public let emotionType: EmotionType
     public let date: Date
-    public let updatedAt: Date
     
     public init(
+        id: UUID = UUID(),
         note: String,
         emotionType: EmotionType,
-        date: Date,
-        updatedAt: Date = Date()
+        date: Date
     ) {
+        self.id = id
         self.note = note
         self.emotionType = emotionType
         self.date = date
-        self.updatedAt = updatedAt
     }
     
 }
