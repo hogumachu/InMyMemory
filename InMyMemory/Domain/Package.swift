@@ -19,7 +19,9 @@ let package = Package(
             targets: ["UseCases"]
         ),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
+    ],
     targets: [
         .target(
             name: "Entities",
@@ -27,7 +29,10 @@ let package = Package(
         ),
         .target(
             name: "Interfaces",
-            dependencies: []
+            dependencies: [
+                "RxSwift",
+                "Entities",
+            ]
         ),
         .target(
             name: "UseCases",
