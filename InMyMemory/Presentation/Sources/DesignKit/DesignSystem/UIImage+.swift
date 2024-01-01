@@ -13,5 +13,6 @@ public extension UIImage {
     static let checkCircle = UIImage(resource: .checkCircle)
     static let menu = UIImage(resource: .menu)
     static let xmark = UIImage(resource: .xmark)
+    static let informationCircle = UIImage(resource: .informationCircle)
     
 }
