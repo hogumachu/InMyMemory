@@ -15,13 +15,12 @@ import Then
 
 final class EmotionHomeViewController: UIViewController {
     
-    
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     
     private let recordView = EmotionHomeRecordView()
     private let pastWeekView = EmotionHomePastWeekView()
-    private let graphView = EmotionHomeGraphView()
+    fileprivate let graphView = EmotionHomeGraphView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +86,15 @@ final class EmotionHomeViewController: UIViewController {
                 .init(rate: 0.6, date: "29일"),
             ]))
         }
+    }
+    
+}
+
+extension Reactive where Base: EmotionHomeViewController {
+    
+    var informationTap: ControlEvent<Void> {
+        let source = base.graphView.rx.informationTap
+        return ControlEvent(events: source)
     }
     
 }

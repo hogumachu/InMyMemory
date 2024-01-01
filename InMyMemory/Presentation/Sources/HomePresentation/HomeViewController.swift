@@ -20,6 +20,7 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     
     private let tabMenuView = HomeTabMenuView()
     private let sideView = HomeSideView()
+    private let emotionGraphInformationView = EmotionHomeGraphInformationView()
     
     private let memoryViewController = MemoryHomeViewController()
     private let emotionViewController = EmotionHomeViewController()
@@ -54,6 +55,11 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         sideView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        view.addSubview(emotionGraphInformationView)
+        emotionGraphInformationView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func setupAttributes() {
@@ -82,6 +88,10 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         
         sideView.rx.recordDidTap
             .bind(to: recordTapBinder)
+            .disposed(by: disposeBag)
+        
+        emotionViewController.rx.informationTap
+            .bind(to: emotionInformationTapBinder)
             .disposed(by: disposeBag)
     }
     
@@ -113,6 +123,12 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     private var recordTapBinder: Binder<Void> {
         return Binder(self) { this, _ in
             print("# 기록하기 버튼 탭")
+        }
+    }
+    
+    private var emotionInformationTapBinder: Binder<Void> {
+        return Binder(self) { this, _ in
+            this.emotionGraphInformationView.showWithAnimation()
         }
     }
     
