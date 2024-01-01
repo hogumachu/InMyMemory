@@ -19,6 +19,7 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     private var currentPage = 0
     
     private let tabMenuView = HomeTabMenuView()
+    private let sideView = HomeSideView()
     
     private let memoryViewController = MemoryHomeViewController()
     private let emotionViewController = EmotionHomeViewController()
@@ -48,6 +49,11 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             make.top.equalTo(tabMenuView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        
+        view.addSubview(sideView)
+        sideView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func setupAttributes() {
@@ -69,6 +75,14 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         tabMenuView.rx.menuDidTap
             .bind(to: menuTapBinder)
             .disposed(by: disposeBag)
+        
+        sideView.rx.calendarDidTap
+            .bind(to: calendarTapBinder)
+            .disposed(by: disposeBag)
+        
+        sideView.rx.recordDidTap
+            .bind(to: recordTapBinder)
+            .disposed(by: disposeBag)
     }
     
     private var menuTapBinder: Binder<Int> {
@@ -87,6 +101,18 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             )
             this.currentPage = index
             this.tabMenuView.selectMenu(at: index)
+        }
+    }
+    
+    private var calendarTapBinder: Binder<Void> {
+        return Binder(self) { this, _ in
+            print("# 캘린더 보기 버튼 탭")
+        }
+    }
+    
+    private var recordTapBinder: Binder<Void> {
+        return Binder(self) { this, _ in
+            print("# 기록하기 버튼 탭")
         }
     }
     
