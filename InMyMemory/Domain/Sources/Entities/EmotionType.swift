@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum EmotionType {
+public enum EmotionType: String {
     case good
     case soso
     case bad

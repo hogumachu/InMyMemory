@@ -8,6 +8,8 @@
 import UIKit
 import BasePresentation
 import DesignKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
@@ -18,6 +20,7 @@ struct EmotionHomeGraphViewModel {
 final class EmotionHomeGraphView: BaseView {
     
     private let titleView = HomeTitleView()
+    fileprivate let informationImageView = UIImageView()
     private let stackView = UIStackView()
     private let separator = UIView()
     
@@ -36,6 +39,13 @@ final class EmotionHomeGraphView: BaseView {
         titleView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
+        }
+        
+        addSubview(informationImageView)
+        informationImageView.snp.makeConstraints { make in
+            make.leading.equalTo(titleView.snp.trailing).offset(10)
+            make.centerY.equalTo(titleView)
+            make.size.equalTo(20)
         }
         
         addSubview(stackView)
@@ -57,6 +67,12 @@ final class EmotionHomeGraphView: BaseView {
             $0.title = "감정 그래프"
         }
         
+        informationImageView.do {
+            $0.image = .informationCircle.withRenderingMode(.alwaysTemplate)
+            $0.tintColor = .orange1
+            $0.contentMode = .scaleAspectFit
+        }
+        
         stackView.do {
             $0.axis = .horizontal
             $0.spacing = 5
@@ -67,6 +83,15 @@ final class EmotionHomeGraphView: BaseView {
         separator.do {
             $0.backgroundColor = .orange1
         }
+    }
+    
+}
+
+extension Reactive where Base: EmotionHomeGraphView {
+    
+    var informationTap: ControlEvent<Void> {
+        let source = base.informationImageView.rx.recognizedTap
+        return ControlEvent(events: source)
     }
     
 }

@@ -14,17 +14,18 @@ public final class EmotionModel {
     
     @Attribute(.unique) public let id: UUID
     public let note: String
-    public let emotionType: EmotionType
+    public let emotionType: String
     public let date: Date
     public let updatedAt: Date
     
     public init(
         id: UUID,
         note: String,
-        emotionType: EmotionType,
+        emotionType: String,
         date: Date,
         updatedAt: Date = Date()
     ) {
+        self.id = id
         self.note = note
         self.emotionType = emotionType
         self.date = date
@@ -35,7 +36,7 @@ public final class EmotionModel {
         self.init(
             id: emotion.id,
             note: emotion.note,
-            emotionType: emotion.emotionType,
+            emotionType: emotion.emotionType.rawValue,
             date: emotion.date
         )
     }
@@ -48,7 +49,7 @@ public extension EmotionModel {
         return .init(
             id: id,
             note: note,
-            emotionType: emotionType,
+            emotionType: EmotionType(rawValue: emotionType)!,
             date: date
         )
     }
