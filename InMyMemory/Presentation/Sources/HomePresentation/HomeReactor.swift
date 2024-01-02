@@ -31,7 +31,7 @@ final class HomeReactor: Reactor, Stepper {
     func mutate(action: HomeAction) -> Observable<HomeAction> {
         switch action {
         case .recordDidTap:
-            steps.accept(AppStep.emotionRecordIsRequired)
+            steps.accept(AppStep.recordIsRequired)
             return .empty()
         }
     }

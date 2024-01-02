@@ -10,6 +10,10 @@ import RxFlow
 public enum AppStep: Step {
     
     case homeIsRequired
+    
+    // record
+    case recordIsRequired
+    case recordIsComplete
     case emotionRecordIsRequired
     
 }
