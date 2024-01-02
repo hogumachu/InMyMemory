@@ -40,6 +40,12 @@ public final class EmotionRecordFlow: Flow {
         case .emotionRecordNoteIsComplete:
             return popEmotionRecordNote()
             
+        case .emotionRecordCompleteIsRequired:
+            return navigationToEmotionComplete()
+            
+        case .emotionRecordCompleteIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
+            
         default:
             return .none
         }
@@ -66,6 +72,17 @@ public final class EmotionRecordFlow: Flow {
     private func popEmotionRecordNote() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
         return .none
+    }
+    
+    private func navigationToEmotionComplete() -> FlowContributors {
+        let viewController = EmotionRecordCompleteViewController()
+        let reactor = EmotionRecordCompleteReactor()
+        viewController.reactor = reactor
+        rootViewController.navigationController?.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(
+            withNextPresentable: viewController,
+            withNextStepper: reactor
+        ))
     }
     
 }

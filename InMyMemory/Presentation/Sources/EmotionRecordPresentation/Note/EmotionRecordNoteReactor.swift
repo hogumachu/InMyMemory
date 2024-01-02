@@ -57,7 +57,7 @@ final class EmotionRecordNoteReactor: Reactor, Stepper {
             return .just(.updateNote(text))
             
         case .nextDidTap:
-            
+            steps.accept(AppStep.emotionRecordCompleteIsRequired)
             return .empty()
         }
     }

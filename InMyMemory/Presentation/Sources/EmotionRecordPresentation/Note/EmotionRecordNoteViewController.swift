@@ -103,6 +103,11 @@ final class EmotionRecordNoteViewController: BaseViewController<EmotionRecordNot
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        nextButton.rx.tap
+            .map { Reactor.Action.nextDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         reactor.state.map(\.isEnabled)
             .bind(to: nextButton.rx.isEnabled)
             .disposed(by: disposeBag)
