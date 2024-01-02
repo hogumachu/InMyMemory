@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Entities
+import BasePresentation
 import RxSwift
 import RxFlow
-import BasePresentation
 
 public final class EmotionRecordFlow: Flow {
     
@@ -33,6 +34,12 @@ public final class EmotionRecordFlow: Flow {
         case .emotionRecordIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.emotionRecordIsComplete)
             
+        case .emotionRecordNoteIsRequired(let type):
+            return navigationToEmotionRecordNote(emotionType: type)
+            
+        case .emotionRecordNoteIsComplete:
+            return popEmotionRecordNote()
+            
         default:
             return .none
         }
@@ -43,6 +50,22 @@ public final class EmotionRecordFlow: Flow {
             withNextPresentable: rootViewController,
             withNextStepper: stepper
         ))
+    }
+    
+    private func navigationToEmotionRecordNote(emotionType: EmotionType) -> FlowContributors {
+        let viewController = EmotionRecordNoteViewController()
+        let reactor = EmotionRecordNoteReactor(emotionType: emotionType)
+        viewController.reactor = reactor
+        rootViewController.navigationController?.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(
+            withNextPresentable: viewController,
+            withNextStepper: reactor
+        ))
+    }
+    
+    private func popEmotionRecordNote() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
+        return .none
     }
     
 }

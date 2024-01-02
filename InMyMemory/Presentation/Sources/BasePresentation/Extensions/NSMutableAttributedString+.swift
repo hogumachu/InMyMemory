@@ -9,6 +9,13 @@ import UIKit
 
 public extension NSMutableAttributedString {
     
+    func font(_ font: UIFont) -> NSMutableAttributedString {
+        let range = NSRange(location: 0, length: length)
+        guard range.location != NSNotFound else { return self }
+        addAttributes([.font: font], range: range)
+        return self
+    }
+    
     func font(_ font: UIFont, text: String) -> NSMutableAttributedString {
         let range = mutableString.range(of: text)
         guard range.location != NSNotFound else { return self }

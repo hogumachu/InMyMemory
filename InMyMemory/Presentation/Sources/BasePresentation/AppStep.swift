@@ -6,6 +6,7 @@
 //
 
 import RxFlow
+import Entities
 
 public enum AppStep: Step {
     
@@ -18,5 +19,7 @@ public enum AppStep: Step {
     // emotionRecord
     case emotionRecordIsRequired
     case emotionRecordIsComplete
+    case emotionRecordNoteIsRequired(EmotionType)
+    case emotionRecordNoteIsComplete
     
 }

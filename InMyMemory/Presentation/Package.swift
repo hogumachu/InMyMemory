@@ -45,7 +45,8 @@ let package = Package(
                 "ReactorKit",
                 "RxFlow",
                 .product(name: "RxCocoa", package: "RxSwift"),
-                "Then"
+                "Then",
+                .product(name: "Entities", package: "Domain"),
             ]
         ),
         .target(

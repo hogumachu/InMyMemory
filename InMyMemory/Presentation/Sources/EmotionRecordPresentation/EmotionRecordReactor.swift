@@ -37,7 +37,7 @@ final class EmotionRecordReactor: Reactor, Stepper {
             return .empty()
             
         case .buttonDidTap(let emotionType):
-            print(emotionType)
+            steps.accept(AppStep.emotionRecordNoteIsRequired(emotionType))
             return .empty()
         }
     }
