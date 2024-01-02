@@ -14,6 +14,9 @@ public enum AppStep: Step {
     // record
     case recordIsRequired
     case recordIsComplete
+    
+    // emotionRecord
     case emotionRecordIsRequired
+    case emotionRecordIsComplete
     
 }

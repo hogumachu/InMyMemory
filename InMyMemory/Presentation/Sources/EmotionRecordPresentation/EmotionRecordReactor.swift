@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import Entities
+import BasePresentation
 import RxSwift
 import RxRelay
 import ReactorKit
 import RxFlow
 
 enum EmotionRecordAction {
-    
+    case closeDidTap
+    case buttonDidTap(EmotionType)
 }
 
 struct EmotionRecordState {
@@ -26,5 +29,17 @@ final class EmotionRecordReactor: Reactor, Stepper {
     
     var initialState: EmotionRecordState = .init()
     let steps = PublishRelay<Step>()
+    
+    func mutate(action: EmotionRecordAction) -> Observable<EmotionRecordAction> {
+        switch action {
+        case .closeDidTap:
+            steps.accept(AppStep.emotionRecordIsComplete)
+            return .empty()
+            
+        case .buttonDidTap(let emotionType):
+            print(emotionType)
+            return .empty()
+        }
+    }
     
 }

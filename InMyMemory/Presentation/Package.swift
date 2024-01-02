@@ -30,6 +30,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Shared"),
+        .package(path: "../Domain"),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
         .package(url: "https://github.com/ReactorKit/ReactorKit.git", .upToNextMajor(from: "3.2.0")),
         .package(url: "https://github.com/RxSwiftCommunity/RxFlow.git", .upToNextMajor(from: "2.13.0")),
@@ -99,6 +100,7 @@ let package = Package(
                 "BasePresentation",
                 "DesignKit",
                 .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
             ]
         ),
     ]

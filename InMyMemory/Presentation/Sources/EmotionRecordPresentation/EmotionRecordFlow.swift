@@ -30,6 +30,9 @@ public final class EmotionRecordFlow: Flow {
         case .emotionRecordIsRequired:
             return navigationToEmotionRecord()
             
+        case .emotionRecordIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.emotionRecordIsComplete)
+            
         default:
             return .none
         }

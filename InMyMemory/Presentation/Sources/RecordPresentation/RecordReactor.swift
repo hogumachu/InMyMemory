@@ -14,6 +14,7 @@ import BasePresentation
 
 enum RecordAction {
     case closeDidTap
+    case emotionRecordDidTap
 }
 
 struct RecordState {
@@ -32,6 +33,10 @@ final class RecordReactor: Reactor, Stepper {
         switch action {
         case .closeDidTap:
             steps.accept(AppStep.recordIsComplete)
+            return .empty()
+            
+        case .emotionRecordDidTap:
+            steps.accept(AppStep.emotionRecordIsRequired)
             return .empty()
         }
     }
