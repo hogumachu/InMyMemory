@@ -87,7 +87,8 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             .disposed(by: disposeBag)
         
         sideView.rx.recordDidTap
-            .bind(to: recordTapBinder)
+            .map { Reactor.Action.recordDidTap }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         emotionViewController.rx.informationTap
@@ -117,12 +118,6 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     private var calendarTapBinder: Binder<Void> {
         return Binder(self) { this, _ in
             print("# 캘린더 보기 버튼 탭")
-        }
-    }
-    
-    private var recordTapBinder: Binder<Void> {
-        return Binder(self) { this, _ in
-            print("# 기록하기 버튼 탭")
         }
     }
     

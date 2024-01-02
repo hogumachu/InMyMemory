@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F10CD1DF2B43F63C0090809E /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10CD1DE2B43F63C0090809E /* AppFlow.swift */; };
 		F139C6DF2B401F9900D38162 /* BasePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F139C6DE2B401F9900D38162 /* BasePresentation */; };
 		F139C6E12B401F9900D38162 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = F139C6E02B401F9900D38162 /* DesignKit */; };
 		F15C61122B40246A00241C10 /* Entities in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61112B40246A00241C10 /* Entities */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F10CD1DE2B43F63C0090809E /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		F139C6E22B401FE700D38162 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 		F15C61192B402BF900241C10 /* Shared */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Shared; sourceTree = "<group>"; };
 		F1C3FDC12B401F34004B4FA8 /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F10CD1DB2B43EF9F0090809E /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				F10CD1DE2B43F63C0090809E /* AppFlow.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
 		F1F2E31A2B3F07E900D607F1 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 		F1F2E33A2B3F0AAC00D607F1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				F10CD1DB2B43EF9F0090809E /* Flows */,
 				F1F2E3772B3FD0ED00D607F1 /* Resources */,
 				F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */,
 				F1F2E3282B3F07E900D607F1 /* SceneDelegate.swift */,
@@ -245,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1F2E3272B3F07E900D607F1 /* AppDelegate.swift in Sources */,
+				F10CD1DF2B43F63C0090809E /* AppFlow.swift in Sources */,
 				F1F2E3292B3F07E900D607F1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
