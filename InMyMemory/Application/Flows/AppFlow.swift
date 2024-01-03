@@ -1,0 +1,57 @@
+//
+//  AppFlow.swift
+//  InMyMemory
+//
+//  Created by 홍성준 on 1/2/24.
+//
+
+import UIKit
+import RxSwift
+import RxRelay
+import RxFlow
+import BasePresentation
+import HomePresentation
+import EmotionRecordPresentation
+
+final class AppFlow: Flow {
+    
+    public var root: Presentable { rootViewController }
+    
+    private lazy var rootViewController: UINavigationController = {
+        let navigationController = UINavigationController()
+        navigationController.setNavigationBarHidden(true, animated: false)
+        return navigationController
+    }()
+    
+    public init() {}
+    
+    public func navigate(to step: Step) -> FlowContributors {
+        guard let appStep = step as? AppStep else { return .none }
+        switch appStep {
+        case .homeIsRequired:
+            return navigationToHome()
+            
+        default:
+            return .none
+        }
+    }
+    
+    private func navigationToHome() -> FlowContributors {
+        let flow = HomeFlow()
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.pushViewController(root, animated: false)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.homeIsRequired)
+        ))
+    }
+    
+}
+
+final class AppStepper: Stepper {
+    
+    let steps = PublishRelay<Step>()
+    let initialStep: Step = AppStep.homeIsRequired
+    
+}
