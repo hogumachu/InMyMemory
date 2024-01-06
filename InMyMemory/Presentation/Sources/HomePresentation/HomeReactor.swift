@@ -24,6 +24,7 @@ struct HomeState {
     var memories: [Memory]
     var todos: [Todo]
     var emotionViewModel: EmotionHomeViewModel?
+    var memoryViewModel: MemoryHomeViewModel?
 }
 
 enum HomeMutation {
@@ -125,5 +126,20 @@ final class HomeReactor: Reactor, Stepper {
         return .init(items: items)
     }
     
+    // MARK: - Memory
+    
+    private func makeWeekViewModel(_ memories: [Memory]) -> MemoryHomePastWeekViewModel {
+        let items: [MemoryHomePastWeekContentViewModel] = memories.prefix(10).map {
+            .init(title: $0.note, imageData: $0.images.first)
+        }
+        return .init(items: items)
+    }
+    
+    private func makeTodoViewModel(_ todos: [Todo]) -> MemoryHomeTodoViewModel {
+        let items: [MemoryHomeTodoContentViewModel] = todos.prefix(10).map {
+            .init(todo: $0.note, isChecked: $0.isCompleted)
+        }
+        return .init(items: items)
+    }
     
 }

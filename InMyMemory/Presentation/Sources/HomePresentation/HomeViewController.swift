@@ -107,16 +107,12 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     }
     
     private func bindState(_ reactor: Reactor) {
-        reactor.state.map(\.memories)
-            .bind(to: memoryViewController.memoryBinder)
-            .disposed(by: disposeBag)
-        
-        reactor.state.map(\.todos)
-            .bind(to: memoryViewController.todoBinder)
-            .disposed(by: disposeBag)
-        
         reactor.state.compactMap(\.emotionViewModel)
             .bind(to: emotionViewController.viewModelBinder)
+            .disposed(by: disposeBag)
+        
+        reactor.state.compactMap(\.memoryViewModel)
+            .bind(to: memoryViewController.viewModelBinder)
             .disposed(by: disposeBag)
     }
     
