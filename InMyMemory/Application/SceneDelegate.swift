@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 import RxFlow
 import CoreKit
+import PersistentStorages
+import Repositories
 import UseCases
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -30,7 +32,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func makeDependencyInjecter() -> DependencyInjectorInterface {
         let injector = DependencyInjector(container: .init())
-        injector.assemble([UseCaseAssembly()])
+        injector.assemble([
+            StorageAssembly(),
+            RepositoryAssembly(),
+            UseCaseAssembly()
+        ])
         return injector
     }
     

@@ -44,7 +44,7 @@ final class HomeReactor: Reactor, Stepper {
     }
     
     func reduce(state: HomeState, mutation: HomeAction) -> HomeState {
-        var newState = state
+        let newState = state
         return newState
     }
     

@@ -22,6 +22,7 @@ let package = Package(
     dependencies: [
         .package(path: "../Shared"),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
+        .package(url: "https://github.com/Swinject/Swinject.git", .upToNextMajor(from: "2.8.4")),
     ],
     targets: [
         .target(
@@ -39,6 +40,7 @@ let package = Package(
             name: "UseCases",
             dependencies: [
                 "RxSwift",
+                "Swinject",
                 "Entities",
                 "Interfaces",
                 .product(name: "CoreKit", package: "Shared"),
