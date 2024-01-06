@@ -8,6 +8,8 @@
 import UIKit
 import RxSwift
 import RxFlow
+import Swinject
+import Interfaces
 import BasePresentation
 import RecordPresentation
 import EmotionRecordPresentation
@@ -19,8 +21,8 @@ public final class HomeFlow: Flow {
     private let rootViewController: HomeViewController
     private let stepper: Stepper
     
-    public init() {
-        let reactor = HomeReactor()
+    public init(useCase: HomeUseCaseInterface) {
+        let reactor = HomeReactor(useCase: useCase)
         self.rootViewController = HomeViewController()
         rootViewController.reactor = reactor
         self.stepper = reactor

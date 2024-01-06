@@ -10,6 +10,7 @@ import RxSwift
 import RxRelay
 import ReactorKit
 import RxFlow
+import Interfaces
 import BasePresentation
 
 enum HomeAction {
@@ -27,6 +28,12 @@ final class HomeReactor: Reactor, Stepper {
     
     var initialState: HomeState = .init()
     let steps = PublishRelay<Step>()
+    
+    private let useCase: HomeUseCaseInterface
+    
+    init(useCase: HomeUseCaseInterface) {
+        self.useCase = useCase
+    }
     
     func mutate(action: HomeAction) -> Observable<HomeAction> {
         switch action {

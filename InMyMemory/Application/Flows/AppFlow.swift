@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 import RxRelay
 import RxFlow
+import CoreKit
+import Interfaces
 import BasePresentation
 import HomePresentation
 import EmotionRecordPresentation
@@ -23,7 +25,11 @@ final class AppFlow: Flow {
         return navigationController
     }()
     
-    public init() {}
+    private let injector: DependencyInjectorInterface
+    
+    public init(injector: DependencyInjectorInterface) {
+        self.injector = injector
+    }
     
     public func navigate(to step: Step) -> FlowContributors {
         guard let appStep = step as? AppStep else { return .none }
@@ -37,7 +43,7 @@ final class AppFlow: Flow {
     }
     
     private func navigationToHome() -> FlowContributors {
-        let flow = HomeFlow()
+        let flow = HomeFlow(useCase: injector.resolve(HomeUseCaseInterface.self))
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: false)
         }

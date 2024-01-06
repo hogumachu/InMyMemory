@@ -20,6 +20,7 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(path: "../Shared"),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
     ],
     targets: [
@@ -36,7 +37,12 @@ let package = Package(
         ),
         .target(
             name: "UseCases",
-            dependencies: []
+            dependencies: [
+                "RxSwift",
+                "Entities",
+                "Interfaces",
+                .product(name: "CoreKit", package: "Shared"),
+            ]
         ),
     ]
 )
