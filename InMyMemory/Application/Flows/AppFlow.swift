@@ -43,7 +43,7 @@ final class AppFlow: Flow {
     }
     
     private func navigationToHome() -> FlowContributors {
-        let flow = HomeFlow(useCase: injector.resolve(HomeUseCaseInterface.self))
+        let flow = HomeFlow(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: false)
         }

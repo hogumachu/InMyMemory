@@ -7,6 +7,7 @@
 
 import Foundation
 import Entities
+import Interfaces
 import BasePresentation
 import RxSwift
 import RxRelay
@@ -29,6 +30,12 @@ final class EmotionRecordReactor: Reactor, Stepper {
     
     var initialState: EmotionRecordState = .init()
     let steps = PublishRelay<Step>()
+    
+    private let useCase: EmotionRecordUseCaseInterface
+    
+    init(useCase: EmotionRecordUseCaseInterface) {
+        self.useCase = useCase
+    }
     
     func mutate(action: EmotionRecordAction) -> Observable<EmotionRecordAction> {
         switch action {
