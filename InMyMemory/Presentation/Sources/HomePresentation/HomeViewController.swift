@@ -78,6 +78,16 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     }
     
     override func bind(reactor: HomeReactor) {
+        bindAction(reactor)
+        bindState(reactor)
+    }
+    
+    private func bindAction(_ reactor: Reactor) {
+        rx.viewDidLoad
+            .map { Reactor.Action.refresh }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         tabMenuView.rx.menuDidTap
             .bind(to: menuTapBinder)
             .disposed(by: disposeBag)
@@ -93,6 +103,16 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         
         emotionViewController.rx.informationTap
             .bind(to: emotionInformationTapBinder)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindState(_ reactor: Reactor) {
+        reactor.state.map(\.memories)
+            .bind(to: memoryViewController.memoryBinder)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.todos)
+            .bind(to: memoryViewController.todoBinder)
             .disposed(by: disposeBag)
     }
     

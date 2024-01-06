@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import Entities
+import RxSwift
 
 public protocol HomeUseCaseInterface: AnyObject {
-    
+    func fetchLastSevenDaysMemories() -> Single<[Memory]>
+    func fetchCurrentWeekTodos() -> Single<[Todo]>
 }
