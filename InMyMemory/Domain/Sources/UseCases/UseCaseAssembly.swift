@@ -15,8 +15,16 @@ public struct UseCaseAssembly: Assembly {
     public init() {}
     
     public func assemble(container: Container) {
+        let emotionRepository = container.resolve(EmotionRepositoryInterface.self)!
+        let memoryRepository = container.resolve(MemoryRepositoryInterface.self)!
+        let todoRepository = container.resolve(TodoRepositoryInterface.self)!
+        
         container.register(HomeUseCaseInterface.self) { _ in
-            HomeUseCase()
+            HomeUseCase(
+                emotionRepository: emotionRepository,
+                memoryRepository: memoryRepository,
+                todoRepository: todoRepository
+            )
         }
     }
     

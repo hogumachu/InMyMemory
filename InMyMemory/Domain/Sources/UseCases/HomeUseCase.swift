@@ -10,4 +10,18 @@ import Interfaces
 
 public final class HomeUseCase: HomeUseCaseInterface {
     
+    private let emotionRepository: EmotionRepositoryInterface
+    private let memoryRepository: MemoryRepositoryInterface
+    private let todoRepository: TodoRepositoryInterface
+    
+    public init(
+        emotionRepository: EmotionRepositoryInterface,
+        memoryRepository: MemoryRepositoryInterface,
+        todoRepository: TodoRepositoryInterface
+    ) {
+        self.emotionRepository = emotionRepository
+        self.memoryRepository = memoryRepository
+        self.todoRepository = todoRepository
+    }
+    
 }
