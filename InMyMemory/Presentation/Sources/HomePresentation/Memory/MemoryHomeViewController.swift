@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Entities
 import BasePresentation
 import DesignKit
 import RxSwift
@@ -14,6 +15,18 @@ import SnapKit
 import Then
 
 final class MemoryHomeViewController: UIViewController {
+    
+    var memoryBinder: Binder<[Memory]> {
+        return Binder(self) { this, memories in
+            this.updateMemories(memories)
+        }
+    }
+    
+    var todoBinder: Binder<[Todo]> {
+        return Binder(self) { this, todos in
+            this.updateTodos(todos)
+        }
+    }
     
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
@@ -66,15 +79,30 @@ final class MemoryHomeViewController: UIViewController {
             $0.distribution = .equalSpacing
             $0.spacing = 40
         }
-        
-        todoView.do {
-            $0.setup(model: .init(items: [
-                .init(todo: "In My Memory 와이어프레임 및 디자인 완성하기", isChecked: false),
-                .init(todo: "우유 사오기", isChecked: true),
-                .init(todo: "볼펜 심 사오기 (하이테크 0.5mm)", isChecked: false),
-                .init(todo: "홍삼 주문하기", isChecked: false),
-            ]))
+    }
+    
+    private func updateMemories(_ memories: [Memory]) {
+        let viewModel = makeWeekViewModel(memories)
+        pastWeekView.setup(model: viewModel)
+    }
+    
+    private func updateTodos(_ todos: [Todo]) {
+        let viewModel = makeTodoViewModel(todos)
+        todoView.setup(model: viewModel)
+    }
+    
+    private func makeWeekViewModel(_ memories: [Memory]) -> MemoryHomePastWeekViewModel {
+        let items: [MemoryHomePastWeekContentViewModel] = memories.prefix(10).map {
+            .init(title: $0.note, imageData: $0.images.first)
         }
+        return .init(items: items)
+    }
+    
+    private func makeTodoViewModel(_ todos: [Todo]) -> MemoryHomeTodoViewModel {
+        let items: [MemoryHomeTodoContentViewModel] = todos.prefix(10).map {
+            .init(todo: $0.note, isChecked: $0.isCompleted)
+        }
+        return .init(items: items)
     }
     
 }

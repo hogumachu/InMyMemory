@@ -11,9 +11,15 @@ let package = Package(
             targets: ["CoreKit"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/Swinject/Swinject.git", .upToNextMajor(from: "2.8.4")),
+    ],
     targets: [
         .target(
-            name: "CoreKit"
+            name: "CoreKit",
+            dependencies: [
+                "Swinject"
+            ]
         ),
     ]
 )
