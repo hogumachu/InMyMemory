@@ -114,6 +114,10 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         reactor.state.map(\.todos)
             .bind(to: memoryViewController.todoBinder)
             .disposed(by: disposeBag)
+        
+        reactor.state.map(\.emotions)
+            .bind(to: emotionViewController.emotionBinder)
+            .disposed(by: disposeBag)
     }
     
     private var menuTapBinder: Binder<Int> {

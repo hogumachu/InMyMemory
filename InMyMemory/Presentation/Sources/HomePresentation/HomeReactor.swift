@@ -23,12 +23,14 @@ struct HomeState {
     var isLoading: Bool
     var memories: [Memory]
     var todos: [Todo]
+    var emotions: [Emotion]
 }
 
 enum HomeMutation {
     case setLoading(Bool)
     case setMemories([Memory])
     case setTodos([Todo])
+    case setEmotions([Emotion])
 }
 
 final class HomeReactor: Reactor, Stepper {
@@ -40,7 +42,8 @@ final class HomeReactor: Reactor, Stepper {
     var initialState: HomeState = .init(
         isLoading: false,
         memories: [],
-        todos: []
+        todos: [],
+        emotions: []
     )
     let steps = PublishRelay<Step>()
     
@@ -61,6 +64,9 @@ final class HomeReactor: Reactor, Stepper {
                 useCase.fetchCurrentWeekTodos()
                     .map { Mutation.setTodos($0) }
                     .asObservable(),
+                useCase.fetchLastSevenDaysEmotions()
+                    .map { Mutation.setEmotions($0) }
+                    .asObservable(),
                 .just(.setLoading(false))
             ])
         case .recordDidTap:
@@ -80,6 +86,9 @@ final class HomeReactor: Reactor, Stepper {
             
         case .setTodos(let todos):
             newState.todos = todos
+            
+        case .setEmotions(let emotions):
+            newState.emotions = emotions
         }
         
         return newState

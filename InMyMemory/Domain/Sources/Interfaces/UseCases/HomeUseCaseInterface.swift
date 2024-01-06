@@ -12,4 +12,5 @@ import RxSwift
 public protocol HomeUseCaseInterface: AnyObject {
     func fetchLastSevenDaysMemories() -> Single<[Memory]>
     func fetchCurrentWeekTodos() -> Single<[Todo]>
+    func fetchLastSevenDaysEmotions() -> Single<[Emotion]>
 }

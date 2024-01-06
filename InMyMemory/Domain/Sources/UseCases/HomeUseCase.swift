@@ -37,4 +37,9 @@ public final class HomeUseCase: HomeUseCaseInterface {
         return todoRepository.read(greaterThan: sevenDaysAgo)
     }
     
+    public func fetchLastSevenDaysEmotions() -> Single<[Emotion]> {
+        let sevenDaysAgo = Date().daysAgo(value: 7).clipDate()
+        return emotionRepository.read(greaterThan: sevenDaysAgo)
+    }
+    
 }
