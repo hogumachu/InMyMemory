@@ -64,7 +64,10 @@ public final class EmotionRecordFlow: Flow {
     
     private func navigationToEmotionRecordNote(emotionType: EmotionType) -> FlowContributors {
         let viewController = EmotionRecordNoteViewController()
-        let reactor = EmotionRecordNoteReactor(emotionType: emotionType)
+        let reactor = EmotionRecordNoteReactor(
+            emotionType: emotionType,
+            useCase: injector.resolve(EmotionRecordUseCaseInterface.self)
+        )
         viewController.reactor = reactor
         rootViewController.navigationController?.pushViewController(viewController, animated: true)
         return .one(flowContributor: .contribute(

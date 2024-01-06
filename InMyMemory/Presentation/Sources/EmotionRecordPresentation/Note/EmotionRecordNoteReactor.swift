@@ -7,6 +7,7 @@
 
 import Foundation
 import Entities
+import Interfaces
 import BasePresentation
 import RxSwift
 import RxRelay
@@ -21,10 +22,12 @@ enum EmotionRecordNoteAction {
 
 enum EmotionRecordNoteMutation {
     case updateNote(String?)
+    case setLoading(Bool)
 }
 
 struct EmotionRecordNoteState {
     var isEnabled: Bool
+    var isLoading: Bool
     var note: String?
     let emotionType: EmotionType
 }
@@ -38,13 +41,16 @@ final class EmotionRecordNoteReactor: Reactor, Stepper {
     var initialState: EmotionRecordNoteState
     let steps = PublishRelay<Step>()
     private var note: String?
+    private let useCase: EmotionRecordUseCaseInterface
     
-    init(emotionType: EmotionType) {
+    init(emotionType: EmotionType, useCase: EmotionRecordUseCaseInterface) {
         self.initialState = .init(
             isEnabled: false,
+            isLoading: false,
             note: nil,
             emotionType: emotionType
         )
+        self.useCase = useCase
     }
     
     func mutate(action: EmotionRecordNoteAction) -> Observable<EmotionRecordNoteMutation> {
@@ -57,8 +63,17 @@ final class EmotionRecordNoteReactor: Reactor, Stepper {
             return .just(.updateNote(text))
             
         case .nextDidTap:
-            steps.accept(AppStep.emotionRecordCompleteIsRequired)
-            return .empty()
+            return Observable.concat([
+                .just(.setLoading(true)),
+                useCase.createEmotion(.init(
+                    note: currentState.note ?? "",
+                    emotionType: currentState.emotionType,
+                    date: Date()
+                )).map { [weak self] _ in
+                    self?.steps.accept(AppStep.emotionRecordCompleteIsRequired)
+                    return Mutation.setLoading(false)
+                }.asObservable()
+            ])
         }
     }
     
@@ -68,6 +83,9 @@ final class EmotionRecordNoteReactor: Reactor, Stepper {
         case .updateNote(let note):
             newState.note = note
             newState.isEnabled = !(note ?? "").isEmpty
+            
+        case .setLoading(let isLoading):
+            newState.isLoading = isLoading
         }
         return newState
     }
