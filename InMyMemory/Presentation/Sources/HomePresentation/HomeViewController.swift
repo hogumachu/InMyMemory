@@ -115,8 +115,8 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             .bind(to: memoryViewController.todoBinder)
             .disposed(by: disposeBag)
         
-        reactor.state.map(\.emotions)
-            .bind(to: emotionViewController.emotionBinder)
+        reactor.state.compactMap(\.emotionViewModel)
+            .bind(to: emotionViewController.viewModelBinder)
             .disposed(by: disposeBag)
     }
     

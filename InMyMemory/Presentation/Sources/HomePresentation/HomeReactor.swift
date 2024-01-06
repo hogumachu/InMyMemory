@@ -23,7 +23,7 @@ struct HomeState {
     var isLoading: Bool
     var memories: [Memory]
     var todos: [Todo]
-    var emotions: [Emotion]
+    var emotionViewModel: EmotionHomeViewModel?
 }
 
 enum HomeMutation {
@@ -42,8 +42,7 @@ final class HomeReactor: Reactor, Stepper {
     var initialState: HomeState = .init(
         isLoading: false,
         memories: [],
-        todos: [],
-        emotions: []
+        todos: []
     )
     let steps = PublishRelay<Step>()
     
@@ -88,10 +87,42 @@ final class HomeReactor: Reactor, Stepper {
             newState.todos = todos
             
         case .setEmotions(let emotions):
-            newState.emotions = emotions
+            let emotionViewModel = EmotionHomeViewModel(
+                pastWeekViewModel: makeEmotionPastWeekViewModel(emotions),
+                graphViewModel: makeEmotionGraphViewModel(emotions)
+            )
+            newState.emotionViewModel = emotionViewModel
         }
         
         return newState
+    }
+    
+    // MARK: - Emotion
+    
+    private func makeEmotionPastWeekViewModel(_ emotions: [Emotion]) -> EmotionHomePastWeekViewModel {
+        let goodScore = emotions.filter { $0.emotionType == .good }.count
+        let sosoScore = emotions.filter { $0.emotionType == .soso }.count
+        let badScore = emotions.filter { $0.emotionType == .bad }.count
+        
+        return .init(items: [
+            .init(score: goodScore, emotion: "좋아요"),
+            .init(score: sosoScore, emotion: "그냥 그래요"),
+            .init(score: badScore, emotion: "나빠요")
+        ])
+    }
+    
+    private func makeEmotionGraphViewModel(_ emotions: [Emotion]) -> EmotionHomeGraphViewModel {
+        let items = (0..<7).map { Date().daysAgo(value: $0).day }.reversed()
+            .map { day -> EmotionHomeGraphBarViewModel in
+                let filteredEmotions = emotions.filter { $0.date.day == day }
+                let goodScore = filteredEmotions.filter { $0.emotionType == .good }.count
+                let sosoScore = filteredEmotions.filter { $0.emotionType == .soso }.count
+                let badScore = filteredEmotions.filter { $0.emotionType == .bad }.count
+                let sum = goodScore + sosoScore + badScore
+                let rate = sum == 0 ? 0.0 : CGFloat(goodScore - badScore) / CGFloat(sum)
+                return .init(rate: rate, date: "\(day)일")
+            }
+        return .init(items: items)
     }
     
     
