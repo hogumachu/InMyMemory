@@ -26,6 +26,10 @@ public struct UseCaseAssembly: Assembly {
                 todoRepository: todoRepository
             )
         }
+        
+        container.register(EmotionRecordUseCaseInterface.self) { _ in
+            EmotionRecordUseCase(emotionRepository: emotionRepository)
+        }
     }
     
 }

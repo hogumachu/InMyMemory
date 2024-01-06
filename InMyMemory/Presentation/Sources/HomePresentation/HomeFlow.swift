@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 import RxFlow
-import Swinject
+import CoreKit
 import Interfaces
 import BasePresentation
 import RecordPresentation
@@ -21,8 +21,11 @@ public final class HomeFlow: Flow {
     private let rootViewController: HomeViewController
     private let stepper: Stepper
     
-    public init(useCase: HomeUseCaseInterface) {
-        let reactor = HomeReactor(useCase: useCase)
+    private let injector: DependencyInjectorInterface
+    
+    public init(injector: DependencyInjectorInterface) {
+        self.injector = injector
+        let reactor = HomeReactor(useCase: injector.resolve(HomeUseCaseInterface.self))
         self.rootViewController = HomeViewController()
         rootViewController.reactor = reactor
         self.stepper = reactor
@@ -56,7 +59,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToRecord() -> FlowContributors {
-        let flow = RecordFlow()
+        let flow = RecordFlow(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             root.modalPresentationStyle = .overFullScreen
             self?.rootViewController.present(root, animated: true)
@@ -68,7 +71,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToEmotionRecord() -> FlowContributors {
-        let flow = EmotionRecordFlow()
+        let flow = EmotionRecordFlow(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }

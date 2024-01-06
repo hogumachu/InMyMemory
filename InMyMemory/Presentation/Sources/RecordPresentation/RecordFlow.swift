@@ -8,6 +8,8 @@
 import UIKit
 import RxSwift
 import RxFlow
+import CoreKit
+import Interfaces
 import BasePresentation
 import EmotionRecordPresentation
 
@@ -17,7 +19,10 @@ public final class RecordFlow: Flow {
     private let rootViewController: UINavigationController
     private let stepper: Stepper
     
-    public init() {
+    private let injector: DependencyInjectorInterface
+    
+    public init(injector: DependencyInjectorInterface) {
+        self.injector = injector
         let reactor = RecordReactor()
         let viewController = RecordViewController()
         viewController.reactor = reactor
@@ -56,7 +61,7 @@ public final class RecordFlow: Flow {
     }
     
     private func navigationToEmotionRecord() -> FlowContributors {
-        let flow = EmotionRecordFlow()
+        let flow = EmotionRecordFlow(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }
