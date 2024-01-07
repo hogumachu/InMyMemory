@@ -19,6 +19,7 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
     
     private let navigationView = NavigationView()
     private let calendarViewController = CalendarViewController()
+    private let calendarListViewController = CalendarListViewController()
     
     private let separator = UIView()
     
@@ -42,6 +43,13 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
             make.top.equalTo(calendarViewController.view.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(1)
+        }
+        
+        addChild(calendarListViewController)
+        view.addSubview(calendarListViewController.view)
+        calendarListViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(separator.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
     
