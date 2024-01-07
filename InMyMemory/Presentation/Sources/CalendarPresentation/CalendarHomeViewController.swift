@@ -75,6 +75,11 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
     }
     
     private func bindAction(_ reactor: Reactor) {
+        rx.viewDidLoad
+            .map { Reactor.Action.viewDidLoad }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         navigationView.rx.leftButtonDidTap
             .map { Reactor.Action.closeDidTap }
             .bind(to: reactor.action)

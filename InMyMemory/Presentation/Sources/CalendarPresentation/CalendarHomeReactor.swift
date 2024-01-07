@@ -1,6 +1,6 @@
 //
 //  CalendarHomeReactor.swift
-//  
+//
 //
 //  Created by 홍성준 on 1/7/24.
 //
@@ -18,6 +18,7 @@ import ReactorKit
 final class CalendarHomeReactor: Reactor, Stepper {
     
     enum Action {
+        case viewDidLoad
         case closeDidTap
         case searchDidTap
         case addDidTap
@@ -51,7 +52,7 @@ final class CalendarHomeReactor: Reactor, Stepper {
         self.useCase = useCase
         let date = Date()
         self.initialState = .init(
-            date: date, 
+            date: date,
             monthTitle: "\(date.year)년 \(date.month)월",
             selectDay: date.day,
             days: [],
@@ -61,6 +62,15 @@ final class CalendarHomeReactor: Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .viewDidLoad:
+            let date = currentState.date
+            return Observable.concat([
+                useCase.fetchDaysInMonth(year: date.year, month: date.month)
+                    .map { Mutation.setDays($0) }
+                    .asObservable(),
+                .just(.setSelectDay(date.day))
+            ])
+            
         case .closeDidTap:
             steps.accept(AppStep.calendarIsComplete)
             return .empty()
