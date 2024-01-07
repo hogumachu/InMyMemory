@@ -30,7 +30,9 @@ final class CalendarHomeReactor: Reactor, Stepper {
         var date: Date
         var monthTitle: String
         var selectDay: Int?
+        var days: [Day]
         var calendarViewModel: CalendarViewModel?
+        var calendarListSections: [CalendarListSection]
     }
     
     enum Mutation {
@@ -51,7 +53,9 @@ final class CalendarHomeReactor: Reactor, Stepper {
         self.initialState = .init(
             date: date, 
             monthTitle: "\(date.year)년 \(date.month)월",
-            selectDay: date.day
+            selectDay: date.day,
+            days: [],
+            calendarListSections: []
         )
     }
     
@@ -106,10 +110,12 @@ final class CalendarHomeReactor: Reactor, Stepper {
             newState.monthTitle = title
             
         case .setDays(let days):
+            newState.days = days
             newState.calendarViewModel = makeCalendarViewModel(days)
             
         case .setSelectDay(let day):
             newState.selectDay = day
+            newState.calendarListSections = makeCalendarListSections(state.days, selectDay: day)
             if let viewModel = currentState.calendarViewModel {
                 newState.calendarViewModel = makeCalendarViewModel(previous: viewModel, selectDay: day)
             }
@@ -146,6 +152,34 @@ final class CalendarHomeReactor: Reactor, Stepper {
             )
         }
         return .init(dayViewModels: dayViewModels)
+    }
+    
+    private func makeCalendarListSections(_ days: [Day], selectDay: Int?) -> [CalendarListSection] {
+        guard let selectDay else { return [] }
+        var emotionItems: [CalendarListItem] = []
+        var memoryItems: [CalendarListItem] = []
+        var todoItems: [CalendarListItem] = []
+        
+        days.filter { $0.metadata.isValid && $0.metadata.date.day == selectDay }
+            .flatMap { $0.items }
+            .forEach { item in
+                switch item {
+                case .emotion(let emotion):
+                    emotionItems.append(.emotion(.init(type: emotion.emotionType, note: emotion.note)))
+                    
+                case .memory(let memory):
+                    memoryItems.append(.memory(.init(note: memory.note, imageData: memory.images.first)))
+                    
+                case .todo(let todo):
+                    todoItems.append(.todo(.init(note: todo.note, isCompleted: todo.isCompleted)))
+                }
+            }
+        
+        return [
+            .emotion(emotionItems),
+            .memory(memoryItems),
+            .todo(todoItems)
+        ].filter { !$0.items.isEmpty }
     }
     
 }

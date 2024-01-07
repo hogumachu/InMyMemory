@@ -21,6 +21,16 @@ final class CalendarListViewController: EmptyBaseViewController {
     private var sections: [CalendarListSection] = []
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
+    fileprivate var sectionBinder: Binder<[CalendarListSection]> {
+        return Binder(self) { this, sections in
+            this.setup(sections: sections)
+        }
+    }
+    
+    func setup(sections: [CalendarListSection]) {
+        self.sections = sections
+        collectionView.reloadData()
+    }
     
     override func setupLayout() {
         view.addSubview(collectionView)
@@ -109,6 +119,14 @@ extension CalendarListViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueHeader(TextOnlyCollectionHeaderView.self, for: indexPath)
         header.updateTitle(title)
         return header
+    }
+    
+}
+
+extension Reactive where Base: CalendarListViewController {
+    
+    var sections: Binder<[CalendarListSection]> {
+        return base.sectionBinder
     }
     
 }

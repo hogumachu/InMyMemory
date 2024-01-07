@@ -116,6 +116,10 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
         reactor.state.compactMap(\.calendarViewModel)
             .bind(to: calendarViewController.rx.calendarViewModel)
             .disposed(by: disposeBag)
+        
+        reactor.state.map(\.calendarListSections)
+            .bind(to: calendarListViewController.rx.sections)
+            .disposed(by: disposeBag)
     }
     
     private var daysBinder: Binder<[Day]> {
