@@ -22,13 +22,6 @@ final class CalendarViewController: EmptyBaseViewController {
     private let dayOfWeekView = CalendarDayOfWeekView()
     fileprivate let calendarView = CalendarView()
     
-    func setup(days: [Day]) {
-        let dayViewModels = days.map { day -> CalendarDayViewModel in
-            return .init(day: day.metadata.number, isToday: false, isSelected: false, isValid: day.metadata.isValid)
-        }
-        calendarView.setup(model: .init(dayViewModels: dayViewModels))
-    }
-    
     override func setupLayout() {
         view.addSubview(monthView)
         monthView.snp.makeConstraints { make in

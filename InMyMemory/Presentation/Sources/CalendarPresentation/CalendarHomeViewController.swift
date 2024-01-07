@@ -127,10 +127,4 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
             .disposed(by: disposeBag)
     }
     
-    private var daysBinder: Binder<[Day]> {
-        return Binder(self) { this, days in
-            this.calendarViewController.setup(days: days)
-        }
-    }
-    
 }

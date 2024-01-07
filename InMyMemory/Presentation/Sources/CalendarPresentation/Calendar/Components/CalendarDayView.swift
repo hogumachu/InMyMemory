@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Entities
 import BasePresentation
 import DesignKit
 import RxSwift
@@ -18,6 +19,7 @@ struct CalendarDayViewModel {
     let isToday: Bool
     let isSelected: Bool
     let isValid: Bool
+    let emotionType: EmotionType?
 }
 
 final class CalendarDayView: BaseView {
@@ -32,7 +34,6 @@ final class CalendarDayView: BaseView {
             return
         }
         dayLabel.text = "\(model.day)"
-        // TODO: - Emotion View Update
         
         if model.isToday {
             containerView.backgroundColor = model.isSelected ? .reverseBackground : .background
@@ -41,6 +42,16 @@ final class CalendarDayView: BaseView {
             containerView.backgroundColor = model.isSelected ? .orange1 : .background
             dayLabel.textColor = model.isSelected ? .background : .orange1
         }
+        
+        let emotionBackgroundColor: UIColor = {
+            switch model.emotionType {
+            case .good: .blue1
+            case .soso: .yellow1
+            case .bad: .red1
+            default: .background
+            }
+        }()
+        emotionView.backgroundColor = emotionBackgroundColor
     }
     
     func clear() {

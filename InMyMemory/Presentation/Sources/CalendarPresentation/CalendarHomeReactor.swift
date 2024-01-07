@@ -136,7 +136,7 @@ final class CalendarHomeReactor: Reactor, Stepper {
     private func makeCalendarViewModel(_ days: [Day]) -> CalendarViewModel {
         let dayViewModels = days.map { day -> CalendarDayViewModel in
             guard day.metadata.isValid else {
-                return .init(day: 0, isToday: false, isSelected: false, isValid: false)
+                return .init(day: 0, isToday: false, isSelected: false, isValid: false, emotionType: nil)
             }
             let isToday = currentState.date.year == Date.now.year && currentState.date.month == Date.now.month && day.metadata.number == Date.now.day
             let isSelected = day.metadata.number == currentState.selectDay
@@ -144,7 +144,8 @@ final class CalendarHomeReactor: Reactor, Stepper {
                 day: day.metadata.number,
                 isToday: isToday,
                 isSelected: isSelected,
-                isValid: true
+                isValid: true,
+                emotionType: day.items.emotionType()
             )
         }
         return .init(dayViewModels: dayViewModels)
@@ -158,7 +159,8 @@ final class CalendarHomeReactor: Reactor, Stepper {
                 day: model.day,
                 isToday: model.isToday,
                 isSelected: isSelected,
-                isValid: true
+                isValid: true,
+                emotionType: model.emotionType
             )
         }
         return .init(dayViewModels: dayViewModels)
@@ -190,6 +192,22 @@ final class CalendarHomeReactor: Reactor, Stepper {
             .memory(memoryItems),
             .emotion(emotionItems)
         ].filter { !$0.items.isEmpty }
+    }
+    
+}
+
+private extension Array where Element == DayItem {
+    
+    func emotionType() -> EmotionType? {
+        for item in self {
+            switch item {
+            case .emotion(let emotion):
+                return emotion.emotionType
+            default:
+                continue
+            }
+        }
+        return nil
     }
     
 }
