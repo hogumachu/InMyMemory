@@ -30,6 +30,14 @@ public struct UseCaseAssembly: Assembly {
         container.register(EmotionRecordUseCaseInterface.self) { _ in
             EmotionRecordUseCase(emotionRepository: emotionRepository)
         }
+        
+        container.register(CalendarUseCaseInterface.self) { _ in
+            CalendarUseCase(
+                emotionRepository: emotionRepository,
+                memoryRepository: memoryRepository,
+                todoRepository: todoRepository
+            )
+        }
     }
     
 }

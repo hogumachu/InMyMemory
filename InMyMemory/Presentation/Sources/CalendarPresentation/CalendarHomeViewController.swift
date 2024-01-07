@@ -101,12 +101,27 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
             .map { Reactor.Action.monthRightDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        calendarViewController.rx.dayDidTap
+            .map { Reactor.Action.dayDidTap($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: Reactor) {
         reactor.state.map(\.monthTitle)
             .bind(to: calendarViewController.rx.monthTitle)
             .disposed(by: disposeBag)
+        
+        reactor.state.compactMap(\.calendarViewModel)
+            .bind(to: calendarViewController.rx.calendarViewModel)
+            .disposed(by: disposeBag)
+    }
+    
+    private var daysBinder: Binder<[Day]> {
+        return Binder(self) { this, days in
+            this.calendarViewController.setup(days: days)
+        }
     }
     
 }

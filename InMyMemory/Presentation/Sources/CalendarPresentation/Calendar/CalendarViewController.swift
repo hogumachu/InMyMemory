@@ -22,6 +22,13 @@ final class CalendarViewController: EmptyBaseViewController {
     private let dayOfWeekView = CalendarDayOfWeekView()
     fileprivate let calendarView = CalendarView()
     
+    func setup(days: [Day]) {
+        let dayViewModels = days.map { day -> CalendarDayViewModel in
+            return .init(day: day.metadata.number, isToday: false, isSelected: false, isValid: day.metadata.isValid)
+        }
+        calendarView.setup(model: .init(dayViewModels: dayViewModels))
+    }
+    
     override func setupLayout() {
         view.addSubview(monthView)
         monthView.snp.makeConstraints { make in
@@ -61,6 +68,15 @@ extension Reactive where Base: CalendarViewController {
     var monthRightButtonDidTap: ControlEvent<Void> {
         let source = base.monthView.rx.rightButtonDidTap
         return ControlEvent(events: source)
+    }
+    
+    var dayDidTap: ControlEvent<Int> {
+        let source = base.calendarView.rx.dayTap
+        return ControlEvent(events: source)
+    }
+    
+    var calendarViewModel: Binder<CalendarViewModel> {
+        return base.calendarView.rx.viewModel
     }
     
 }

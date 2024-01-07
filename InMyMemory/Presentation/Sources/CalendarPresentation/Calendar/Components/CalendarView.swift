@@ -10,6 +10,7 @@ import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
+import RxRelay
 import SnapKit
 import Then
 
@@ -21,18 +22,26 @@ final class CalendarView: BaseView {
     
     // 7 X 6
     
+    fileprivate let dayRelay = PublishRelay<Int>()
     private let stackView = UIStackView()
+    fileprivate var viewModelBinder: Binder<CalendarViewModel> {
+        return Binder(self) { this, viewModel in
+            this.setup(model: viewModel)
+        }
+    }
     
     func setup(model: CalendarViewModel) {
         let dayViews = stackView.subviews.compactMap { $0 as? UIStackView }
             .flatMap { $0.subviews.compactMap { $0 as? CalendarDayView }}
+        dayViews.forEach { $0.clear() }
         
-        guard dayViews.count != model.dayViewModels.count else {
-            print("캘린더의 크기가 7 X 6 이 아닙니다.")
-            return
-        }
         zip(dayViews, model.dayViewModels).forEach { view, model in
             view.setup(model: model)
+            view.rx.recognizedTap
+                .filter { model.isValid }
+                .map { _ in model.day }
+                .bind(to: dayRelay)
+                .disposed(by: disposeBag)
         }
     }
     
@@ -65,6 +74,19 @@ final class CalendarView: BaseView {
             $0.alignment = .center
             $0.distribution = .fillEqually
         }
+    }
+    
+}
+
+extension Reactive where Base: CalendarView {
+    
+    var viewModel: Binder<CalendarViewModel> {
+        return base.viewModelBinder
+    }
+    
+    var dayTap: ControlEvent<Int> {
+        let source = base.dayRelay
+        return ControlEvent(events: source)
     }
     
 }

@@ -28,9 +28,7 @@ final class CalendarDayView: BaseView {
     
     func setup(model: CalendarDayViewModel) {
         guard model.isValid else {
-            dayLabel.text = nil
-            containerView.backgroundColor = .background
-            emotionView.backgroundColor = .background
+            clear()
             return
         }
         dayLabel.text = "\(model.day)"
@@ -43,6 +41,12 @@ final class CalendarDayView: BaseView {
             containerView.backgroundColor = model.isSelected ? .orange1 : .background
             dayLabel.textColor = model.isSelected ? .background : .orange1
         }
+    }
+    
+    func clear() {
+        dayLabel.text = nil
+        containerView.backgroundColor = .background
+        emotionView.backgroundColor = .background
     }
     
     override func setupLayout() {
