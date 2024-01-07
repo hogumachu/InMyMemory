@@ -13,6 +13,7 @@ import Interfaces
 import BasePresentation
 import RecordPresentation
 import EmotionRecordPresentation
+import CalendarPresentation
 
 public final class HomeFlow: Flow {
     
@@ -45,6 +46,12 @@ public final class HomeFlow: Flow {
             
         case .emotionRecordIsRequired:
             return navigationToEmotionRecord()
+            
+        case .calendarIsRequired:
+            return navigationToCalendarHome()
+            
+        case .calendarIsComplete:
+            return popCalendarHome()
             
         default:
             return .none
@@ -82,10 +89,26 @@ public final class HomeFlow: Flow {
         ))
     }
     
+    private func navigationToCalendarHome() -> FlowContributors {
+        let flow = CalendarHomeFlow(injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.navigationController?.pushViewController(root, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.calendarIsRequired)
+        ))
+    }
+    
     private func dismissRecord() -> FlowContributors {
         if let recordViewController = self.rootViewController.presentedViewController {
             recordViewController.dismiss(animated: true)
         }
+        return .none
+    }
+    
+    private func popCalendarHome() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
         return .none
     }
     

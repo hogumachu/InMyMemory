@@ -27,6 +27,10 @@ let package = Package(
             name: "EmotionRecordPresentation",
             targets: ["EmotionRecordPresentation"]
         ),
+        .library(
+            name: "CalendarPresentation",
+            targets: ["CalendarPresentation"]
+        ),
     ],
     dependencies: [
         .package(path: "../Shared"),
@@ -72,6 +76,7 @@ let package = Package(
                 "BasePresentation",
                 "RecordPresentation",
                 "EmotionRecordPresentation",
+                "CalendarPresentation",
                 "DesignKit",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
@@ -94,6 +99,20 @@ let package = Package(
         ),
         .target(
             name: "EmotionRecordPresentation",
+            dependencies: [
+                "RxSwift",
+                "ReactorKit",
+                "RxFlow",
+                .product(name: "RxCocoa", package: "RxSwift"),
+                "Then",
+                "BasePresentation",
+                "DesignKit",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "CalendarPresentation",
             dependencies: [
                 "RxSwift",
                 "ReactorKit",

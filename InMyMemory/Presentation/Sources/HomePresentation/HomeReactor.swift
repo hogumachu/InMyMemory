@@ -17,6 +17,7 @@ import RxFlow
 enum HomeAction {
     case refresh
     case recordDidTap
+    case calendarDidTap
 }
 
 struct HomeState {
@@ -71,6 +72,10 @@ final class HomeReactor: Reactor, Stepper {
             ])
         case .recordDidTap:
             steps.accept(AppStep.recordIsRequired)
+            return .empty()
+            
+        case .calendarDidTap:
+            steps.accept(AppStep.calendarIsRequired)
             return .empty()
         }
     }

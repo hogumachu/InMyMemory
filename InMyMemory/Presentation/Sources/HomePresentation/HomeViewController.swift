@@ -93,7 +93,8 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             .disposed(by: disposeBag)
         
         sideView.rx.calendarDidTap
-            .bind(to: calendarTapBinder)
+            .map { Reactor.Action.calendarDidTap }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         sideView.rx.recordDidTap
@@ -132,12 +133,6 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             )
             this.currentPage = index
             this.tabMenuView.selectMenu(at: index)
-        }
-    }
-    
-    private var calendarTapBinder: Binder<Void> {
-        return Binder(self) { this, _ in
-            print("# 캘린더 보기 버튼 탭")
         }
     }
     
