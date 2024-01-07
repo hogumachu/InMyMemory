@@ -63,4 +63,13 @@ extension Reactive where Base: CalendarViewController {
         return ControlEvent(events: source)
     }
     
+    var dayDidTap: ControlEvent<Int> {
+        let source = base.calendarView.rx.dayTap
+        return ControlEvent(events: source)
+    }
+    
+    var calendarViewModel: Binder<CalendarViewModel> {
+        return base.calendarView.rx.viewModel
+    }
+    
 }

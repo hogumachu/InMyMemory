@@ -22,7 +22,7 @@ public final class CalendarHomeFlow: Flow {
     
     public init(injector: DependencyInjectorInterface) {
         self.injector = injector
-        let reactor = CalendarHomeReactor()
+        let reactor = CalendarHomeReactor(useCase: injector.resolve(CalendarUseCaseInterface.self))
         self.stepper = reactor
         self.rootViewController = CalendarHomeViewController()
         self.rootViewController.reactor = reactor

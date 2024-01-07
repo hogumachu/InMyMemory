@@ -41,6 +41,15 @@ public final class EmotionRepository: EmotionRepositoryInterface {
             .map { $0.map { $0.toEntity() }}
     }
     
+    public func read(greaterOrEqualThan greaterOrEqualDate: Date, lessThan lessDate: Date) -> Single<[Emotion]> {
+        let predicate: Predicate<EmotionModel> = #Predicate { model in
+            return model.date >= greaterOrEqualDate && model.date < lessDate
+        }
+        let sortBy: SortDescriptor<EmotionModel> = .init(\.updatedAt, order: .forward)
+        return storage.read(predicate: predicate, sortBy: [sortBy])
+            .map { $0.map { $0.toEntity() }}
+    }
+    
     public func update(emotion: Emotion) -> Single<Void> {
         let model = EmotionModel(emotion: emotion)
         return storage.insert(model: model)

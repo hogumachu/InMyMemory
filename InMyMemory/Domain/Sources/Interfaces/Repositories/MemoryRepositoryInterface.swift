@@ -13,6 +13,7 @@ public protocol MemoryRepositoryInterface: AnyObject {
     func create(memory: Memory) -> Single<Void>
     func read(memoryID: UUID) -> Single<Memory?>
     func read(greaterThan date: Date) -> Single<[Memory]>
+    func read(greaterOrEqualThan greaterOrEqualDate: Date, lessThan lessDate: Date) -> Single<[Memory]>
     func update(memory: Memory) -> Single<Void>
     func delete(memory: Memory) -> Single<Void>
 }

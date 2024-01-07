@@ -41,6 +41,15 @@ public final class MemoryRepository: MemoryRepositoryInterface {
             .map { $0.map { $0.toEntity() }}
     }
     
+    public func read(greaterOrEqualThan greaterOrEqualDate: Date, lessThan lessDate: Date) -> Single<[Memory]> {
+        let predicate: Predicate<MemoryModel> = #Predicate { model in
+            return model.date >= greaterOrEqualDate && model.date < lessDate
+        }
+        let sortBy: SortDescriptor<MemoryModel> = .init(\.updatedAt, order: .forward)
+        return storage.read(predicate: predicate, sortBy: [sortBy])
+            .map { $0.map { $0.toEntity() }}
+    }
+    
     public func update(memory: Memory) -> Single<Void> {
         let model = MemoryModel(memory: memory)
         return storage.insert(model: model)

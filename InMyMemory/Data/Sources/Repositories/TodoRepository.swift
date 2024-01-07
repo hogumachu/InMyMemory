@@ -41,6 +41,15 @@ public final class TodoRepository: TodoRepositoryInterface {
             .map { $0.map { $0.toEntity() }}
     }
     
+    public func read(greaterOrEqualThan greaterOrEqualDate: Date, lessThan lessDate: Date) -> Single<[Todo]> {
+        let predicate: Predicate<TodoModel> = #Predicate { model in
+            return model.date >= greaterOrEqualDate && model.date < lessDate
+        }
+        let sortBy: SortDescriptor<TodoModel> = .init(\.updatedAt, order: .forward)
+        return storage.read(predicate: predicate, sortBy: [sortBy])
+            .map { $0.map { $0.toEntity() }}
+    }
+    
     public func update(todo: Todo) -> Single<Void> {
         let model = TodoModel(todo: todo)
         return storage.insert(model: model)
