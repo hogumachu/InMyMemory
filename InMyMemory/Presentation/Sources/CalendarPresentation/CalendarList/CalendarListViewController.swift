@@ -21,6 +21,8 @@ final class CalendarListViewController: EmptyBaseViewController {
     private var sections: [CalendarListSection] = []
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
+    private let emptyLabel = UILabel()
+    
     fileprivate var sectionBinder: Binder<[CalendarListSection]> {
         return Binder(self) { this, sections in
             this.setup(sections: sections)
@@ -30,12 +32,19 @@ final class CalendarListViewController: EmptyBaseViewController {
     func setup(sections: [CalendarListSection]) {
         self.sections = sections
         collectionView.reloadData()
+        collectionView.isHidden = sections.isEmpty
+        emptyLabel.isHidden = !sections.isEmpty
     }
     
     override func setupLayout() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        view.addSubview(emptyLabel)
+        emptyLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
     
@@ -49,6 +58,13 @@ final class CalendarListViewController: EmptyBaseViewController {
             $0.register(CalendarMemoryListCell.self)
             $0.register(CalendarEmotionListCell.self)
             $0.registerHeader(TextOnlyCollectionHeaderView.self)
+        }
+        
+        emptyLabel.do {
+            $0.text = "기록이 없어요"
+            $0.font = .gmarketSans(type: .light, size: 21)
+            $0.textColor = .orange1
+            $0.isHidden = true
         }
     }
     
