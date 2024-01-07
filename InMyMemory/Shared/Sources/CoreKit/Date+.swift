@@ -29,4 +29,8 @@ public extension Date {
         return Calendar.current.date(byAdding: .day, value: -value, to: self)!
     }
     
+    func monthsAgo(value: Int) -> Date {
+        return Calendar.current.date(byAdding: .month, value: -value, to: self)!
+    }
+    
 }

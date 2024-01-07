@@ -18,6 +18,9 @@ import SnapKit
 final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> {
     
     private let navigationView = NavigationView()
+    private let calendarViewController = CalendarViewController()
+    
+    private let separator = UIView()
     
     override func setupLayout() {
         view.addSubview(navigationView)
@@ -25,6 +28,20 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(48)
+        }
+        
+        addChild(calendarViewController)
+        view.addSubview(calendarViewController.view)
+        calendarViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(navigationView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        view.addSubview(separator)
+        separator.snp.makeConstraints { make in
+            make.top.equalTo(calendarViewController.view.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
         }
     }
     
@@ -37,6 +54,10 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
                 leftButtonType: .back,
                 rightButtonTypes: [.search, .plus]
             ))
+        }
+        
+        separator.do {
+            $0.backgroundColor = .orange1
         }
     }
     
@@ -62,10 +83,22 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
             .map { _ in Reactor.Action.searchDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        calendarViewController.rx.monthLeftButtonDidTap
+            .map { Reactor.Action.monthLeftDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        calendarViewController.rx.monthRightButtonDidTap
+            .map { Reactor.Action.monthRightDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: Reactor) {
-        
+        reactor.state.map(\.monthTitle)
+            .bind(to: calendarViewController.rx.monthTitle)
+            .disposed(by: disposeBag)
     }
     
 }

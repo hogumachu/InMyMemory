@@ -14,5 +14,7 @@ public extension UIImage {
     static let menu = UIImage(resource: .menu)
     static let xmark = UIImage(resource: .xmark)
     static let informationCircle = UIImage(resource: .informationCircle)
+    static let chevronLeft = UIImage(resource: .chevronLeft)
+    static let chevronRight = UIImage(resource: .chevronRight)
     
 }

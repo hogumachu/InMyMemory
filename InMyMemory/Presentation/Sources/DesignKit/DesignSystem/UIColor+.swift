@@ -17,5 +17,6 @@ public extension UIColor {
     static let red1 = UIColor(resource: .red1)
     
     static let background = UIColor(resource: .background)
+    static let reverseBackground = UIColor(resource: .reverseBackground)
     
 }
