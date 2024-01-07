@@ -186,9 +186,9 @@ final class CalendarHomeReactor: Reactor, Stepper {
             }
         
         return [
-            .emotion(emotionItems),
+            .todo(todoItems),
             .memory(memoryItems),
-            .todo(todoItems)
+            .emotion(emotionItems)
         ].filter { !$0.items.isEmpty }
     }
     
