@@ -34,8 +34,8 @@ extension NavigationViewRightButtonType {
     
     var image: UIImage? {
         switch self {
-        case .search: return UIImage(resource: .search)
-        case .plus: return UIImage(resource: .plus)
+        case .search: return .search
+        case .plus: return .plus
         case .none: return nil
         }
     }

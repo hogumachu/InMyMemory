@@ -16,5 +16,7 @@ public extension UIImage {
     static let informationCircle = UIImage(resource: .informationCircle)
     static let chevronLeft = UIImage(resource: .chevronLeft)
     static let chevronRight = UIImage(resource: .chevronRight)
+    static let plus = UIImage(resource: .plus)
+    static let search = UIImage(resource: .search)
     
 }
