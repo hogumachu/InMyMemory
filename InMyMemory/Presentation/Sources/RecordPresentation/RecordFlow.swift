@@ -12,6 +12,7 @@ import CoreKit
 import Interfaces
 import BasePresentation
 import EmotionRecordPresentation
+import MemoryRecordPresentation
 
 public final class RecordFlow: Flow {
     
@@ -48,6 +49,12 @@ public final class RecordFlow: Flow {
         case .emotionRecordIsComplete:
             return popEmotionRecord()
             
+        case .memoryRecordIsRequired:
+            return navigationToMemoryRecord()
+            
+        case .memoryRecordIsComplete:
+            return popMemoryRecord()
+            
         default:
             return .none
         }
@@ -72,7 +79,24 @@ public final class RecordFlow: Flow {
         ))
     }
     
+    private func navigationToMemoryRecord() -> FlowContributors {
+        let flow = MemoryRecordFlow(injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.pushViewController(root, animated: true)
+        }
+        
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryRecordIsComplete)
+        ))
+    }
+    
     private func popEmotionRecord() -> FlowContributors {
+        rootViewController.popViewController(animated: true)
+        return .none
+    }
+    
+    private func popMemoryRecord() -> FlowContributors {
         rootViewController.popViewController(animated: true)
         return .none
     }

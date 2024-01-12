@@ -24,6 +24,10 @@ public enum AppStep: Step {
     case emotionRecordCompleteIsRequired
     case emotionRecordCompleteIsComplete
     
+    // memoryRecord
+    case memoryRecordIsRequired
+    case memoryRecordIsComplete
+    
     // calendar
     case calendarIsRequired
     case calendarIsComplete
