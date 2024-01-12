@@ -12,6 +12,7 @@ import CoreKit
 import PersistentStorages
 import Repositories
 import UseCases
+import BasePresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -35,7 +36,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         injector.assemble([
             StorageAssembly(),
             RepositoryAssembly(),
-            UseCaseAssembly()
+            UseCaseAssembly(),
+            BasePresentationAssembly()
         ])
         return injector
     }

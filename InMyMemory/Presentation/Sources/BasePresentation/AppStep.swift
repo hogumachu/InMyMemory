@@ -27,6 +27,8 @@ public enum AppStep: Step {
     // memoryRecord
     case memoryRecordIsRequired
     case memoryRecordIsComplete
+    case memoryRecordPhotoIsRequired
+    case memoryRecordPhotoIsComplete
     
     // calendar
     case calendarIsRequired

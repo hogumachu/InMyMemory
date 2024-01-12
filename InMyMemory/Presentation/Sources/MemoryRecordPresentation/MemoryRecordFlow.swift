@@ -19,6 +19,7 @@ public final class MemoryRecordFlow: Flow {
     private let rootViewController: MemoryRecordViewController
     private let stepper: Stepper
     private let injector: DependencyInjectorInterface
+    private let photoProvider: PhotoProviderInterface
     
     public init(injector: DependencyInjectorInterface) {
         self.injector = injector
@@ -26,6 +27,7 @@ public final class MemoryRecordFlow: Flow {
         self.stepper = reactor
         self.rootViewController = MemoryRecordViewController()
         self.rootViewController.reactor = reactor
+        self.photoProvider = injector.resolve(PhotoProviderInterface.self)
     }
     
     public func navigate(to step: Step) -> FlowContributors {
@@ -38,15 +40,33 @@ public final class MemoryRecordFlow: Flow {
         case .memoryRecordIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.memoryRecordIsComplete)
             
+        case .memoryRecordPhotoIsRequired:
+            return presentPhotoProvider()
+            
+        case .memoryRecordPhotoIsComplete:
+            return dismissPhotoProvider()
+            
         default:
             return .none
         }
     }
+    
     private func navigationToMemoryRecord() -> FlowContributors {
         return .one(flowContributor: .contribute(
             withNextPresentable: rootViewController,
             withNextStepper: stepper
         ))
+    }
+    
+    private func presentPhotoProvider() -> FlowContributors {
+        photoProvider.present(from: rootViewController, animated: true)
+        photoProvider.delegate = rootViewController
+        return .none
+    }
+    
+    private func dismissPhotoProvider() -> FlowContributors {
+        photoProvider.dismiss(animated: true)
+        return .none
     }
     
 }

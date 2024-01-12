@@ -87,7 +87,7 @@ public final class RecordFlow: Flow {
         
         return .one(flowContributor: .contribute(
             withNextPresentable: flow,
-            withNextStepper: OneStepper(withSingleStep: AppStep.memoryRecordIsComplete)
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryRecordIsRequired)
         ))
     }
     
