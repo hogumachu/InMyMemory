@@ -32,6 +32,8 @@ public enum AppStep: Step {
     case memoryRecordPhotoIsComplete
     case memoryRecordNoteIsRequired([Data])
     case memoryRecordNoteIsComplete
+    case memoryRecordCompleteIsRequired
+    case memoryRecordCompleteIsComplete
     
     // calendar
     case calendarIsRequired

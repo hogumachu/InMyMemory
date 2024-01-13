@@ -55,6 +55,9 @@ public final class RecordFlow: Flow {
         case .memoryRecordIsComplete:
             return popMemoryRecord()
             
+        case .memoryRecordCompleteIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
+            
         default:
             return .none
         }

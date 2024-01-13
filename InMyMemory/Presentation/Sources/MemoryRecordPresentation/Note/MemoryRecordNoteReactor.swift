@@ -50,6 +50,7 @@ final class MemoryRecordNoteReactor: Reactor, Stepper {
             return .empty()
             
         case .nextDidTap:
+            steps.accept(AppStep.memoryRecordCompleteIsRequired)
             return .empty()
         }
     }

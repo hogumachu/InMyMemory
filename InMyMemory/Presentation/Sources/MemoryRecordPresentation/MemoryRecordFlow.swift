@@ -49,6 +49,15 @@ public final class MemoryRecordFlow: Flow {
         case .memoryRecordNoteIsRequired(let images):
             return navigationToMemoryRecordNote(images: images)
             
+        case .memoryRecordNoteIsComplete:
+            return popMemoryRecordNote()
+            
+        case .memoryRecordCompleteIsRequired:
+            return navigationToMemoryRecordComplete()
+            
+        case .memoryRecordCompleteIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.memoryRecordCompleteIsComplete)
+            
         default:
             return .none
         }
@@ -75,6 +84,22 @@ public final class MemoryRecordFlow: Flow {
     private func navigationToMemoryRecordNote(images: [Data]) -> FlowContributors {
         let reactor = MemoryRecordNoteReactor(images: images)
         let viewController = MemoryRecordNoteViewController()
+        viewController.reactor = reactor
+        rootViewController.navigationController?.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(
+            withNextPresentable: viewController,
+            withNextStepper: reactor
+        ))
+    }
+    
+    private func popMemoryRecordNote() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
+        return .none
+    }
+    
+    private func navigationToMemoryRecordComplete() -> FlowContributors {
+        let reactor = MemoryRecordCompleteReactor()
+        let viewController = MemoryRecordCompleteViewController()
         viewController.reactor = reactor
         rootViewController.navigationController?.pushViewController(viewController, animated: true)
         return .one(flowContributor: .contribute(
