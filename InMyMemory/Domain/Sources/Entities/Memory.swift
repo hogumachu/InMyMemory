@@ -15,7 +15,7 @@ public struct Memory {
     public let date: Date
     
     public init(
-        id: UUID,
+        id: UUID = UUID(),
         images: [Data],
         note: String,
         date: Date
