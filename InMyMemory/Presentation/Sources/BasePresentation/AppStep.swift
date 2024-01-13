@@ -39,4 +39,8 @@ public enum AppStep: Step {
     case calendarIsRequired
     case calendarIsComplete
     
+    // memoryDetail
+    case memoryDetailIsRequired(UUID)
+    case memoryDetailIsComplete
+    
 }

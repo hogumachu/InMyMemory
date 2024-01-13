@@ -105,6 +105,11 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         emotionViewController.rx.informationTap
             .bind(to: emotionInformationTapBinder)
             .disposed(by: disposeBag)
+        
+        memoryViewController.rx.detailID
+            .map { Reactor.Action.memoryDidTap($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: Reactor) {

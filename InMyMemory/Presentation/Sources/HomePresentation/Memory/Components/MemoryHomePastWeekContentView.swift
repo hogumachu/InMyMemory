@@ -12,6 +12,7 @@ import SnapKit
 import Then
 
 struct MemoryHomePastWeekContentViewModel {
+    let id: UUID
     let title: String
     let imageData: Data?
 }

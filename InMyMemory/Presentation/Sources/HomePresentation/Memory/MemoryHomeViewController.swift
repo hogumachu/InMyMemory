@@ -11,6 +11,7 @@ import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
+import RxRelay
 import SnapKit
 import Then
 
@@ -27,6 +28,8 @@ final class MemoryHomeViewController: UIViewController {
             this.todoView.setup(model: viewModel.todoViewModel)
         }
     }
+    fileprivate let detailTapRelay = PublishRelay<UUID>()
+    private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
@@ -39,6 +42,7 @@ final class MemoryHomeViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupAttributes()
+        bind()
     }
     
     private func setupLayout() {
@@ -79,6 +83,21 @@ final class MemoryHomeViewController: UIViewController {
             $0.distribution = .equalSpacing
             $0.spacing = 40
         }
+    }
+    
+    private func bind() {
+        pastWeekView.rx.detailID
+            .bind(to: detailTapRelay)
+            .disposed(by: disposeBag)
+    }
+    
+}
+
+extension Reactive where Base: MemoryHomeViewController {
+    
+    var detailID: ControlEvent<UUID> {
+        let source = base.detailTapRelay
+        return ControlEvent(events: source)
     }
     
 }

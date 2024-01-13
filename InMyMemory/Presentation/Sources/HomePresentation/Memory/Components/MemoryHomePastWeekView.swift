@@ -8,6 +8,9 @@
 import UIKit
 import BasePresentation
 import DesignKit
+import RxSwift
+import RxCocoa
+import RxRelay
 import SnapKit
 import Then
 
@@ -21,6 +24,7 @@ final class MemoryHomePastWeekView: BaseView {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let emptyLabel = UILabel()
+    fileprivate let tapRelay = PublishRelay<UUID>()
     
     func setup(model: MemoryHomePastWeekViewModel) {
         emptyLabel.isHidden = !model.items.isEmpty
@@ -31,6 +35,10 @@ final class MemoryHomePastWeekView: BaseView {
             let view = MemoryHomePastWeekContentView()
             view.setup(model: item)
             stackView.addArrangedSubview(view)
+            view.rx.recognizedTap
+                .map { item.id }
+                .bind(to: tapRelay)
+                .disposed(by: disposeBag)
         }
     }
     
@@ -87,6 +95,15 @@ final class MemoryHomePastWeekView: BaseView {
             $0.textColor = .orange1
             $0.font = .gmarketSans(type: .light, size: 21)
         }
+    }
+    
+}
+
+extension Reactive where Base: MemoryHomePastWeekView {
+    
+    var detailID: ControlEvent<UUID> {
+        let source = base.tapRelay
+        return ControlEvent(events: source)
     }
     
 }

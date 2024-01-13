@@ -14,6 +14,7 @@ import BasePresentation
 import RecordPresentation
 import EmotionRecordPresentation
 import CalendarPresentation
+import MemoryDetailPresentation
 
 public final class HomeFlow: Flow {
     
@@ -52,6 +53,12 @@ public final class HomeFlow: Flow {
             
         case .calendarIsComplete:
             return popCalendarHome()
+            
+        case .memoryDetailIsRequired(let memoryID):
+            return navigationToMemoryDetail(memoryID: memoryID)
+            
+        case .memoryDetailIsComplete:
+            return popMemoryDetail()
             
         default:
             return .none
@@ -100,6 +107,17 @@ public final class HomeFlow: Flow {
         ))
     }
     
+    private func navigationToMemoryDetail(memoryID: UUID) -> FlowContributors {
+        let flow = MemoryDetailFlow(memoryID: memoryID, injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.navigationController?.pushViewController(root, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryDetailIsRequired(memoryID))
+        ))
+    }
+    
     private func dismissRecord() -> FlowContributors {
         if let recordViewController = self.rootViewController.presentedViewController {
             recordViewController.dismiss(animated: true)
@@ -108,6 +126,11 @@ public final class HomeFlow: Flow {
     }
     
     private func popCalendarHome() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
+        return .none
+    }
+    
+    private func popMemoryDetail() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
         return .none
     }
