@@ -22,7 +22,6 @@ final class MemoryHomePastWeekContentView: BaseView {
     private let dateLabel = UILabel()
     
     func setup(model: MemoryHomePastWeekContentViewModel) {
-        print(model.title)
         dateLabel.text = model.title
         
         if let imageData = model.imageData {
