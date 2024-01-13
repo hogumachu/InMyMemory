@@ -99,6 +99,11 @@ final class RecordViewController: BaseViewController<RecordReactor> {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        memoryRecordButton.rx.tap
+            .map { Reactor.Action.memoryRecordDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         emotionRecordButton.rx.tap
             .map { Reactor.Action.emotionRecordDidTap }
             .bind(to: reactor.action)
