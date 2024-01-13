@@ -82,7 +82,10 @@ public final class MemoryRecordFlow: Flow {
     }
     
     private func navigationToMemoryRecordNote(images: [Data]) -> FlowContributors {
-        let reactor = MemoryRecordNoteReactor(images: images)
+        let reactor = MemoryRecordNoteReactor(
+            images: images,
+            useCase: injector.resolve(MemoryRecordUseCaseInterface.self)
+        )
         let viewController = MemoryRecordNoteViewController()
         viewController.reactor = reactor
         rootViewController.navigationController?.pushViewController(viewController, animated: true)
