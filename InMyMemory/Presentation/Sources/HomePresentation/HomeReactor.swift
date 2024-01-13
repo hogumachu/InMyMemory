@@ -22,16 +22,13 @@ enum HomeAction {
 
 struct HomeState {
     var isLoading: Bool
-    var memories: [Memory]
-    var todos: [Todo]
     var emotionViewModel: EmotionHomeViewModel?
     var memoryViewModel: MemoryHomeViewModel?
 }
 
 enum HomeMutation {
     case setLoading(Bool)
-    case setMemories([Memory])
-    case setTodos([Todo])
+    case setMemories([Memory], [Todo])
     case setEmotions([Emotion])
 }
 
@@ -41,11 +38,7 @@ final class HomeReactor: Reactor, Stepper {
     typealias State = HomeState
     typealias Mutation = HomeMutation
     
-    var initialState: HomeState = .init(
-        isLoading: false,
-        memories: [],
-        todos: []
-    )
+    var initialState: HomeState = .init(isLoading: false)
     let steps = PublishRelay<Step>()
     
     private let useCase: HomeUseCaseInterface
@@ -59,15 +52,7 @@ final class HomeReactor: Reactor, Stepper {
         case .refresh:
             return Observable.concat([
                 .just(.setLoading(true)),
-                useCase.fetchLastSevenDaysMemories()
-                    .map { Mutation.setMemories($0) }
-                    .asObservable(),
-                useCase.fetchCurrentWeekTodos()
-                    .map { Mutation.setTodos($0) }
-                    .asObservable(),
-                useCase.fetchLastSevenDaysEmotions()
-                    .map { Mutation.setEmotions($0) }
-                    .asObservable(),
+                refresh(),
                 .just(.setLoading(false))
             ])
         case .recordDidTap:
@@ -86,11 +71,12 @@ final class HomeReactor: Reactor, Stepper {
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
             
-        case .setMemories(let memories):
-            newState.memories = memories
-            
-        case .setTodos(let todos):
-            newState.todos = todos
+        case .setMemories(let memories, let todos):
+            let memoryViewModel = MemoryHomeViewModel(
+                pastWeekViewModel: makeWeekViewModel(memories),
+                todoViewModel: makeTodoViewModel(todos)
+            )
+            newState.memoryViewModel = memoryViewModel
             
         case .setEmotions(let emotions):
             let emotionViewModel = EmotionHomeViewModel(
@@ -101,6 +87,18 @@ final class HomeReactor: Reactor, Stepper {
         }
         
         return newState
+    }
+    
+    private func refresh() -> Observable<HomeMutation> {
+        let setMemories = Observable.zip(
+            useCase.fetchLastSevenDaysMemories().asObservable(),
+            useCase.fetchCurrentWeekTodos().asObservable()
+        ).map { Mutation.setMemories($0.0, $0.1) }
+        
+        let setEmotions = useCase.fetchLastSevenDaysEmotions()
+            .map { Mutation.setEmotions($0) }
+            .asObservable()
+        return Observable.merge([setMemories, setEmotions])
     }
     
     // MARK: - Emotion
