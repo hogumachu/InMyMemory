@@ -38,6 +38,10 @@ public struct UseCaseAssembly: Assembly {
                 todoRepository: todoRepository
             )
         }
+        
+        container.register(MemoryRecordUseCaseInterface.self) { _ in
+            MemoryRecordUseCase(memoryRepository: memoryRepository)
+        }
     }
     
 }
