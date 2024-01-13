@@ -5,6 +5,7 @@
 //  Created by 홍성준 on 12/30/23.
 //
 
+import Foundation
 import RxFlow
 import Entities
 
@@ -29,6 +30,8 @@ public enum AppStep: Step {
     case memoryRecordIsComplete
     case memoryRecordPhotoIsRequired
     case memoryRecordPhotoIsComplete
+    case memoryRecordNoteIsRequired([Data])
+    case memoryRecordNoteIsComplete
     
     // calendar
     case calendarIsRequired

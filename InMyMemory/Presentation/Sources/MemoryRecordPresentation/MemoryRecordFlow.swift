@@ -46,6 +46,9 @@ public final class MemoryRecordFlow: Flow {
         case .memoryRecordPhotoIsComplete:
             return dismissPhotoProvider()
             
+        case .memoryRecordNoteIsRequired(let images):
+            return navigationToMemoryRecordNote(images: images)
+            
         default:
             return .none
         }
@@ -67,6 +70,17 @@ public final class MemoryRecordFlow: Flow {
     private func dismissPhotoProvider() -> FlowContributors {
         photoProvider.dismiss(animated: true)
         return .none
+    }
+    
+    private func navigationToMemoryRecordNote(images: [Data]) -> FlowContributors {
+        let reactor = MemoryRecordNoteReactor(images: images)
+        let viewController = MemoryRecordNoteViewController()
+        viewController.reactor = reactor
+        rootViewController.navigationController?.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(
+            withNextPresentable: viewController,
+            withNextStepper: reactor
+        ))
     }
     
 }

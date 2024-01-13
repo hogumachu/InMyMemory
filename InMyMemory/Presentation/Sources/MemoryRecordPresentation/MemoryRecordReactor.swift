@@ -21,6 +21,7 @@ final class MemoryRecordReactor: Reactor, Stepper {
         case addDidTap
         case imageDidTap(Data?)
         case imageRemoveDidTap(Int)
+        case nextDidTap
     }
     
     struct State {
@@ -65,6 +66,10 @@ final class MemoryRecordReactor: Reactor, Stepper {
             
         case .imageRemoveDidTap(let index):
             return .just(.removeImage(index: index))
+            
+        case .nextDidTap:
+            steps.accept(AppStep.memoryRecordNoteIsRequired(currentState.images))
+            return .empty()
         }
     }
     
