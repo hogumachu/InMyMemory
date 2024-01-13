@@ -42,6 +42,10 @@ public struct UseCaseAssembly: Assembly {
         container.register(MemoryRecordUseCaseInterface.self) { _ in
             MemoryRecordUseCase(memoryRepository: memoryRepository)
         }
+        
+        container.register(MemoryDetailUseCaseInterface.self) { _ in
+            MemoryDetailUseCase(memoryRepository: memoryRepository)
+        }
     }
     
 }
