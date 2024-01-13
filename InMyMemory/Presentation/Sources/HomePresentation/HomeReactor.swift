@@ -18,6 +18,7 @@ enum HomeAction {
     case refresh
     case recordDidTap
     case calendarDidTap
+    case memoryDidTap(UUID)
 }
 
 struct HomeState {
@@ -61,6 +62,10 @@ final class HomeReactor: Reactor, Stepper {
             
         case .calendarDidTap:
             steps.accept(AppStep.calendarIsRequired)
+            return .empty()
+            
+        case .memoryDidTap(let memoryID):
+            steps.accept(AppStep.memoryDetailIsRequired(memoryID))
             return .empty()
         }
     }
@@ -133,7 +138,7 @@ final class HomeReactor: Reactor, Stepper {
     
     private func makeWeekViewModel(_ memories: [Memory]) -> MemoryHomePastWeekViewModel {
         let items: [MemoryHomePastWeekContentViewModel] = memories.prefix(10).map {
-            .init(title: $0.note, imageData: $0.images.first)
+            .init(id: $0.id, title: $0.note, imageData: $0.images.first)
         }
         return .init(items: items)
     }
