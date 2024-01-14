@@ -14,6 +14,7 @@ import Repositories
 import UseCases
 import BasePresentation
 import MemoryDetailPresentation
+import MemoryRecordPresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -39,7 +40,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             RepositoryAssembly(),
             UseCaseAssembly(),
             BasePresentationAssembly(),
-            MemoryDetailAssembly()
+            MemoryDetailAssembly(),
+            MemoryRecordAssembly()
         ])
         return injector
     }

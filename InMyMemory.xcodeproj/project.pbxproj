@@ -21,6 +21,7 @@
 		F1E372C32B53D411005483CD /* MemoryDetailPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372C22B53D411005483CD /* MemoryDetailPresentation */; };
 		F1E372C52B53D411005483CD /* MemoryRecordPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372C42B53D411005483CD /* MemoryRecordPresentation */; };
 		F1E372C72B53D411005483CD /* RecordPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372C62B53D411005483CD /* RecordPresentation */; };
+		F1E372C92B53D5E1005483CD /* MemoryRecordInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372C82B53D5E1005483CD /* MemoryRecordInterface */; };
 		F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A162B4020BC0079E84E /* PersistentStorages */; };
 		F1EC5A192B4020BC0079E84E /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = F1EC5A182B4020BC0079E84E /* Repositories */; };
 		F1F2E3272B3F07E900D607F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2E3262B3F07E900D607F1 /* AppDelegate.swift */; };
@@ -84,6 +85,7 @@
 				F1F2E35A2B3F112900D607F1 /* Then in Frameworks */,
 				F1F2E34D2B3F10E200D607F1 /* RxCocoa in Frameworks */,
 				F15C61142B40246A00241C10 /* Interfaces in Frameworks */,
+				F1E372C92B53D5E1005483CD /* MemoryRecordInterface in Frameworks */,
 				F139C6DF2B401F9900D38162 /* BasePresentation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,6 +209,7 @@
 				F1E372C22B53D411005483CD /* MemoryDetailPresentation */,
 				F1E372C42B53D411005483CD /* MemoryRecordPresentation */,
 				F1E372C62B53D411005483CD /* RecordPresentation */,
+				F1E372C82B53D5E1005483CD /* MemoryRecordInterface */,
 			);
 			productName = InMyMemory;
 			productReference = F1F2E3232B3F07E900D607F1 /* InMyMemory.app */;
@@ -592,6 +595,10 @@
 		F1E372C62B53D411005483CD /* RecordPresentation */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RecordPresentation;
+		};
+		F1E372C82B53D5E1005483CD /* MemoryRecordInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MemoryRecordInterface;
 		};
 		F1EC5A162B4020BC0079E84E /* PersistentStorages */ = {
 			isa = XCSwiftPackageProductDependency;
