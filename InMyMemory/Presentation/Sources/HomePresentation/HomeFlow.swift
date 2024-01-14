@@ -11,7 +11,7 @@ import RxFlow
 import CoreKit
 import Interfaces
 import BasePresentation
-import RecordPresentation
+import RecordInterface
 import EmotionRecordPresentation
 import CalendarPresentation
 import MemoryDetailInterface
@@ -73,7 +73,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToRecord() -> FlowContributors {
-        let flow = RecordFlow(injector: injector)
+        let flow = injector.resolve(RecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             root.modalPresentationStyle = .overFullScreen
             self?.rootViewController.present(root, animated: true)

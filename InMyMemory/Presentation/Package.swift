@@ -20,6 +20,10 @@ let package = Package(
             targets: ["HomePresentation"]
         ),
         .library(
+            name: "RecordInterface",
+            targets: ["RecordInterface"]
+        ),
+        .library(
             name: "RecordPresentation",
             targets: ["RecordPresentation"]
         ),
@@ -90,13 +94,23 @@ let package = Package(
                 .product(name: "RxCocoa", package: "RxSwift"),
                 "Then",
                 "BasePresentation",
-                "RecordPresentation",
+                "RecordInterface",
                 "EmotionRecordPresentation",
                 "CalendarPresentation",
                 "MemoryDetailInterface",
                 "DesignKit",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "RecordInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Interfaces", package: "Domain"),
             ]
         ),
@@ -112,6 +126,7 @@ let package = Package(
                 "EmotionRecordPresentation",
                 "MemoryRecordInterface",
                 "DesignKit",
+                "RecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Interfaces", package: "Domain"),
             ]
