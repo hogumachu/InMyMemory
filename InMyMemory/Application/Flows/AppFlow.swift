@@ -12,8 +12,7 @@ import RxFlow
 import CoreKit
 import Interfaces
 import BasePresentation
-import HomePresentation
-import EmotionRecordPresentation
+import HomeInterface
 
 final class AppFlow: Flow {
     
@@ -43,7 +42,7 @@ final class AppFlow: Flow {
     }
     
     private func navigationToHome() -> FlowContributors {
-        let flow = HomeFlow(injector: injector)
+        let flow = injector.resolve(HomeBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: false)
         }

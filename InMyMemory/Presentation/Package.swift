@@ -16,6 +16,10 @@ let package = Package(
             targets: ["DesignKit"]
         ),
         .library(
+            name: "HomeInterface",
+            targets: ["HomeInterface"]
+        ),
+        .library(
             name: "HomePresentation",
             targets: ["HomePresentation"]
         ),
@@ -94,6 +98,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "HomeInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "HomePresentation",
             dependencies: [
                 "RxSwift",
@@ -107,6 +122,7 @@ let package = Package(
                 "CalendarInterface",
                 "MemoryDetailInterface",
                 "DesignKit",
+                "HomeInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
