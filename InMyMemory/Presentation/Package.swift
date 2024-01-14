@@ -28,6 +28,10 @@ let package = Package(
             targets: ["EmotionRecordPresentation"]
         ),
         .library(
+            name: "MemoryDetailInterface",
+            targets: ["MemoryDetailInterface"]
+        ),
+        .library(
             name: "MemoryDetailPresentation",
             targets: ["MemoryDetailPresentation"]
         ),
@@ -85,7 +89,7 @@ let package = Package(
                 "RecordPresentation",
                 "EmotionRecordPresentation",
                 "CalendarPresentation",
-                "MemoryDetailPresentation",
+                "MemoryDetailInterface",
                 "DesignKit",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
@@ -124,6 +128,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "MemoryDetailInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "MemoryDetailPresentation",
             dependencies: [
                 "RxSwift",
@@ -133,6 +148,7 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "MemoryDetailInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),

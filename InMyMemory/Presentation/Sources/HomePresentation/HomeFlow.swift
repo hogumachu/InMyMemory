@@ -14,7 +14,7 @@ import BasePresentation
 import RecordPresentation
 import EmotionRecordPresentation
 import CalendarPresentation
-import MemoryDetailPresentation
+import MemoryDetailInterface
 
 public final class HomeFlow: Flow {
     
@@ -108,7 +108,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToMemoryDetail(memoryID: UUID) -> FlowContributors {
-        let flow = MemoryDetailFlow(memoryID: memoryID, injector: injector)
+        let flow = injector.resolve(MemoryDetailBuildable.self).build(memoryID: memoryID, injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }

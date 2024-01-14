@@ -13,6 +13,7 @@ import PersistentStorages
 import Repositories
 import UseCases
 import BasePresentation
+import MemoryDetailPresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -37,7 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             StorageAssembly(),
             RepositoryAssembly(),
             UseCaseAssembly(),
-            BasePresentationAssembly()
+            BasePresentationAssembly(),
+            MemoryDetailAssembly()
         ])
         return injector
     }
