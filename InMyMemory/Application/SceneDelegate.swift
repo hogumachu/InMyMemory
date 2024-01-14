@@ -13,6 +13,7 @@ import PersistentStorages
 import Repositories
 import UseCases
 import BasePresentation
+import CalendarPresentation
 import RecordPresentation
 import MemoryDetailPresentation
 import MemoryRecordPresentation
@@ -41,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             RepositoryAssembly(),
             UseCaseAssembly(),
             BasePresentationAssembly(),
+            CalendarAssembly(),
             RecordAssembly(),
             MemoryDetailAssembly(),
             MemoryRecordAssembly()
