@@ -11,8 +11,8 @@ import RxFlow
 import CoreKit
 import Interfaces
 import BasePresentation
-import EmotionRecordPresentation
-import MemoryRecordPresentation
+import EmotionRecordInterface
+import MemoryRecordInterface
 
 public final class RecordFlow: Flow {
     
@@ -71,7 +71,7 @@ public final class RecordFlow: Flow {
     }
     
     private func navigationToEmotionRecord() -> FlowContributors {
-        let flow = EmotionRecordFlow(injector: injector)
+        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }
@@ -83,7 +83,7 @@ public final class RecordFlow: Flow {
     }
     
     private func navigationToMemoryRecord() -> FlowContributors {
-        let flow = MemoryRecordFlow(injector: injector)
+        let flow = injector.resolve(MemoryRecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }

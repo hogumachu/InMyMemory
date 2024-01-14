@@ -16,24 +16,48 @@ let package = Package(
             targets: ["DesignKit"]
         ),
         .library(
+            name: "HomeInterface",
+            targets: ["HomeInterface"]
+        ),
+        .library(
             name: "HomePresentation",
             targets: ["HomePresentation"]
+        ),
+        .library(
+            name: "RecordInterface",
+            targets: ["RecordInterface"]
         ),
         .library(
             name: "RecordPresentation",
             targets: ["RecordPresentation"]
         ),
         .library(
+            name: "EmotionRecordInterface",
+            targets: ["EmotionRecordInterface"]
+        ),
+        .library(
             name: "EmotionRecordPresentation",
             targets: ["EmotionRecordPresentation"]
+        ),
+        .library(
+            name: "MemoryDetailInterface",
+            targets: ["MemoryDetailInterface"]
         ),
         .library(
             name: "MemoryDetailPresentation",
             targets: ["MemoryDetailPresentation"]
         ),
         .library(
+            name: "MemoryRecordInterface",
+            targets: ["MemoryRecordInterface"]
+        ),
+        .library(
             name: "MemoryRecordPresentation",
             targets: ["MemoryRecordPresentation"]
+        ),
+        .library(
+            name: "CalendarInterface",
+            targets: ["CalendarInterface"]
         ),
         .library(
             name: "CalendarPresentation",
@@ -74,6 +98,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "HomeInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "HomePresentation",
             dependencies: [
                 "RxSwift",
@@ -82,13 +117,24 @@ let package = Package(
                 .product(name: "RxCocoa", package: "RxSwift"),
                 "Then",
                 "BasePresentation",
-                "RecordPresentation",
-                "EmotionRecordPresentation",
-                "CalendarPresentation",
-                "MemoryDetailPresentation",
+                "RecordInterface",
+                "EmotionRecordInterface",
+                "CalendarInterface",
+                "MemoryDetailInterface",
                 "DesignKit",
+                "HomeInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "RecordInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Interfaces", package: "Domain"),
             ]
         ),
@@ -101,10 +147,22 @@ let package = Package(
                 .product(name: "RxCocoa", package: "RxSwift"),
                 "Then",
                 "BasePresentation",
-                "EmotionRecordPresentation",
-                "MemoryRecordPresentation",
+                "EmotionRecordInterface",
+                "MemoryRecordInterface",
                 "DesignKit",
+                "RecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "EmotionRecordInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
             ]
         ),
@@ -118,6 +176,18 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "EmotionRecordInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "MemoryDetailInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
@@ -133,6 +203,18 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "MemoryDetailInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "MemoryRecordInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
@@ -148,6 +230,18 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "MemoryRecordInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "CalendarInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
@@ -163,6 +257,7 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "CalendarInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),

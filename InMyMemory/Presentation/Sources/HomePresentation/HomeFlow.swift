@@ -11,10 +11,10 @@ import RxFlow
 import CoreKit
 import Interfaces
 import BasePresentation
-import RecordPresentation
-import EmotionRecordPresentation
+import RecordInterface
+import EmotionRecordInterface
 import CalendarPresentation
-import MemoryDetailPresentation
+import MemoryDetailInterface
 
 public final class HomeFlow: Flow {
     
@@ -73,7 +73,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToRecord() -> FlowContributors {
-        let flow = RecordFlow(injector: injector)
+        let flow = injector.resolve(RecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             root.modalPresentationStyle = .overFullScreen
             self?.rootViewController.present(root, animated: true)
@@ -85,7 +85,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToEmotionRecord() -> FlowContributors {
-        let flow = EmotionRecordFlow(injector: injector)
+        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }
@@ -108,7 +108,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToMemoryDetail(memoryID: UUID) -> FlowContributors {
-        let flow = MemoryDetailFlow(memoryID: memoryID, injector: injector)
+        let flow = injector.resolve(MemoryDetailBuildable.self).build(memoryID: memoryID, injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }

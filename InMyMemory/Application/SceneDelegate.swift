@@ -13,6 +13,12 @@ import PersistentStorages
 import Repositories
 import UseCases
 import BasePresentation
+import HomePresentation
+import CalendarPresentation
+import RecordPresentation
+import MemoryDetailPresentation
+import MemoryRecordPresentation
+import EmotionRecordPresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -37,7 +43,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             StorageAssembly(),
             RepositoryAssembly(),
             UseCaseAssembly(),
-            BasePresentationAssembly()
+            BasePresentationAssembly(),
+            HomeAssembly(),
+            CalendarAssembly(),
+            RecordAssembly(),
+            MemoryDetailAssembly(),
+            MemoryRecordAssembly(),
+            EmotionRecordAssembly()
         ])
         return injector
     }
