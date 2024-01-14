@@ -17,6 +17,7 @@ import CalendarPresentation
 import RecordPresentation
 import MemoryDetailPresentation
 import MemoryRecordPresentation
+import EmotionRecordPresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -45,7 +46,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             CalendarAssembly(),
             RecordAssembly(),
             MemoryDetailAssembly(),
-            MemoryRecordAssembly()
+            MemoryRecordAssembly(),
+            EmotionRecordAssembly()
         ])
         return injector
     }

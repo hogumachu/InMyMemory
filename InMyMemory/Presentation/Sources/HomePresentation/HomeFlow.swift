@@ -12,7 +12,7 @@ import CoreKit
 import Interfaces
 import BasePresentation
 import RecordInterface
-import EmotionRecordPresentation
+import EmotionRecordInterface
 import CalendarPresentation
 import MemoryDetailInterface
 
@@ -85,7 +85,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToEmotionRecord() -> FlowContributors {
-        let flow = EmotionRecordFlow(injector: injector)
+        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }
