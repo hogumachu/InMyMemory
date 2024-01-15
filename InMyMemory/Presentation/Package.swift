@@ -63,6 +63,14 @@ let package = Package(
             name: "CalendarPresentation",
             targets: ["CalendarPresentation"]
         ),
+        .library(
+            name: "SearchInterface",
+            targets: ["SearchInterface"]
+        ),
+        .library(
+            name: "SearchPresentation",
+            targets: ["SearchPresentation"]
+        ),
     ],
     dependencies: [
         .package(path: "../Shared"),
@@ -258,6 +266,33 @@ let package = Package(
                 "BasePresentation",
                 "DesignKit",
                 "CalendarInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "SearchInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "SearchPresentation",
+            dependencies: [
+                "RxSwift",
+                "ReactorKit",
+                "RxFlow",
+                .product(name: "RxCocoa", package: "RxSwift"),
+                "Then",
+                "BasePresentation",
+                "DesignKit",
+                "SearchInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
