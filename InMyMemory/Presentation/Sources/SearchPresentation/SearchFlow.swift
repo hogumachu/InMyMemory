@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BasePresentation
 import RxFlow
 import CoreKit
 
@@ -25,7 +26,24 @@ public final class SearchFlow: Flow {
     }
     
     public func navigate(to step: Step) -> FlowContributors {
-        return .none
+        guard let appStep = step as? AppStep else { return .none }
+        switch appStep {
+        case .searchIsRequired:
+            return navigationToSearch()
+            
+        case .searchIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.searchIsComplete)
+            
+        default:
+            return .none
+        }
+    }
+    
+    private func navigationToSearch() -> FlowContributors {
+        return .one(flowContributor: .contribute(
+            withNextPresentable: rootViewController,
+            withNextStepper: stepper
+        ))
     }
     
 }

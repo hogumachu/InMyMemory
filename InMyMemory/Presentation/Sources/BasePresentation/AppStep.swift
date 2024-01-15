@@ -43,4 +43,8 @@ public enum AppStep: Step {
     case memoryDetailIsRequired(UUID)
     case memoryDetailIsComplete
     
+    // search
+    case searchIsRequired
+    case searchIsComplete
+    
 }
