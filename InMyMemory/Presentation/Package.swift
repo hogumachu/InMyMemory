@@ -80,6 +80,7 @@ let package = Package(
         .package(url: "https://github.com/RxSwiftCommunity/RxFlow.git", .upToNextMajor(from: "2.13.0")),
         .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.6.0")),
+        .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.2")),
     ],
     targets: [
         .target(
@@ -289,6 +290,7 @@ let package = Package(
                 "RxSwift",
                 "ReactorKit",
                 "RxFlow",
+                "RxDataSources",
                 .product(name: "RxCocoa", package: "RxSwift"),
                 "Then",
                 "BasePresentation",
