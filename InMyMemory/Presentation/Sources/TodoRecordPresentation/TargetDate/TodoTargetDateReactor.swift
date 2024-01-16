@@ -110,7 +110,7 @@ final class TodoTargetDateReactor: Reactor, Stepper {
                 .just(.setLoading(true)),
                 requestCreateTodos(todos: todos, targetDate: currentState.date.replace(day: day))
                     .map { [weak self] _ in
-                        self?.steps.accept(AppStep.todoTargetDateIsComplete)
+                        self?.steps.accept(AppStep.todoRecordCompleteIsRequired)
                         return Mutation.setLoading(false)
                     }
             ])

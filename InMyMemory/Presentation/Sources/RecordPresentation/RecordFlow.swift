@@ -65,6 +65,9 @@ public final class RecordFlow: Flow {
         case .todoRecordIsComplete:
             return popTodoRecord()
             
+        case .todoRecordCompleteIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
+            
         default:
             return .none
         }

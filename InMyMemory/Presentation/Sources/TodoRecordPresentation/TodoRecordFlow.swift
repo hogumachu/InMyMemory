@@ -42,6 +42,12 @@ public final class TodoRecordFlow: Flow {
         case .todoTargetDateIsComplete:
             return popTodoTargetDate()
             
+        case .todoRecordCompleteIsRequired:
+            return navigationToTodoRecordComplete()
+            
+        case .todoRecordCompleteIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.todoRecordCompleteIsComplete)
+            
         default:
             return .none
         }
@@ -60,6 +66,17 @@ public final class TodoRecordFlow: Flow {
             todos: todos
         )
         let viewController = TodoTargetDateViewController()
+        viewController.reactor = reactor
+        rootViewController.navigationController?.pushViewController(viewController, animated: true)
+        return .one(flowContributor: .contribute(
+            withNextPresentable: viewController,
+            withNextStepper: reactor
+        ))
+    }
+    
+    private func navigationToTodoRecordComplete() -> FlowContributors {
+        let reactor = TodoRecordCompleteReactor()
+        let viewController = TodoRecordCompleteViewController()
         viewController.reactor = reactor
         rootViewController.navigationController?.pushViewController(viewController, animated: true)
         return .one(flowContributor: .contribute(

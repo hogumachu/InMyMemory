@@ -40,6 +40,8 @@ public enum AppStep: Step {
     case todoRecordIsComplete
     case todoTargetDateIsRequired([String])
     case todoTargetDateIsComplete
+    case todoRecordCompleteIsRequired
+    case todoRecordCompleteIsComplete
     
     // calendar
     case calendarIsRequired
