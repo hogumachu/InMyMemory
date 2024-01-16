@@ -9,6 +9,7 @@ import Foundation
 import BasePresentation
 import RxFlow
 import CoreKit
+import Interfaces
 
 public final class SearchFlow: Flow {
     
@@ -19,7 +20,7 @@ public final class SearchFlow: Flow {
     
     public init(injector: DependencyInjectorInterface) {
         self.injector = injector
-        let reactor = SearchReactor()
+        let reactor = SearchReactor(useCase: injector.resolve(SearchUseCaseInterface.self))
         self.stepper = reactor
         self.rootViewController = SearchViewController()
         self.rootViewController.reactor = reactor
