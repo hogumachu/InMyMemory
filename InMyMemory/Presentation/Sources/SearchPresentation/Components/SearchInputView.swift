@@ -9,13 +9,15 @@ import UIKit
 import CoreKit
 import BasePresentation
 import DesignKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
 final class SearchInputView: BaseView {
     
     private let imageView = UIImageView()
-    private let textField = UITextField()
+    fileprivate let textField = UITextField()
     
     override func setupLayout() {
         addSubview(imageView)
@@ -55,6 +57,21 @@ final class SearchInputView: BaseView {
                 .font(.gmarketSans(type: .light, size: 17))
                 .foregroundColor(.orange2)
         }
+    }
+    
+}
+
+extension Reactive where Base: SearchInputView {
+    
+    var text: ControlEvent<String?> {
+        let source = base.textField.rx.text
+        return ControlEvent(events: source)
+    }
+    
+    var searchDidTap: ControlEvent<String> {
+        let source = base.textField.rx.controlEvent(.editingDidEndOnExit)
+            .map { base.textField.text ?? "" }
+        return ControlEvent(events: source)
     }
     
 }

@@ -21,6 +21,8 @@ final class SearchViewController: BaseViewController<SearchReactor> {
     private let navigationView = NavigationView()
     private let searchInputView = SearchInputView()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
+    private let loadingView = LoadingView()
+    private let emptyLabel = UILabel()
     
     override func setupLayout() {
         view.addSubview(navigationView)
@@ -42,6 +44,17 @@ final class SearchViewController: BaseViewController<SearchReactor> {
             make.top.equalTo(searchInputView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        
+        view.addSubview(emptyLabel)
+        emptyLabel.snp.makeConstraints { make in
+            make.top.equalTo(searchInputView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+        }
+        
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func setupAttributes() {
@@ -58,6 +71,18 @@ final class SearchViewController: BaseViewController<SearchReactor> {
             $0.register(SearchResultTodoCell.self)
             $0.registerHeader(TextOnlyCollectionHeaderView.self)
         }
+        
+        loadingView.do {
+            $0.isHidden = true
+        }
+        
+        emptyLabel.do {
+            $0.text = "검색 결과가 없어요"
+            $0.textColor = .orange1
+            $0.font = .gmarketSans(type: .medium, size: 17)
+            $0.textAlignment = .center
+            $0.isHidden = true
+        }
     }
     
     override func bind(reactor: SearchReactor) {
@@ -67,13 +92,13 @@ final class SearchViewController: BaseViewController<SearchReactor> {
     }
     
     private func bindAction(_ reactor: SearchReactor) {
-        rx.viewDidLoad
-            .map { Reactor.Action.search("ABCD") }
+        navigationView.rx.leftButtonDidTap
+            .map { Reactor.Action.closeDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        navigationView.rx.leftButtonDidTap
-            .map { Reactor.Action.closeDidTap }
+        searchInputView.rx.searchDidTap
+            .map { Reactor.Action.search($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -86,6 +111,14 @@ final class SearchViewController: BaseViewController<SearchReactor> {
     private func bindState(_ reactor: SearchReactor) {
         reactor.state.map(\.sections)
             .bind(to: collectionView.rx.items(dataSource: makeDataSource()))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isLoading)
+            .bind(to: loadingView.isLoading)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { !$0.isEmpty }
+            .bind(to: emptyLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
     

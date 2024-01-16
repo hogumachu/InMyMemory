@@ -78,7 +78,7 @@ final class SearchResultMemoryCell: BaseCollectionViewCell {
         
         noteLabel.do {
             $0.textColor = .orange1
-            $0.numberOfLines = 3
+            $0.numberOfLines = 1
             $0.font = .gmarketSans(type: .light, size: 17)
         }
         
