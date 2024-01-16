@@ -14,6 +14,7 @@ public protocol EmotionRepositoryInterface: AnyObject {
     func read(emotionID: UUID) -> Single<Emotion?>
     func read(greaterThan date: Date) -> Single<[Emotion]>
     func read(greaterOrEqualThan greaterOrEqualDate: Date, lessThan lessDate: Date) -> Single<[Emotion]>
+    func read(keyword: String) -> Single<[Emotion]>
     func update(emotion: Emotion) -> Single<Void>
     func delete(emotion: Emotion) -> Single<Void>
 }

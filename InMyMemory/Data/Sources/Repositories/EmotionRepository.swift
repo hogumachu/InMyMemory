@@ -50,6 +50,15 @@ public final class EmotionRepository: EmotionRepositoryInterface {
             .map { $0.map { $0.toEntity() }}
     }
     
+    public func read(keyword: String) -> Single<[Emotion]> {
+        let predicate: Predicate<EmotionModel> = #Predicate { model in
+            return model.note.contains(keyword)
+        }
+        let sortBy: SortDescriptor<EmotionModel> = .init(\.updatedAt, order: .forward)
+        return storage.read(predicate: predicate, sortBy: [sortBy])
+            .map { $0.map { $0.toEntity() }}
+    }
+    
     public func update(emotion: Emotion) -> Single<Void> {
         let model = EmotionModel(emotion: emotion)
         return storage.insert(model: model)
