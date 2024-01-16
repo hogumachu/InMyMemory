@@ -13,7 +13,7 @@ import Interfaces
 import BasePresentation
 import RecordInterface
 import EmotionRecordInterface
-import CalendarPresentation
+import CalendarInterface
 import MemoryDetailInterface
 
 public final class HomeFlow: Flow {
@@ -97,7 +97,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToCalendarHome() -> FlowContributors {
-        let flow = CalendarHomeFlow(injector: injector)
+        let flow = injector.resolve(CalendarBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }

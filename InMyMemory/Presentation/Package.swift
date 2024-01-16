@@ -89,6 +89,7 @@ let package = Package(
                 "RxSwift",
                 "ReactorKit",
                 "RxFlow",
+                "DesignKit",
                 .product(name: "RxCocoa", package: "RxSwift"),
                 "Then",
                 .product(name: "Entities", package: "Domain"),
