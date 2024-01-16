@@ -63,6 +63,14 @@ let package = Package(
             name: "CalendarPresentation",
             targets: ["CalendarPresentation"]
         ),
+        .library(
+            name: "SearchInterface",
+            targets: ["SearchInterface"]
+        ),
+        .library(
+            name: "SearchPresentation",
+            targets: ["SearchPresentation"]
+        ),
     ],
     dependencies: [
         .package(path: "../Shared"),
@@ -72,6 +80,7 @@ let package = Package(
         .package(url: "https://github.com/RxSwiftCommunity/RxFlow.git", .upToNextMajor(from: "2.13.0")),
         .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.6.0")),
+        .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.2")),
     ],
     targets: [
         .target(
@@ -80,6 +89,7 @@ let package = Package(
                 "RxSwift",
                 "ReactorKit",
                 "RxFlow",
+                "DesignKit",
                 .product(name: "RxCocoa", package: "RxSwift"),
                 "Then",
                 .product(name: "Entities", package: "Domain"),
@@ -258,6 +268,35 @@ let package = Package(
                 "BasePresentation",
                 "DesignKit",
                 "CalendarInterface",
+                "SearchInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "SearchInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "SearchPresentation",
+            dependencies: [
+                "RxSwift",
+                "ReactorKit",
+                "RxFlow",
+                "RxDataSources",
+                .product(name: "RxCocoa", package: "RxSwift"),
+                "Then",
+                "BasePresentation",
+                "DesignKit",
+                "SearchInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),

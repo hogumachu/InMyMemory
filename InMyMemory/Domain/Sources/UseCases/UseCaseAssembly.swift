@@ -46,6 +46,14 @@ public struct UseCaseAssembly: Assembly {
         container.register(MemoryDetailUseCaseInterface.self) { _ in
             MemoryDetailUseCase(memoryRepository: memoryRepository)
         }
+        
+        container.register(SearchUseCaseInterface.self) { _ in
+            SearchUseCase(
+                emotionRepository: emotionRepository,
+                memoryRepository: memoryRepository,
+                todoRepository: todoRepository
+            )
+        }
     }
     
 }

@@ -76,6 +76,7 @@ final class CalendarHomeReactor: Reactor, Stepper {
             return .empty()
             
         case .searchDidTap:
+            steps.accept(AppStep.searchIsRequired)
             return .empty()
             
         case .addDidTap:

@@ -14,6 +14,7 @@ public protocol TodoRepositoryInterface: AnyObject {
     func read(todoID: UUID) -> Single<Todo?>
     func read(greaterThan date: Date) -> Single<[Todo]>
     func read(greaterOrEqualThan greaterOrEqualDate: Date, lessThan lessDate: Date) -> Single<[Todo]>
+    func read(keyword: String) -> Single<[Todo]>
     func update(todo: Todo) -> Single<Void>
     func delete(todo: Todo) -> Single<Void>
 }

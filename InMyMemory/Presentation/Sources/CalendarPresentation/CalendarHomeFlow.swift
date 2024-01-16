@@ -10,6 +10,7 @@ import Entities
 import CoreKit
 import Interfaces
 import BasePresentation
+import SearchInterface
 import RxSwift
 import RxFlow
 
@@ -37,6 +38,12 @@ public final class CalendarHomeFlow: Flow {
         case .calendarIsComplete:
             return .end(forwardToParentFlowWithStep: appStep)
             
+        case .searchIsRequired:
+            return navigationToSearch()
+            
+        case .searchIsComplete:
+            return popSearch()
+            
         default:
             return .none
         }
@@ -48,4 +55,21 @@ public final class CalendarHomeFlow: Flow {
             withNextStepper: stepper
         ))
     }
+    
+    private func navigationToSearch() -> FlowContributors {
+        let flow = injector.resolve(SearchBuildable.self).build(injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.navigationController?.pushViewController(root, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.searchIsRequired)
+        ))
+    }
+    
+    private func popSearch() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
+        return .none
+    }
+    
 }
