@@ -33,4 +33,8 @@ public extension Date {
         return Calendar.current.date(byAdding: .month, value: -value, to: self)!
     }
     
+    func replace(day replaceDay: Int) -> Date {
+        return Calendar.current.date(from: .init(year: year, month: month, day: replaceDay))!
+    }
+    
 }

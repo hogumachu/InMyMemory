@@ -55,7 +55,10 @@ public final class TodoRecordFlow: Flow {
     }
     
     private func navigationToTodoTargetDate(todos: [String]) -> FlowContributors {
-        let reactor = TodoTargetDateReactor(todos: todos)
+        let reactor = TodoTargetDateReactor(
+            useCase: injector.resolve(TodoUseCaseInterface.self),
+            todos: todos
+        )
         let viewController = TodoTargetDateViewController()
         viewController.reactor = reactor
         rootViewController.navigationController?.pushViewController(viewController, animated: true)
