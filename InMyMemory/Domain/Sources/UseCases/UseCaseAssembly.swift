@@ -54,6 +54,10 @@ public struct UseCaseAssembly: Assembly {
                 todoRepository: todoRepository
             )
         }
+        
+        container.register(TodoUseCaseInterface.self) { _ in
+            TodoUseCase(todoRepository: todoRepository)
+        }
     }
     
 }
