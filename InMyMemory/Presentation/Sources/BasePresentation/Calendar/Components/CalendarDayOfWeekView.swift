@@ -6,18 +6,17 @@
 //
 
 import UIKit
-import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
 import SnapKit
 import Then
 
-final class CalendarDayOfWeekView: BaseView {
+public final class CalendarDayOfWeekView: BaseView {
     
     private let stackView = UIStackView()
     
-    override func setupLayout() {
+    public override func setupLayout() {
         addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -29,7 +28,7 @@ final class CalendarDayOfWeekView: BaseView {
         }
     }
     
-    override func setupAttributes() {
+    public override func setupAttributes() {
         stackView.do {
             $0.axis = .horizontal
             $0.alignment = .center

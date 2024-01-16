@@ -13,6 +13,7 @@ import Interfaces
 import BasePresentation
 import EmotionRecordInterface
 import MemoryRecordInterface
+import TodoRecordInterface
 
 public final class RecordFlow: Flow {
     
@@ -58,6 +59,15 @@ public final class RecordFlow: Flow {
         case .memoryRecordCompleteIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
             
+        case .todoRecordIsRequired:
+            return navigationToTodoRecord()
+            
+        case .todoRecordIsComplete:
+            return popTodoRecord()
+            
+        case .todoRecordCompleteIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
+            
         default:
             return .none
         }
@@ -94,12 +104,29 @@ public final class RecordFlow: Flow {
         ))
     }
     
+    private func navigationToTodoRecord() -> FlowContributors {
+        let flow = injector.resolve(TodoRecordBuildable.self).build(injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.pushViewController(root, animated: true)
+        }
+        
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.todoRecordIsRequired)
+        ))
+    }
+    
     private func popEmotionRecord() -> FlowContributors {
         rootViewController.popViewController(animated: true)
         return .none
     }
     
     private func popMemoryRecord() -> FlowContributors {
+        rootViewController.popViewController(animated: true)
+        return .none
+    }
+    
+    private func popTodoRecord() -> FlowContributors {
         rootViewController.popViewController(animated: true)
         return .none
     }

@@ -20,6 +20,8 @@
 		F1D11D0D2B54DEA2008FF7BB /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D11D0C2B54DEA2008FF7BB /* CompositionRoot.swift */; };
 		F1D11D102B54F485008FF7BB /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = F1D11D0F2B54F485008FF7BB /* Differentiator */; };
 		F1D11D122B54F485008FF7BB /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = F1D11D112B54F485008FF7BB /* RxDataSources */; };
+		F1D11D142B565081008FF7BB /* TodoRecordInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F1D11D132B565081008FF7BB /* TodoRecordInterface */; };
+		F1D11D162B565082008FF7BB /* TodoRecordPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1D11D152B565082008FF7BB /* TodoRecordPresentation */; };
 		F1E372BD2B53D411005483CD /* CalendarPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372BC2B53D411005483CD /* CalendarPresentation */; };
 		F1E372BF2B53D411005483CD /* EmotionRecordPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372BE2B53D411005483CD /* EmotionRecordPresentation */; };
 		F1E372C12B53D411005483CD /* MemoryDetailInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F1E372C02B53D411005483CD /* MemoryDetailInterface */; };
@@ -81,8 +83,10 @@
 				F1E372C12B53D411005483CD /* MemoryDetailInterface in Frameworks */,
 				F15C611B2B402C9900241C10 /* CoreKit in Frameworks */,
 				F1D11D0B2B54DE84008FF7BB /* SearchPresentation in Frameworks */,
+				F1D11D142B565081008FF7BB /* TodoRecordInterface in Frameworks */,
 				F1F2E3442B3F10C300D607F1 /* SnapKit in Frameworks */,
 				F1E372C32B53D411005483CD /* MemoryDetailPresentation in Frameworks */,
+				F1D11D162B565082008FF7BB /* TodoRecordPresentation in Frameworks */,
 				F1F2E3492B3F10E200D607F1 /* RxBlocking in Frameworks */,
 				F1F2E3542B3F10FD00D607F1 /* ReactorKit in Frameworks */,
 				F1E372BD2B53D411005483CD /* CalendarPresentation in Frameworks */,
@@ -225,6 +229,8 @@
 				F1D11D0A2B54DE84008FF7BB /* SearchPresentation */,
 				F1D11D0F2B54F485008FF7BB /* Differentiator */,
 				F1D11D112B54F485008FF7BB /* RxDataSources */,
+				F1D11D132B565081008FF7BB /* TodoRecordInterface */,
+				F1D11D152B565082008FF7BB /* TodoRecordPresentation */,
 			);
 			productName = InMyMemory;
 			productReference = F1F2E3232B3F07E900D607F1 /* InMyMemory.app */;
@@ -614,6 +620,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F1D11D0E2B54F484008FF7BB /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		F1D11D132B565081008FF7BB /* TodoRecordInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TodoRecordInterface;
+		};
+		F1D11D152B565082008FF7BB /* TodoRecordPresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TodoRecordPresentation;
 		};
 		F1E372BC2B53D411005483CD /* CalendarPresentation */ = {
 			isa = XCSwiftPackageProductDependency;

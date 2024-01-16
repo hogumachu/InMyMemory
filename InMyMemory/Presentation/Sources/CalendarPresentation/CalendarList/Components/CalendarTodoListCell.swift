@@ -35,28 +35,24 @@ final class CalendarTodoListCell: BaseCollectionViewCell {
     }
     
     override func setupLayout() {
-        contentView.snp.makeConstraints { make in
-            make.height.equalTo(40)
-        }
-        
         contentView.addSubview(checkImageView)
         checkImageView.snp.makeConstraints { make in
             make.size.equalTo(20)
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
         }
         
         contentView.addSubview(noteLabel)
         noteLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(10)
             make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(checkImageView.snp.leading).offset(-15)
+            make.trailing.equalToSuperview().offset(-65)
         }
     }
     
     override func setupAttributes() {
         backgroundColor = .background
-        layer.cornerRadius = 40 / 2
+        layer.cornerRadius = 16
         layer.borderWidth = 1
         layer.borderColor = UIColor.orange1.cgColor
         
