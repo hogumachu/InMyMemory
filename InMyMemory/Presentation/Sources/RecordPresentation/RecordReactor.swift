@@ -16,6 +16,7 @@ enum RecordAction {
     case closeDidTap
     case memoryRecordDidTap
     case emotionRecordDidTap
+    case todoRecordDidTap
 }
 
 struct RecordState {
@@ -42,6 +43,10 @@ final class RecordReactor: Reactor, Stepper {
             
         case .emotionRecordDidTap:
             steps.accept(AppStep.emotionRecordIsRequired)
+            return .empty()
+            
+        case .todoRecordDidTap:
+            steps.accept(AppStep.todoRecordIsRequired)
             return .empty()
         }
     }

@@ -71,6 +71,14 @@ let package = Package(
             name: "SearchPresentation",
             targets: ["SearchPresentation"]
         ),
+        .library(
+            name: "TodoRecordInterface",
+            targets: ["TodoRecordInterface"]
+        ),
+        .library(
+            name: "TodoRecordPresentation",
+            targets: ["TodoRecordPresentation"]
+        ),
     ],
     dependencies: [
         .package(path: "../Shared"),
@@ -159,6 +167,7 @@ let package = Package(
                 "BasePresentation",
                 "EmotionRecordInterface",
                 "MemoryRecordInterface",
+                "TodoRecordInterface",
                 "DesignKit",
                 "RecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
@@ -297,6 +306,34 @@ let package = Package(
                 "BasePresentation",
                 "DesignKit",
                 "SearchInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "TodoRecordInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "TodoRecordPresentation",
+            dependencies: [
+                "RxSwift",
+                "ReactorKit",
+                "RxFlow",
+                "RxDataSources",
+                .product(name: "RxCocoa", package: "RxSwift"),
+                "Then",
+                "BasePresentation",
+                "DesignKit",
+                "TodoRecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
