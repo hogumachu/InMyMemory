@@ -18,6 +18,7 @@ final class TodoRecordReactor: Reactor, Stepper {
     
     enum Action {
         case closeDidTap
+        case nextDidTap
         case todoUpdated(String)
         case todoRemoved(IndexPath)
     }
@@ -41,6 +42,10 @@ final class TodoRecordReactor: Reactor, Stepper {
             steps.accept(AppStep.todoRecordIsComplete)
             return .empty()
             
+        case .nextDidTap:
+            steps.accept(AppStep.todoTargetDateIsRequired(currentState.todos))
+            return .empty()
+            
         case .todoUpdated(let todo):
             if !todo.isEmpty {
                 return .just(.appendTodo(todo))
@@ -60,9 +65,11 @@ final class TodoRecordReactor: Reactor, Stepper {
             if newState.todos.indices ~= indexPath.row {
                 newState.todos.remove(at: indexPath.row)
             }
+            newState.isEnabled = !newState.todos.isEmpty
             
         case .appendTodo(let todo):
             newState.todos.append(todo)
+            newState.isEnabled = !newState.todos.isEmpty
         }
         return newState
     }

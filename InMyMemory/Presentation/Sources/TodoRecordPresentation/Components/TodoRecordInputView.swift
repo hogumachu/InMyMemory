@@ -127,6 +127,10 @@ extension Reactive where Base: TodoRecordInputView {
         return ControlEvent(events: source)
     }
     
+    var isEnabled: Binder<Bool> {
+        return base.nextButton.rx.isEnabled
+    }
+    
 }
 
 extension TodoRecordInputView: UITextFieldDelegate {

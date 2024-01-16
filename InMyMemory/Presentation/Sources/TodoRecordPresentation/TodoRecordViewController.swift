@@ -107,6 +107,11 @@ final class TodoRecordViewController: BaseViewController<TodoRecordReactor> {
             .map { !($0?.isEmpty ?? true) }
             .bind(to: todoInputView.isClearEnabled)
             .disposed(by: disposeBag)
+        
+        todoInputView.rx.nextDidTap
+            .map { Reactor.Action.nextDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: TodoRecordReactor) {
@@ -116,6 +121,10 @@ final class TodoRecordViewController: BaseViewController<TodoRecordReactor> {
                 cell.setup(todo: todo)
                 return cell
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isEnabled)
+            .bind(to: todoInputView.rx.isEnabled)
             .disposed(by: disposeBag)
     }
     
