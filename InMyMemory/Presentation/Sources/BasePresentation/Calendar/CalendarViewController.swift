@@ -8,7 +8,6 @@
 import UIKit
 import CoreKit
 import Entities
-import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
@@ -16,13 +15,13 @@ import ReactorKit
 import Then
 import SnapKit
 
-final class CalendarViewController: EmptyBaseViewController {
+public final class CalendarViewController: EmptyBaseViewController {
     
     fileprivate let monthView = CalendarMonthView()
     private let dayOfWeekView = CalendarDayOfWeekView()
     fileprivate let calendarView = CalendarView()
     
-    override func setupLayout() {
+    public override func setupLayout() {
         view.addSubview(monthView)
         monthView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
@@ -41,13 +40,13 @@ final class CalendarViewController: EmptyBaseViewController {
         }
     }
     
-    override func setupAttributes() {
+    public override func setupAttributes() {
         view.backgroundColor = .background
     }
     
 }
 
-extension Reactive where Base: CalendarViewController {
+public extension Reactive where Base: CalendarViewController {
     
     var monthTitle: Binder<String?> {
         return base.monthView.rx.title

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
@@ -14,11 +13,15 @@ import RxRelay
 import SnapKit
 import Then
 
-struct CalendarViewModel {
-    let dayViewModels: [CalendarDayViewModel]
+public struct CalendarViewModel {
+    public let dayViewModels: [CalendarDayViewModel]
+    
+    public init(dayViewModels: [CalendarDayViewModel]) {
+        self.dayViewModels = dayViewModels
+    }
 }
 
-final class CalendarView: BaseView {
+public final class CalendarView: BaseView {
     
     // 7 X 6
     
@@ -30,7 +33,7 @@ final class CalendarView: BaseView {
         }
     }
     
-    func setup(model: CalendarViewModel) {
+    public func setup(model: CalendarViewModel) {
         let dayViews = stackView.subviews.compactMap { $0 as? UIStackView }
             .flatMap { $0.subviews.compactMap { $0 as? CalendarDayView }}
         dayViews.forEach { $0.clear() }
@@ -45,7 +48,7 @@ final class CalendarView: BaseView {
         }
     }
     
-    override func setupLayout() {
+    public override func setupLayout() {
         addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -60,7 +63,7 @@ final class CalendarView: BaseView {
         }
     }
     
-    override func setupAttributes() {
+    public override func setupAttributes() {
         stackView.do {
             $0.axis = .vertical
             $0.alignment = .fill
@@ -78,7 +81,7 @@ final class CalendarView: BaseView {
     
 }
 
-extension Reactive where Base: CalendarView {
+public extension Reactive where Base: CalendarView {
     
     var viewModel: Binder<CalendarViewModel> {
         return base.viewModelBinder

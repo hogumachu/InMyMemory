@@ -6,20 +6,19 @@
 //
 
 import UIKit
-import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
 import SnapKit
 import Then
 
-final class CalendarMonthView: BaseView {
+public final class CalendarMonthView: BaseView {
     
     fileprivate let titleLabel = UILabel()
     fileprivate let leftButton = UIButton()
     fileprivate let rightButton = UIButton()
     
-    override func setupLayout() {
+    public override func setupLayout() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
@@ -42,7 +41,7 @@ final class CalendarMonthView: BaseView {
         }
     }
     
-    override func setupAttributes() {
+    public override func setupAttributes() {
         backgroundColor = .background
         
         titleLabel.do {
@@ -64,7 +63,7 @@ final class CalendarMonthView: BaseView {
     
 }
 
-extension Reactive where Base: CalendarMonthView {
+public extension Reactive where Base: CalendarMonthView {
     
     var title: Binder<String?> {
         return base.titleLabel.rx.text

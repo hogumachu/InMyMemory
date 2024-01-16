@@ -7,28 +7,35 @@
 
 import UIKit
 import Entities
-import BasePresentation
 import DesignKit
 import RxSwift
 import RxCocoa
 import SnapKit
 import Then
 
-struct CalendarDayViewModel {
-    let day: Int
-    let isToday: Bool
-    let isSelected: Bool
-    let isValid: Bool
-    let emotionType: EmotionType?
+public struct CalendarDayViewModel {
+    public let day: Int
+    public let isToday: Bool
+    public let isSelected: Bool
+    public let isValid: Bool
+    public let emotionType: EmotionType?
+    
+    public init(day: Int, isToday: Bool, isSelected: Bool, isValid: Bool, emotionType: EmotionType?) {
+        self.day = day
+        self.isToday = isToday
+        self.isSelected = isSelected
+        self.isValid = isValid
+        self.emotionType = emotionType
+    }
 }
 
-final class CalendarDayView: BaseView {
+public final class CalendarDayView: BaseView {
     
     private let containerView = UIView()
     private let dayLabel = UILabel()
     private let emotionView = UIView()
     
-    func setup(model: CalendarDayViewModel) {
+    public func setup(model: CalendarDayViewModel) {
         guard model.isValid else {
             clear()
             return
@@ -54,13 +61,13 @@ final class CalendarDayView: BaseView {
         emotionView.backgroundColor = emotionBackgroundColor
     }
     
-    func clear() {
+    public func clear() {
         dayLabel.text = nil
         containerView.backgroundColor = .background
         emotionView.backgroundColor = .background
     }
     
-    override func setupLayout() {
+    public override func setupLayout() {
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
             make.top.centerX.equalToSuperview()
@@ -81,7 +88,7 @@ final class CalendarDayView: BaseView {
         }
     }
     
-    override func setupAttributes() {
+    public override func setupAttributes() {
         containerView.do {
             $0.backgroundColor = .background
             $0.layer.cornerRadius = 30 / 2
