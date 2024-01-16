@@ -47,7 +47,7 @@ final class SearchViewController: BaseViewController<SearchReactor> {
         
         view.addSubview(emptyLabel)
         emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchInputView.snp.bottom).offset(20)
+            make.top.equalTo(searchInputView.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
         }
         
@@ -81,7 +81,6 @@ final class SearchViewController: BaseViewController<SearchReactor> {
             $0.textColor = .orange1
             $0.font = .gmarketSans(type: .medium, size: 17)
             $0.textAlignment = .center
-            $0.isHidden = true
         }
     }
     
