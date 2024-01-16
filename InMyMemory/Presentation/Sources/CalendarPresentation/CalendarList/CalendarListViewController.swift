@@ -52,6 +52,7 @@ final class CalendarListViewController: EmptyBaseViewController {
         view.backgroundColor = .background
         
         collectionView.do {
+            $0.showsVerticalScrollIndicator = false
             $0.delegate = self
             $0.dataSource = self
             $0.register(CalendarTodoListCell.self)
