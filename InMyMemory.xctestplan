@@ -23,6 +23,13 @@
         "identifier" : "CalendarPresentationTests",
         "name" : "CalendarPresentationTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "EmotionRecordPresentationTests",
+        "name" : "EmotionRecordPresentationTests"
+      }
     }
   ],
   "version" : 1
