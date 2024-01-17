@@ -273,8 +273,6 @@
 				F1F2E3582B3F112900D607F1 /* XCRemoteSwiftPackageReference "Then" */,
 				F1F2E35B2B3F114100D607F1 /* XCRemoteSwiftPackageReference "Swinject" */,
 				F1D11D0E2B54F484008FF7BB /* XCRemoteSwiftPackageReference "RxDataSources" */,
-				F1F5D5AF2B57B5EC00D15A46 /* XCRemoteSwiftPackageReference "Quick" */,
-				F1F5D5B22B57B60900D15A46 /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
 			productRefGroup = F1F2E3242B3F07E900D607F1 /* Products */;
 			projectDirPath = "";
@@ -579,22 +577,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.8.4;
-			};
-		};
-		F1F5D5AF2B57B5EC00D15A46 /* XCRemoteSwiftPackageReference "Quick" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Quick/Quick";
-			requirement = {
-				kind = exactVersion;
-				version = 7.0.0;
-			};
-		};
-		F1F5D5B22B57B60900D15A46 /* XCRemoteSwiftPackageReference "Nimble" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Quick/Nimble";
-			requirement = {
-				kind = exactVersion;
-				version = 12.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
