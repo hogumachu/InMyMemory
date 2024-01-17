@@ -40,6 +40,10 @@ let package = Package(
             targets: ["EmotionRecordPresentation"]
         ),
         .library(
+            name: "EmotionRecordTestSupport",
+            targets: ["EmotionRecordTestSupport"]
+        ),
+        .library(
             name: "MemoryDetailInterface",
             targets: ["MemoryDetailInterface"]
         ),
@@ -93,8 +97,8 @@ let package = Package(
         .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.6.0")),
         .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.2")),
-        .package(url: "https://github.com/Quick/Quick.git", from: "7.0.0"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "12.0.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "7.3.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "13.1.2"),
     ],
     targets: [
         .target(
@@ -201,6 +205,17 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "EmotionRecordInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "EmotionRecordTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
                 "EmotionRecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
@@ -368,6 +383,18 @@ let package = Package(
                 "Quick",
                 "Nimble"
             ]
-        )
+        ),
+        .testTarget(
+            name: "EmotionRecordPresentationTests",
+            dependencies: [
+                "EmotionRecordTestSupport",
+                "EmotionRecordPresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                "Quick",
+                "Nimble"
+            ]
+        ),
     ]
 )
