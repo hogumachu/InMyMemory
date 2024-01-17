@@ -9,7 +9,11 @@ import UIKit
 import RxSwift
 import ReactorKit
 
-open class BaseViewController<ReactorType: Reactor>: UIViewController, View {
+public protocol Refreshable: AnyObject {
+    func refresh()
+}
+
+open class BaseViewController<ReactorType: Reactor>: UIViewController, Refreshable, View {
     
     public typealias Reactor = ReactorType
     
@@ -24,5 +28,6 @@ open class BaseViewController<ReactorType: Reactor>: UIViewController, View {
     open func setupLayout() {}
     open func setupAttributes() {}
     open func bind(reactor: ReactorType) {}
+    open func refresh() {}
     
 }
