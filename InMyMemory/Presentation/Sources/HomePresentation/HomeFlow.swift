@@ -120,18 +120,25 @@ public final class HomeFlow: Flow {
     
     private func dismissRecord() -> FlowContributors {
         if let recordViewController = self.rootViewController.presentedViewController {
-            recordViewController.dismiss(animated: true)
+            recordViewController.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    self?.rootViewController.refresh()
+                }
+            )
         }
         return .none
     }
     
     private func popCalendarHome() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
+        rootViewController.refresh()
         return .none
     }
     
     private func popMemoryDetail() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
+        rootViewController.refreshMemory()
         return .none
     }
     

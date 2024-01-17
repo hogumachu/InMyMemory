@@ -16,6 +16,8 @@ import RxFlow
 
 enum HomeAction {
     case refresh
+    case refreshEmotion
+    case refreshMemory
     case recordDidTap
     case calendarDidTap
     case memoryDidTap(UUID)
@@ -54,6 +56,20 @@ final class HomeReactor: Reactor, Stepper {
             return Observable.concat([
                 .just(.setLoading(true)),
                 refresh(),
+                .just(.setLoading(false))
+            ])
+            
+        case .refreshEmotion:
+            return Observable.concat([
+                .just(.setLoading(true)),
+                refreshEmotions(),
+                .just(.setLoading(false))
+            ])
+            
+        case .refreshMemory:
+            return Observable.concat([
+                .just(.setLoading(true)),
+                refreshMemories(),
                 .just(.setLoading(false))
             ])
         case .recordDidTap:
@@ -95,15 +111,23 @@ final class HomeReactor: Reactor, Stepper {
     }
     
     private func refresh() -> Observable<HomeMutation> {
-        let setMemories = Observable.zip(
+        return Observable.merge([
+            refreshMemories(),
+            refreshEmotions()
+        ])
+    }
+    
+    private func refreshMemories() -> Observable<HomeMutation> {
+        return Observable.zip(
             useCase.fetchLastSevenDaysMemories().asObservable(),
             useCase.fetchCurrentWeekTodos().asObservable()
         ).map { Mutation.setMemories($0.0, $0.1) }
-        
-        let setEmotions = useCase.fetchLastSevenDaysEmotions()
+    }
+    
+    private func refreshEmotions() -> Observable<HomeMutation> {
+        return useCase.fetchLastSevenDaysEmotions()
             .map { Mutation.setEmotions($0) }
             .asObservable()
-        return Observable.merge([setMemories, setEmotions])
     }
     
     // MARK: - Emotion

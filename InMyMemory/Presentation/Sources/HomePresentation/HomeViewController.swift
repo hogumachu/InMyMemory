@@ -34,6 +34,14 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         navigationOrientation: .horizontal
     )
     
+    func refreshEmotion() {
+        reactor?.action.onNext(.refreshEmotion)
+    }
+    
+    func refreshMemory() {
+        reactor?.action.onNext(.refreshMemory)
+    }
+    
     override func setupLayout() {
         addChild(pageViewController)
         pageViewController.didMove(toParent: self)

@@ -60,8 +60,12 @@ public final class MemoryRepository: MemoryRepositoryInterface {
     }
     
     public func update(memory: Memory) -> Single<Void> {
+        let memoryID = memory.id
+        let predicate: Predicate<MemoryModel> = #Predicate { model in
+            return model.id == memoryID
+        }
         let model = MemoryModel(memory: memory)
-        return storage.insert(model: model)
+        return storage.upsert(model: model, predicate: predicate)
     }
     
     public func delete(memory: Memory) -> Single<Void> {
