@@ -48,9 +48,8 @@ final class CalendarHomeReactor: Reactor, Stepper {
     
     private let useCase: CalendarUseCaseInterface
     
-    init(useCase: CalendarUseCaseInterface) {
+    init(useCase: CalendarUseCaseInterface, date: Date = .init()) {
         self.useCase = useCase
-        let date = Date()
         self.initialState = .init(
             date: date,
             monthTitle: "\(date.year)년 \(date.month)월",
