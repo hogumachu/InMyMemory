@@ -18,12 +18,14 @@ import Then
 final class MemoryDetailReactor: Reactor, Stepper {
     
     enum Action {
-        case viewDidLoad
+        case refresh
         case removeDidTap
+        case editDidTap
         case closeDidTap
     }
     
     struct State {
+        var memory: Memory?
         var viewModel: MemoryDetailViewModel?
         var isLoading: Bool = false
     }
@@ -70,7 +72,12 @@ final class MemoryDetailReactor: Reactor, Stepper {
                     .asObservable()
             ])
             
-        case .viewDidLoad:
+        case .editDidTap:
+            guard let memory = currentState.memory else { return .empty() }
+            steps.accept(AppStep.memoryEditIsRequired(memory))
+            return .empty()
+            
+        case .refresh:
             return .concat([
                 .just(.setLoading(true)),
                 useCase
@@ -86,6 +93,7 @@ final class MemoryDetailReactor: Reactor, Stepper {
         var newState = state
         switch mutation {
         case .setMemory(let memory):
+            newState.memory = memory
             newState.viewModel = makeViewModel(memory)
             
         case .setLoading(let isLoading):

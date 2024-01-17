@@ -132,7 +132,7 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
     
     override func bind(reactor: MemoryDetailReactor) {
         rx.viewDidLoad
-            .map { Reactor.Action.viewDidLoad }
+            .map { Reactor.Action.refresh }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -143,6 +143,11 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
         
         removeButton.rx.tap
             .map { Reactor.Action.removeDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        editButton.rx.tap
+            .map { Reactor.Action.editDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -164,6 +169,10 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
         reactor.state.map(\.isLoading)
             .bind(to: loadingView.isLoading)
             .disposed(by: disposeBag)
+    }
+    
+    override func refresh() {
+        reactor?.action.onNext(.refresh)
     }
     
 }

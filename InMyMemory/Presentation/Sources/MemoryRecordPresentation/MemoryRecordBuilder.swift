@@ -8,14 +8,19 @@
 import Foundation
 import RxFlow
 import CoreKit
+import Entities
 import MemoryRecordInterface
 
 public final class MemoryRecordBuilder: MemoryRecordBuildable {
     
     public init() {}
     
-    public func build(injector: DependencyInjectorInterface) -> Flow {
+    public func buildRecord(injector: DependencyInjectorInterface) -> Flow {
         return MemoryRecordFlow(injector: injector)
+    }
+    
+    public func buildEdit(injector: DependencyInjectorInterface, memory: Memory) -> Flow {
+        return MemoryEditFlow(injector: injector, memory: memory)
     }
     
 }

@@ -10,6 +10,7 @@ import Entities
 import CoreKit
 import Interfaces
 import BasePresentation
+import MemoryRecordInterface
 import RxSwift
 import RxFlow
 
@@ -43,6 +44,12 @@ public final class MemoryDetailFlow: Flow {
         case .memoryDetailIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.memoryDetailIsComplete)
             
+        case .memoryEditIsRequired(let memory):
+            return navigationToMemoryEdit(memory: memory)
+            
+        case .memoryEditIsComplete:
+            return dismissMemoryEdit()
+            
         default:
             return .none
         }
@@ -53,6 +60,34 @@ public final class MemoryDetailFlow: Flow {
             withNextPresentable: rootViewController,
             withNextStepper: stepper
         ))
+    }
+    
+    private func navigationToMemoryEdit(memory: Memory) -> FlowContributors {
+        let flow = injector.resolve(MemoryRecordBuildable.self).buildEdit(
+            injector: injector, 
+            memory: memory
+        )
+        Flows.use(flow, when: .created) { [weak self] root in
+            root.modalPresentationStyle = .overFullScreen
+            self?.rootViewController.present(root, animated: true)
+        }
+        
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryEditIsRequired(memory))
+        ))
+    }
+    
+    private func dismissMemoryEdit() -> FlowContributors {
+        if let editViewController = rootViewController.presentedViewController {
+            editViewController.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    self?.rootViewController.refresh()
+                }
+            )
+        }
+        return .none
     }
     
 }

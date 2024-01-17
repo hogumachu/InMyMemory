@@ -25,6 +25,12 @@ public struct NavigationViewModel {
 
 public final class NavigationView: UIView {
     
+    public var leftButtonType: Binder<NavigationViewLeftButtonType> {
+        return Binder(self) { this, type in
+            this.leftButton.type = type
+        }
+    }
+    
     fileprivate let leftButton = NavigationViewLeftButton()
     private let rightButtonStackView = UIStackView()
     private let disposeBag = DisposeBag()
