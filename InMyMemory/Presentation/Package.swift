@@ -60,6 +60,10 @@ let package = Package(
             targets: ["MemoryRecordPresentation"]
         ),
         .library(
+            name: "MemoryRecordTestSupport",
+            targets: ["MemoryRecordTestSupport"]
+        ),
+        .library(
             name: "CalendarInterface",
             targets: ["CalendarInterface"]
         ),
@@ -278,6 +282,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "MemoryRecordTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
+                "MemoryRecordInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "CalendarInterface",
             dependencies: [
                 "RxSwift",
@@ -389,6 +404,18 @@ let package = Package(
             dependencies: [
                 "EmotionRecordTestSupport",
                 "EmotionRecordPresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                "Quick",
+                "Nimble"
+            ]
+        ),
+        .testTarget(
+            name: "MemoryRecordPresentationTests",
+            dependencies: [
+                "MemoryRecordTestSupport",
+                "MemoryRecordPresentation",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
