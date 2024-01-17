@@ -60,14 +60,3 @@ final class EmotionRecordPresentationTests: QuickSpec {
     
 }
 
-final class EmotionRecordStepBinder {
-    
-    var step: Binder<Step> {
-        return Binder(self) { this, step in
-            this.steps.append(step)
-        }
-    }
-    
-    var steps: [Step] = []
-    
-}
