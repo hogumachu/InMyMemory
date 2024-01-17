@@ -20,7 +20,7 @@ public final class MemoryRecordUseCase: MemoryRecordUseCaseInterface {
     }
     
     public func createMemory(_ memory: Memory) -> Single<Void> {
-        return memoryRepository.create(memory: memory)
+        return memoryRepository.update(memory: memory)
     }
     
 }
