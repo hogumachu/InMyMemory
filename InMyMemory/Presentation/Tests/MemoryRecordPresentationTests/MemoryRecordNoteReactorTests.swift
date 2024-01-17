@@ -1,12 +1,12 @@
 //
-//  EmotionRecordNotePresentationTests.swift
+//  MemoryRecordNoteReactorTests.swift
 //  
 //
 //  Created by 홍성준 on 1/18/24.
 //
 
-@testable import EmotionRecordPresentation
-import EmotionRecordTestSupport
+@testable import MemoryRecordPresentation
+import MemoryRecordTestSupport
 import Entities
 import Interfaces
 import CoreKit
@@ -19,61 +19,62 @@ import RxSwift
 import RxRelay
 import RxFlow
 
-final class EmotionRecordNotePresentationTests: QuickSpec {
+final class MemoryRecordNoteReactorTests: QuickSpec {
     
     override class func spec() {
-        var sut: EmotionRecordNoteReactor!
-        var useCase: EmotionRecordUseCaseMock!
+        var sut: MemoryRecordNoteReactor!
+        var useCase: MemoryRecordUseCaseMock!
+        var stepBinder: MemoryRecordStepBinder!
         var disposeBag: DisposeBag!
-        var stepBinder: EmotionRecordStepBinder!
-        var emotionType: EmotionType!
+        var images: [Data]!
         
-        describe("EmotionRecordNoteReactor 테스트") {
+        describe("MemoryRecordNoteReactor 테스트") {
             beforeEach {
+                images = [Data(), Data()]
                 useCase = .init()
-                emotionType = .good
-                sut = .init(emotionType: emotionType, useCase: useCase)
-                disposeBag = .init()
+                sut = .init(images: images, useCase: useCase)
                 stepBinder = .init()
+                disposeBag = .init()
                 sut.steps
                     .bind(to: stepBinder.step)
                     .disposed(by: disposeBag)
             }
             
-            context("빈 문자열이 입력되면") {
+            context("빈 텍스트가 입력되면") {
                 beforeEach {
                     sut.action.onNext(.textDidUpdated(""))
                 }
                 
                 it("isEnabled 상태 값이 false가 된다") {
-                    expect { sut.currentState.isEnabled } == false
+                    expect(sut.currentState.isEnabled) == false
                 }
             }
             
-            context("비어있지 않은 문자열이 입력되면") {
+            context("값이 있는 텍스트가 입력되면") {
                 beforeEach {
-                    sut.action.onNext(.textDidUpdated("Test123"))
+                    sut.action.onNext(.textDidUpdated("Test"))
                 }
                 
                 it("isEnabled 상태 값이 true가 된다") {
-                    expect { sut.currentState.isEnabled } == true
+                    expect(sut.currentState.isEnabled) == true
                 }
             }
             
-            context("다음 버튼이 탭되면") {
+            context("다음 버튼을 누르면") {
                 beforeEach {
                     sut.action.onNext(.nextDidTap)
                 }
                 
-                it("감정 기록을 작성한다") {
-                    expect { useCase.createEmotionEmotionCallCount } == 1
-                    expect { useCase.createEmotionEmotionEmotion?.emotionType } == emotionType
+                it("기억을 저장한다") {
+                    let memory = try unwrap(useCase.createMemoryMemoryMemory)
+                    expect(useCase.createMemoryMemoryCallCount) == 1
+                    expect(memory.images) == images
                 }
                 
-                it("완료 화면으로 라우팅한다") {
+                it("memoryRecordCompleteIsRequired 라우팅이 호출된다") {
                     let step = try unwrap(stepBinder.steps.first as? AppStep)
                     expect {
-                        guard case .emotionRecordCompleteIsRequired = step else {
+                        guard case .memoryRecordCompleteIsRequired = step else {
                             return .failed(reason: "올바르지 않은 라우팅")
                         }
                         return .succeeded

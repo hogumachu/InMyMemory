@@ -30,6 +30,13 @@
         "identifier" : "EmotionRecordPresentationTests",
         "name" : "EmotionRecordPresentationTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MemoryRecordPresentationTests",
+        "name" : "MemoryRecordPresentationTests"
+      }
     }
   ],
   "version" : 1
