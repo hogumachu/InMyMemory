@@ -1,5 +1,5 @@
 //
-//  EmotionRecordPresentationTests.swift
+//  EmotionRecordReactorTests.swift
 //
 //
 //  Created by 홍성준 on 1/17/24.
@@ -19,7 +19,7 @@ import RxSwift
 import RxRelay
 import RxFlow
 
-final class EmotionRecordPresentationTests: QuickSpec {
+final class EmotionRecordReactorTests: QuickSpec {
     
     override class func spec() {
         var sut: EmotionRecordReactor!
