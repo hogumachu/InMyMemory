@@ -23,4 +23,8 @@ public final class MemoryDetailUseCase: MemoryDetailUseCaseInterface {
         return memoryRepository.read(memoryID: id)
     }
     
+    public func remove(memoryID: UUID) -> Single<Void> {
+        return memoryRepository.delete(memoryID: memoryID)
+    }
+    
 }

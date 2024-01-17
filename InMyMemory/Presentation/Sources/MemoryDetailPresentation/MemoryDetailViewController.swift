@@ -28,6 +28,10 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
     private let imageListView = MemoryDetailImageListView()
     private let dateLabel = UILabel()
     private let noteLabel = UILabel()
+    private let buttonStackView = UIStackView()
+    private let removeButton = ActionButton()
+    private let editButton = ActionButton()
+    private let loadingView = LoadingView()
     
     override func setupLayout() {
         view.addSubview(navigationView)
@@ -37,10 +41,21 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
             make.height.equalTo(48)
         }
         
+        view.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
+        }
+        
+        buttonStackView.addArrangedSubview(removeButton)
+        buttonStackView.addArrangedSubview(editButton)
+        
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(buttonStackView.snp.top)
         }
         
         scrollView.addSubview(imageListView)
@@ -62,6 +77,11 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
             make.top.equalTo(dateLabel.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view).inset(20)
             make.bottom.equalToSuperview().offset(-50)
+        }
+        
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
@@ -89,6 +109,25 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
             $0.textColor = .orange1
             $0.font = .gmarketSans(type: .light, size: 17)
         }
+        
+        buttonStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 10
+            $0.alignment = .fill
+            $0.distribution = .fillEqually
+        }
+        
+        removeButton.do {
+            $0.style = .border
+            $0.setTitle("제거하기", for: .normal)
+            $0.layer.cornerRadius = 25
+        }
+        
+        editButton.do {
+            $0.style = .normal
+            $0.setTitle("수정하기", for: .normal)
+            $0.layer.cornerRadius = 25
+        }
     }
     
     override func bind(reactor: MemoryDetailReactor) {
@@ -99,6 +138,11 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
         
         navigationView.rx.leftButtonDidTap
             .map { Reactor.Action.closeDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        removeButton.rx.tap
+            .map { Reactor.Action.removeDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -115,6 +159,10 @@ final class MemoryDetailViewController: BaseViewController<MemoryDetailReactor> 
         reactor.state.compactMap(\.viewModel)
             .map(\.note)
             .bind(to: noteLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isLoading)
+            .bind(to: loadingView.isLoading)
             .disposed(by: disposeBag)
     }
     

@@ -19,15 +19,18 @@ final class MemoryDetailReactor: Reactor, Stepper {
     
     enum Action {
         case viewDidLoad
+        case removeDidTap
         case closeDidTap
     }
     
     struct State {
         var viewModel: MemoryDetailViewModel?
+        var isLoading: Bool = false
     }
     
     enum Mutation {
         case setMemory(Memory?)
+        case setLoading(Bool)
     }
     
     var initialState: State = .init()
@@ -56,11 +59,26 @@ final class MemoryDetailReactor: Reactor, Stepper {
             steps.accept(AppStep.memoryDetailIsComplete)
             return .empty()
             
+        case .removeDidTap:
+            return .concat([
+                .just(.setLoading(true)),
+                useCase.remove(memoryID: memoryID)
+                    .map { [weak self] _ in
+                        self?.steps.accept(AppStep.memoryDetailIsComplete)
+                        return Mutation.setLoading(true)
+                    }
+                    .asObservable()
+            ])
+            
         case .viewDidLoad:
-            return useCase
-                .memory(id: memoryID)
-                .map { Mutation.setMemory($0) }
-                .asObservable()
+            return .concat([
+                .just(.setLoading(true)),
+                useCase
+                    .memory(id: memoryID)
+                    .map { Mutation.setMemory($0) }
+                    .asObservable(),
+                .just(.setLoading(false))
+            ])
         }
     }
     
@@ -70,6 +88,8 @@ final class MemoryDetailReactor: Reactor, Stepper {
         case .setMemory(let memory):
             newState.viewModel = makeViewModel(memory)
             
+        case .setLoading(let isLoading):
+            newState.isLoading = isLoading
         }
         
         return newState
