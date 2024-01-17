@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ develop ]
+    
+jobs:
+  test:
+    runs-on: macos-latest
+    env:
+      PROJECT: InMyMemory.xcodeproj
+      SCHEME: InMyMemory
+      DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=latest
+      PATH: ./InMyMemory.xcresult
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build and Test
+      run: |
+        xcodebuild test \
+        -project "$PROJECT" \
+        -scheme "$SCHEME" \
+        -clonedSourcePackagesDirPath SourcePackages \
+        -destination "$DESTINATION" \
+        -enableCodeCoverage YES \
+        -resultBundlePath "$PATH";
+        
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        xcode: true
+        xcode_archive_path: "$PATH"
