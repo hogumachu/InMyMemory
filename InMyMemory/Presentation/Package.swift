@@ -40,6 +40,10 @@ let package = Package(
             targets: ["EmotionRecordPresentation"]
         ),
         .library(
+            name: "EmotionRecordTestSupport",
+            targets: ["EmotionRecordTestSupport"]
+        ),
+        .library(
             name: "MemoryDetailInterface",
             targets: ["MemoryDetailInterface"]
         ),
@@ -201,6 +205,17 @@ let package = Package(
                 "Then",
                 "BasePresentation",
                 "DesignKit",
+                "EmotionRecordInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "EmotionRecordTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
                 "EmotionRecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
