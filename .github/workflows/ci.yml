@@ -6,17 +6,19 @@ on:
     
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: macos-13
     env:
       PROJECT: InMyMemory.xcodeproj
       SCHEME: InMyMemory
       DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=latest
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup Xcode 15.0 Version
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: '15.0'
+        
     - name: Build and Test
       run: |
         xcodebuild test \
@@ -33,4 +35,4 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         xcode: true
-        xcode_archive_path: "$PATH"
+        xcode_archive_path: ./InMyMemory.xcresult
