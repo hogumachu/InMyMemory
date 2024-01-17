@@ -11,7 +11,6 @@ jobs:
       PROJECT: InMyMemory.xcodeproj
       SCHEME: InMyMemory
       DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=latest
-      PATH: ./InMyMemory.xcresult
     steps:
     - uses: actions/checkout@v3
     - name: Build and Test
@@ -22,7 +21,7 @@ jobs:
         -clonedSourcePackagesDirPath SourcePackages \
         -destination "$DESTINATION" \
         -enableCodeCoverage YES \
-        -resultBundlePath "$PATH";
+        -resultBundlePath ./InMyMemory.xcresult;
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
