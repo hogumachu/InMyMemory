@@ -69,4 +69,11 @@ public final class MemoryRepository: MemoryRepositoryInterface {
         return storage.remove(model: model)
     }
     
+    public func delete(memoryID: UUID) -> Single<Void> {
+        let predicate: Predicate<MemoryModel> = #Predicate { model in
+            return model.id == memoryID
+        }
+        return storage.remove(model: MemoryModel.self, predicate: predicate)
+    }
+    
 }

@@ -82,6 +82,10 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         bindState(reactor)
     }
     
+    override func refresh() {
+        reactor?.action.onNext(.refresh)
+    }
+    
     private func bindAction(_ reactor: Reactor) {
         rx.viewDidLoad
             .map { Reactor.Action.refresh }

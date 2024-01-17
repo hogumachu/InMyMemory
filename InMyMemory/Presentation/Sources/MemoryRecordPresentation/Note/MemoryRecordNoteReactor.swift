@@ -33,15 +33,26 @@ final class MemoryRecordNoteReactor: Reactor, Stepper {
         case setLoading(Bool)
     }
     
-    var initialState: State = .init(note: nil, isEnabled: false, isLoading: false)
+    var initialState: State
     let steps = PublishRelay<Step>()
     
     private let images: [Data]
     private let useCase: MemoryRecordUseCaseInterface
+    private let memory: Memory?
     
-    init(images: [Data], useCase: MemoryRecordUseCaseInterface) {
+    init(
+        memory: Memory? = nil,
+        images: [Data],
+        useCase: MemoryRecordUseCaseInterface
+    ) {
+        self.memory = memory
         self.images = images
         self.useCase = useCase
+        self.initialState = .init(
+            note: memory?.note,
+            isEnabled: false,
+            isLoading: false
+        )
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -57,9 +68,10 @@ final class MemoryRecordNoteReactor: Reactor, Stepper {
             return Observable.concat([
                 .just(.setLoading(true)),
                 useCase.createMemory(.init(
+                    id: memory?.id ?? UUID(),
                     images: images,
                     note: currentState.note ?? "",
-                    date: Date()
+                    date: memory?.date ?? Date()
                 )).map { [weak self] _ in
                     self?.steps.accept(AppStep.memoryRecordCompleteIsRequired)
                     return Mutation.setLoading(false)

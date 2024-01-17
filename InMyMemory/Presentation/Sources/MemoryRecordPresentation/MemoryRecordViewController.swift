@@ -55,7 +55,6 @@ final class MemoryRecordViewController: BaseViewController<MemoryRecordReactor> 
         
         navigationView.do {
             $0.backgroundColor = .background
-            $0.setup(model: .init(leftButtonType: .back, rightButtonTypes: []))
         }
         
         titleLabel.do {
@@ -107,6 +106,11 @@ final class MemoryRecordViewController: BaseViewController<MemoryRecordReactor> 
         
         reactor.state.map(\.images)
             .bind(to: photoView.rx.images)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isPresent)
+            .map { $0 ? NavigationViewLeftButtonType.close : .back }
+            .bind(to: navigationView.leftButtonType)
             .disposed(by: disposeBag)
     }
     

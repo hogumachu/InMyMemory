@@ -17,4 +17,5 @@ public protocol MemoryRepositoryInterface: AnyObject {
     func read(keyword: String) -> Single<[Memory]>
     func update(memory: Memory) -> Single<Void>
     func delete(memory: Memory) -> Single<Void>
+    func delete(memoryID: UUID) -> Single<Void>
 }

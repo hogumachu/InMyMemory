@@ -18,16 +18,21 @@ import Then
 final class MemoryDetailReactor: Reactor, Stepper {
     
     enum Action {
-        case viewDidLoad
+        case refresh
+        case removeDidTap
+        case editDidTap
         case closeDidTap
     }
     
     struct State {
+        var memory: Memory?
         var viewModel: MemoryDetailViewModel?
+        var isLoading: Bool = false
     }
     
     enum Mutation {
         case setMemory(Memory?)
+        case setLoading(Bool)
     }
     
     var initialState: State = .init()
@@ -56,11 +61,31 @@ final class MemoryDetailReactor: Reactor, Stepper {
             steps.accept(AppStep.memoryDetailIsComplete)
             return .empty()
             
-        case .viewDidLoad:
-            return useCase
-                .memory(id: memoryID)
-                .map { Mutation.setMemory($0) }
-                .asObservable()
+        case .removeDidTap:
+            return .concat([
+                .just(.setLoading(true)),
+                useCase.remove(memoryID: memoryID)
+                    .map { [weak self] _ in
+                        self?.steps.accept(AppStep.memoryDetailIsComplete)
+                        return Mutation.setLoading(true)
+                    }
+                    .asObservable()
+            ])
+            
+        case .editDidTap:
+            guard let memory = currentState.memory else { return .empty() }
+            steps.accept(AppStep.memoryEditIsRequired(memory))
+            return .empty()
+            
+        case .refresh:
+            return .concat([
+                .just(.setLoading(true)),
+                useCase
+                    .memory(id: memoryID)
+                    .map { Mutation.setMemory($0) }
+                    .asObservable(),
+                .just(.setLoading(false))
+            ])
         }
     }
     
@@ -68,8 +93,11 @@ final class MemoryDetailReactor: Reactor, Stepper {
         var newState = state
         switch mutation {
         case .setMemory(let memory):
+            newState.memory = memory
             newState.viewModel = makeViewModel(memory)
             
+        case .setLoading(let isLoading):
+            newState.isLoading = isLoading
         }
         
         return newState

@@ -102,6 +102,10 @@ final class MemoryRecordNoteViewController: BaseViewController<MemoryRecordNoteR
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        reactor.state.map(\.note)
+            .bind(to: noteView.rx.text)
+            .disposed(by: disposeBag)
+        
         noteView.rx.text
             .map { Reactor.Action.textDidUpdated($0) }
             .bind(to: reactor.action)

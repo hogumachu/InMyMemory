@@ -12,5 +12,6 @@ import RxSwift
 public protocol MemoryDetailUseCaseInterface: AnyObject {
     
     func memory(id: UUID) -> Single<Memory?>
+    func remove(memoryID: UUID) -> Single<Void>
     
 }

@@ -28,6 +28,7 @@ final class MemoryRecordReactor: Reactor, Stepper {
         var images: [Data]
         var title: String
         let imageSize: Int
+        let isPresent: Bool
     }
     
     enum Mutation {
@@ -37,12 +38,19 @@ final class MemoryRecordReactor: Reactor, Stepper {
     
     var initialState: State
     let steps = PublishRelay<Step>()
+    private let memory: Memory?
     
-    init(imageSize: Int = 5) {
+    init(
+        isPresent: Bool = false,
+        memory: Memory? = nil,
+        imageSize: Int = 5
+    ) {
+        self.memory = memory
         self.initialState = .init(
-            images: [],
-            title: "0/\(imageSize)",
-            imageSize: imageSize
+            images: memory?.images ?? [],
+            title: "\(memory?.images.count ?? 0)/\(imageSize)",
+            imageSize: imageSize,
+            isPresent: isPresent
         )
     }
     
