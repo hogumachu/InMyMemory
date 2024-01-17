@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "4B56BDA8-DC58-4495-AA4F-0EB91D23B7C7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:InMyMemory.xcodeproj",
+      "identifier" : "F1F2E3222B3F07E900D607F1",
+      "name" : "InMyMemory"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:InMyMemory\/Presentation",
+        "identifier" : "CalendarPresentationTests",
+        "name" : "CalendarPresentationTests"
+      }
+    }
+  ],
+  "version" : 1
+}
