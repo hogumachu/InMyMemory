@@ -64,6 +64,10 @@ let package = Package(
             targets: ["CalendarPresentation"]
         ),
         .library(
+            name: "CalendarTestSupport",
+            targets: ["CalendarTestSupport"]
+        ),
+        .library(
             name: "SearchInterface",
             targets: ["SearchInterface"]
         ),
@@ -89,6 +93,8 @@ let package = Package(
         .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.6.0")),
         .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.2")),
+        .package(url: "https://github.com/Quick/Quick.git", from: "7.0.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "12.0.0"),
     ],
     targets: [
         .target(
@@ -285,6 +291,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "CalendarTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
+                "CalendarInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "SearchInterface",
             dependencies: [
                 "RxSwift",
@@ -340,5 +357,17 @@ let package = Package(
                 .product(name: "Interfaces", package: "Domain"),
             ]
         ),
+        .testTarget(
+            name: "CalendarPresentationTests",
+            dependencies: [
+                "CalendarTestSupport",
+                "CalendarPresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                "Quick",
+                "Nimble"
+            ]
+        )
     ]
 )
