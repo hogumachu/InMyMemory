@@ -9,7 +9,6 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
     "targetForVariableExpansion" : {
       "containerPath" : "container:InMyMemory.xcodeproj",
       "identifier" : "F1F2E3222B3F07E900D607F1",
@@ -33,7 +32,14 @@
     },
     {
       "target" : {
-        "containerPath" : "container:",
+        "containerPath" : "container:InMyMemory\/Presentation",
+        "identifier" : "MemoryDetailPresentationTests",
+        "name" : "MemoryDetailPresentationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InMyMemory\/Presentation",
         "identifier" : "MemoryRecordPresentationTests",
         "name" : "MemoryRecordPresentationTests"
       }
