@@ -1,5 +1,5 @@
 //
-//  MemoryRecordStepBinder.swift
+//  StepBinder.swift
 //
 //
 //  Created by 홍성준 on 1/18/24.
@@ -10,14 +10,16 @@ import RxFlow
 import RxSwift
 import RxCocoa
 
-final class MemoryRecordStepBinder {
+public final class StepBinder {
     
-    var step: Binder<Step> {
+    public init() {}
+    
+    public var step: Binder<Step> {
         return Binder(self) { this, step in
             this.steps.append(step)
         }
     }
     
-    var steps: [Step] = []
+    public var steps: [Step] = []
     
 }

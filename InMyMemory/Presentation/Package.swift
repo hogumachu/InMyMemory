@@ -64,6 +64,10 @@ let package = Package(
             targets: ["MemoryRecordTestSupport"]
         ),
         .library(
+            name: "PresentationTestSupport",
+            targets: ["PresentationTestSupport"]
+        ),
+        .library(
             name: "CalendarInterface",
             targets: ["CalendarInterface"]
         ),
@@ -293,6 +297,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "PresentationTestSupport",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "CalendarInterface",
             dependencies: [
                 "RxSwift",
@@ -390,6 +405,7 @@ let package = Package(
         .testTarget(
             name: "CalendarPresentationTests",
             dependencies: [
+                "PresentationTestSupport",
                 "CalendarTestSupport",
                 "CalendarPresentation",
                 .product(name: "CoreKit", package: "Shared"),
@@ -402,6 +418,7 @@ let package = Package(
         .testTarget(
             name: "EmotionRecordPresentationTests",
             dependencies: [
+                "PresentationTestSupport",
                 "EmotionRecordTestSupport",
                 "EmotionRecordPresentation",
                 .product(name: "CoreKit", package: "Shared"),
@@ -414,6 +431,7 @@ let package = Package(
         .testTarget(
             name: "MemoryRecordPresentationTests",
             dependencies: [
+                "PresentationTestSupport",
                 "MemoryRecordTestSupport",
                 "MemoryRecordPresentation",
                 .product(name: "CoreKit", package: "Shared"),

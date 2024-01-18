@@ -6,6 +6,7 @@
 //
 
 @testable import EmotionRecordPresentation
+import PresentationTestSupport
 import EmotionRecordTestSupport
 import Entities
 import Interfaces
@@ -25,7 +26,7 @@ final class EmotionRecordNoteReactorTests: QuickSpec {
         var sut: EmotionRecordNoteReactor!
         var useCase: EmotionRecordUseCaseMock!
         var disposeBag: DisposeBag!
-        var stepBinder: EmotionRecordStepBinder!
+        var stepBinder: StepBinder!
         var emotionType: EmotionType!
         
         describe("EmotionRecordNoteReactor 테스트") {

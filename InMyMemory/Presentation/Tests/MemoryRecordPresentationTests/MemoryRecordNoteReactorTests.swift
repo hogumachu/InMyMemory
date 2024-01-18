@@ -6,6 +6,7 @@
 //
 
 @testable import MemoryRecordPresentation
+import PresentationTestSupport
 import MemoryRecordTestSupport
 import Entities
 import Interfaces
@@ -24,7 +25,7 @@ final class MemoryRecordNoteReactorTests: QuickSpec {
     override class func spec() {
         var sut: MemoryRecordNoteReactor!
         var useCase: MemoryRecordUseCaseMock!
-        var stepBinder: MemoryRecordStepBinder!
+        var stepBinder: StepBinder!
         var disposeBag: DisposeBag!
         var images: [Data]!
         
