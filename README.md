@@ -1,5 +1,7 @@
 # InMyMemory
 
+[![codecov](https://codecov.io/gh/hogumachu/InMyMemory/graph/badge.svg?token=EHJTO5HDZK)](https://codecov.io/gh/hogumachu/InMyMemory)
+
 InMyMemory는 자신의 기억을 저장할 수 있는 앱입니다.
 
 ### 앱 소개
