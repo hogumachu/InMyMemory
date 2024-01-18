@@ -52,6 +52,10 @@ let package = Package(
             targets: ["MemoryDetailPresentation"]
         ),
         .library(
+            name: "MemoryDetailTestSupport",
+            targets: ["MemoryDetailTestSupport"]
+        ),
+        .library(
             name: "MemoryRecordInterface",
             targets: ["MemoryRecordInterface"]
         ),
@@ -259,6 +263,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "MemoryDetailTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
+                "MemoryDetailInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "MemoryRecordInterface",
             dependencies: [
                 "RxSwift",
@@ -434,6 +449,19 @@ let package = Package(
                 "PresentationTestSupport",
                 "MemoryRecordTestSupport",
                 "MemoryRecordPresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                "Quick",
+                "Nimble"
+            ]
+        ),
+        .testTarget(
+            name: "MemoryDetailPresentationTests",
+            dependencies: [
+                "PresentationTestSupport",
+                "MemoryDetailTestSupport",
+                "MemoryDetailPresentation",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
