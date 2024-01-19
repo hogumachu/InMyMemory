@@ -345,6 +345,7 @@ let package = Package(
                 "DesignKit",
                 "CalendarInterface",
                 "SearchInterface",
+                "RecordInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),

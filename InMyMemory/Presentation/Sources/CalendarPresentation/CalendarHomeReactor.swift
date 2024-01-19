@@ -79,6 +79,9 @@ final class CalendarHomeReactor: Reactor, Stepper {
             return .empty()
             
         case .addDidTap:
+            guard let day = currentState.selectDay else { return .empty() }
+            let selectDate = currentState.date.replace(day: day)
+            steps.accept(AppStep.recordIsRequired(selectDate))
             return .empty()
             
         case .monthLeftDidTap:
