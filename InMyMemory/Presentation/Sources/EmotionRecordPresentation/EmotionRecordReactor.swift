@@ -32,9 +32,11 @@ final class EmotionRecordReactor: Reactor, Stepper {
     let steps = PublishRelay<Step>()
     
     private let useCase: EmotionRecordUseCaseInterface
+    private let date: Date
     
-    init(useCase: EmotionRecordUseCaseInterface) {
+    init(useCase: EmotionRecordUseCaseInterface, date: Date) {
         self.useCase = useCase
+        self.date = date
     }
     
     func mutate(action: EmotionRecordAction) -> Observable<EmotionRecordAction> {
@@ -44,7 +46,7 @@ final class EmotionRecordReactor: Reactor, Stepper {
             return .empty()
             
         case .buttonDidTap(let emotionType):
-            steps.accept(AppStep.emotionRecordNoteIsRequired(emotionType))
+            steps.accept(AppStep.emotionRecordNoteIsRequired(emotionType, date))
             return .empty()
         }
     }

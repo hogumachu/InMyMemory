@@ -20,7 +20,7 @@ public enum AppStep: Step {
     // emotionRecord
     case emotionRecordIsRequired(Date)
     case emotionRecordIsComplete
-    case emotionRecordNoteIsRequired(EmotionType)
+    case emotionRecordNoteIsRequired(EmotionType, Date)
     case emotionRecordNoteIsComplete
     case emotionRecordCompleteIsRequired
     case emotionRecordCompleteIsComplete

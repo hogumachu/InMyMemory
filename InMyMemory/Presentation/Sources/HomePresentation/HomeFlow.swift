@@ -85,7 +85,7 @@ public final class HomeFlow: Flow {
     }
     
     private func navigationToEmotionRecord(date: Date) -> FlowContributors {
-        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector)
+        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
         }

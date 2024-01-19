@@ -20,9 +20,12 @@ public final class EmotionRecordFlow: Flow {
     private let stepper: Stepper
     private let injector: DependencyInjectorInterface
     
-    public init(injector: DependencyInjectorInterface) {
+    public init(injector: DependencyInjectorInterface, date: Date) {
         self.injector = injector
-        let reactor = EmotionRecordReactor(useCase: injector.resolve(EmotionRecordUseCaseInterface.self))
+        let reactor = EmotionRecordReactor(
+            useCase: injector.resolve(EmotionRecordUseCaseInterface.self),
+            date: date
+        )
         self.stepper = reactor
         self.rootViewController = EmotionRecordViewController()
         self.rootViewController.reactor = reactor
@@ -38,8 +41,8 @@ public final class EmotionRecordFlow: Flow {
         case .emotionRecordIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.emotionRecordIsComplete)
             
-        case .emotionRecordNoteIsRequired(let type):
-            return navigationToEmotionRecordNote(emotionType: type)
+        case .emotionRecordNoteIsRequired(let type, let date):
+            return navigationToEmotionRecordNote(emotionType: type, date: date)
             
         case .emotionRecordNoteIsComplete:
             return popEmotionRecordNote()
@@ -62,10 +65,11 @@ public final class EmotionRecordFlow: Flow {
         ))
     }
     
-    private func navigationToEmotionRecordNote(emotionType: EmotionType) -> FlowContributors {
+    private func navigationToEmotionRecordNote(emotionType: EmotionType, date: Date) -> FlowContributors {
         let viewController = EmotionRecordNoteViewController()
         let reactor = EmotionRecordNoteReactor(
             emotionType: emotionType,
+            date: date,
             useCase: injector.resolve(EmotionRecordUseCaseInterface.self)
         )
         viewController.reactor = reactor

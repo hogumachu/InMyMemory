@@ -14,8 +14,8 @@ public final class EmotionRecordBuilder: EmotionRecordBuildable {
     
     public init() {}
     
-    public func build(injector: DependencyInjectorInterface) -> Flow {
-        return EmotionRecordFlow(injector: injector)
+    public func build(injector: DependencyInjectorInterface, date: Date) -> Flow {
+        return EmotionRecordFlow(injector: injector, date: date)
     }
     
 }
