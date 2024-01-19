@@ -46,7 +46,7 @@
     },
     {
       "target" : {
-        "containerPath" : "container:",
+        "containerPath" : "container:InMyMemory\/Presentation",
         "identifier" : "HomePresentationTests",
         "name" : "HomePresentationTests"
       }
