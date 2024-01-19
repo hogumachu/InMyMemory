@@ -8,13 +8,15 @@
 import UIKit
 import BasePresentation
 import DesignKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
 final class MemoryHomeRecordView: BaseView {
     
     private let titleView = HomeTitleView()
-    private let recordButton = ActionButton()
+    fileprivate let recordButton = ActionButton()
     
     override func setupLayout() {
         addSubview(titleView)
@@ -42,6 +44,15 @@ final class MemoryHomeRecordView: BaseView {
             $0.setTitle("기록하기", for: .normal)
             $0.layer.cornerRadius = 20
         }
+    }
+    
+}
+
+extension Reactive where Base: MemoryHomeRecordView {
+    
+    var recordTap: ControlEvent<Void> {
+        let source = base.recordButton.rx.tap
+        return ControlEvent(events: source)
     }
     
 }

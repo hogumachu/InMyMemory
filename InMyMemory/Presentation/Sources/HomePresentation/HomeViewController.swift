@@ -122,6 +122,11 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             .map { Reactor.Action.memoryDidTap($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        memoryViewController.rx.recordTap
+            .map { Reactor.Action.memoryRecordDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: Reactor) {

@@ -159,6 +159,7 @@ let package = Package(
                 "BasePresentation",
                 "RecordInterface",
                 "EmotionRecordInterface",
+                "MemoryRecordInterface",
                 "CalendarInterface",
                 "MemoryDetailInterface",
                 "DesignKit",

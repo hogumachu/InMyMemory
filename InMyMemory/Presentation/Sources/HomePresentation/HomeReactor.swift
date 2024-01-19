@@ -19,6 +19,7 @@ enum HomeAction {
     case refreshEmotion
     case refreshMemory
     case recordDidTap
+    case memoryRecordDidTap
     case calendarDidTap
     case memoryDidTap(UUID)
 }
@@ -74,6 +75,10 @@ final class HomeReactor: Reactor, Stepper {
             ])
         case .recordDidTap:
             steps.accept(AppStep.recordIsRequired(Date()))
+            return .empty()
+            
+        case .memoryRecordDidTap:
+            steps.accept(AppStep.memoryRecordIsRequired(Date()))
             return .empty()
             
         case .calendarDidTap:

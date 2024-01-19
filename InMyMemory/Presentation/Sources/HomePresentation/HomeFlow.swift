@@ -13,6 +13,7 @@ import Interfaces
 import BasePresentation
 import RecordInterface
 import EmotionRecordInterface
+import MemoryRecordInterface
 import CalendarInterface
 import MemoryDetailInterface
 
@@ -53,6 +54,15 @@ public final class HomeFlow: Flow {
             
         case .calendarIsComplete:
             return popCalendarHome()
+            
+        case .memoryRecordIsRequired(let date):
+            return navigationToMemoryRecord(date: date)
+            
+        case .memoryRecordIsComplete:
+            return dismissMemoryRecord(isRefreshEnabled: false)
+            
+        case .memoryRecordCompleteIsComplete:
+            return dismissMemoryRecord(isRefreshEnabled: true)
             
         case .memoryDetailIsRequired(let memoryID):
             return navigationToMemoryDetail(memoryID: memoryID)
@@ -118,6 +128,20 @@ public final class HomeFlow: Flow {
         ))
     }
     
+    private func navigationToMemoryRecord(date: Date) -> FlowContributors {
+        let flow = injector.resolve(MemoryRecordBuildable.self).buildRecord(injector: injector, date: date)
+        Flows.use(flow, when: .created) { [weak self] root in
+            let navigationController = UINavigationController(rootViewController: root)
+            navigationController.modalPresentationStyle = .overFullScreen
+            navigationController.setNavigationBarHidden(true, animated: false)
+            self?.rootViewController.present(navigationController, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryRecordIsRequired(date))
+        ))
+    }
+    
     private func dismissRecord() -> FlowContributors {
         if let recordViewController = self.rootViewController.presentedViewController {
             recordViewController.dismiss(
@@ -139,6 +163,20 @@ public final class HomeFlow: Flow {
     private func popMemoryDetail() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
         rootViewController.refreshMemory()
+        return .none
+    }
+    
+    private func dismissMemoryRecord(isRefreshEnabled: Bool) -> FlowContributors {
+        if let recordViewController = self.rootViewController.presentedViewController {
+            recordViewController.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    if isRefreshEnabled {
+                        self?.rootViewController.refresh()
+                    }
+                }
+            )
+        }
         return .none
     }
     

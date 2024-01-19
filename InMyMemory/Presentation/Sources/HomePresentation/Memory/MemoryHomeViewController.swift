@@ -34,7 +34,7 @@ final class MemoryHomeViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     
-    private let recordView = MemoryHomeRecordView()
+    fileprivate let recordView = MemoryHomeRecordView()
     private let pastWeekView = MemoryHomePastWeekView()
     private let todoView = MemoryHomeTodoView()
     
@@ -98,6 +98,10 @@ extension Reactive where Base: MemoryHomeViewController {
     var detailID: ControlEvent<UUID> {
         let source = base.detailTapRelay
         return ControlEvent(events: source)
+    }
+    
+    var recordTap: ControlEvent<Void> {
+        return base.recordView.rx.recordTap
     }
     
 }
