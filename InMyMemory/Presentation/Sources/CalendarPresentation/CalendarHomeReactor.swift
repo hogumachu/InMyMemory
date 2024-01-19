@@ -67,7 +67,7 @@ final class CalendarHomeReactor: Reactor, Stepper {
                 useCase.fetchDaysInMonth(year: date.year, month: date.month)
                     .map { Mutation.setDays($0) }
                     .asObservable(),
-                .just(.setSelectDay(date.day))
+                .just(.setSelectDay(currentState.selectDay ?? date.day))
             ])
             
         case .closeDidTap:
