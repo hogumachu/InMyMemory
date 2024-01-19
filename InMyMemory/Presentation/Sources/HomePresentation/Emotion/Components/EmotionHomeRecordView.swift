@@ -8,13 +8,15 @@
 import UIKit
 import BasePresentation
 import DesignKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
 final class EmotionHomeRecordView: BaseView {
     
     private let titleView = HomeTitleView()
-    private let recordButton = ActionButton()
+    fileprivate let recordButton = ActionButton()
     
     override func setupLayout() {
         addSubview(titleView)
@@ -44,4 +46,12 @@ final class EmotionHomeRecordView: BaseView {
         }
     }
     
+}
+
+extension Reactive where Base: EmotionHomeRecordView {
+    
+    var recordTap: ControlEvent<Void> {
+        let source = base.recordButton.rx.tap
+        return ControlEvent(events: source)
+    }
 }

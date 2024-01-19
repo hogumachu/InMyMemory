@@ -49,6 +49,12 @@ public final class HomeFlow: Flow {
         case .emotionRecordIsRequired(let date):
             return navigationToEmotionRecord(date: date)
             
+        case .emotionRecordIsComplete:
+            return dismissEmotionRecord(isRefreshEnabled: false)
+            
+        case .emotionRecordCompleteIsComplete:
+            return dismissEmotionRecord(isRefreshEnabled: true)
+            
         case .calendarIsRequired:
             return navigationToCalendarHome()
             
@@ -97,7 +103,10 @@ public final class HomeFlow: Flow {
     private func navigationToEmotionRecord(date: Date) -> FlowContributors {
         let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
-            self?.rootViewController.navigationController?.pushViewController(root, animated: true)
+            let navigationController = UINavigationController(rootViewController: root)
+            navigationController.modalPresentationStyle = .overFullScreen
+            navigationController.setNavigationBarHidden(true, animated: false)
+            self?.rootViewController.present(navigationController, animated: true)
         }
         
         return .one(flowContributor: .contribute(
@@ -167,6 +176,20 @@ public final class HomeFlow: Flow {
     }
     
     private func dismissMemoryRecord(isRefreshEnabled: Bool) -> FlowContributors {
+        if let recordViewController = self.rootViewController.presentedViewController {
+            recordViewController.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    if isRefreshEnabled {
+                        self?.rootViewController.refresh()
+                    }
+                }
+            )
+        }
+        return .none
+    }
+    
+    private func dismissEmotionRecord(isRefreshEnabled: Bool) -> FlowContributors {
         if let recordViewController = self.rootViewController.presentedViewController {
             recordViewController.dismiss(
                 animated: true,
