@@ -7,9 +7,11 @@
 
 @testable import CalendarPresentation
 import CalendarTestSupport
+import PresentationTestSupport
 import Entities
 import Interfaces
 import CoreKit
+import BasePresentation
 import XCTest
 import Quick
 import Nimble
@@ -21,13 +23,20 @@ final class CalendarReactorTests: QuickSpec {
     override class func spec() {
         var sut: CalendarHomeReactor!
         var useCase: CalendarUseCaseMock!
+        var stepBinder: StepBinder!
+        var disposeBag: DisposeBag!
         var date: Date!
         
         describe("CalendarReactor 테스트") {
             beforeEach {
                 useCase = .init()
                 date = Date()
+                stepBinder = .init()
+                disposeBag = .init()
                 sut = .init(useCase: useCase, date: date)
+                sut.steps
+                    .bind(to: stepBinder.step)
+                    .disposed(by: disposeBag)
             }
             
             context("초기화 되면") {
@@ -131,6 +140,27 @@ final class CalendarReactorTests: QuickSpec {
                 it("UseCase를 통해 Day 정보를 가져온다.") {
                     expect { useCase.fetchDaysInMonthYearMonthYear } == nextDate.year
                     expect { useCase.fetchDaysInMonthYearMonthMonth } == nextDate.month
+                }
+            }
+            
+            context("추가 버튼을 누르면") {
+                beforeEach {
+                    stepBinder.steps = []
+                    sut.action.onNext(.addDidTap)
+                }
+                
+                it("recordIsRequired 로 라우팅 된다") {
+                    let step = try unwrap(stepBinder.steps.last as? AppStep)
+                    expect {
+                        guard case .recordIsRequired(let targetDate) = step else {
+                            return .failed(reason: "올바르지 않은 라우팅")
+                        }
+                        return (
+                            targetDate.year == date.year &&
+                            targetDate.month == date.month &&
+                            targetDate.day == date.day
+                        ) ? .succeeded : .failed(reason: "올바르지 않은 Date")
+                    }.to(succeed())
                 }
             }
         }
