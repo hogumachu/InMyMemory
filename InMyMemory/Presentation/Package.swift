@@ -24,6 +24,10 @@ let package = Package(
             targets: ["HomePresentation"]
         ),
         .library(
+            name: "HomeTestSupport",
+            targets: ["HomeTestSupport"]
+        ),
+        .library(
             name: "RecordInterface",
             targets: ["RecordInterface"]
         ),
@@ -163,6 +167,17 @@ let package = Package(
                 "CalendarInterface",
                 "MemoryDetailInterface",
                 "DesignKit",
+                "HomeInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "HomeTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
                 "HomeInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
