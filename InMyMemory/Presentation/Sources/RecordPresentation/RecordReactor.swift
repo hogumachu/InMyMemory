@@ -31,6 +31,12 @@ final class RecordReactor: Reactor, Stepper {
     var initialState: RecordState = .init()
     let steps = PublishRelay<Step>()
     
+    private let date: Date
+    
+    init(date: Date) {
+        self.date = date
+    }
+    
     func mutate(action: RecordAction) -> Observable<RecordAction> {
         switch action {
         case .closeDidTap:
@@ -38,15 +44,15 @@ final class RecordReactor: Reactor, Stepper {
             return .empty()
             
         case .memoryRecordDidTap:
-            steps.accept(AppStep.memoryRecordIsRequired)
+            steps.accept(AppStep.memoryRecordIsRequired(date))
             return .empty()
             
         case .emotionRecordDidTap:
-            steps.accept(AppStep.emotionRecordIsRequired)
+            steps.accept(AppStep.emotionRecordIsRequired(date))
             return .empty()
             
         case .todoRecordDidTap:
-            steps.accept(AppStep.todoRecordIsRequired)
+            steps.accept(AppStep.todoRecordIsRequired(date))
             return .empty()
         }
     }

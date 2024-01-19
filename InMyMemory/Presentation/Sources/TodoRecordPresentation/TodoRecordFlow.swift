@@ -19,9 +19,9 @@ public final class TodoRecordFlow: Flow {
     private let stepper: Stepper
     private let injector: DependencyInjectorInterface
     
-    public init(injector: DependencyInjectorInterface) {
+    public init(injector: DependencyInjectorInterface, date: Date) {
         self.injector = injector
-        let reactor = TodoRecordReactor()
+        let reactor = TodoRecordReactor(date: date)
         self.stepper = reactor
         self.rootViewController = TodoRecordViewController()
         self.rootViewController.reactor = reactor
@@ -36,8 +36,8 @@ public final class TodoRecordFlow: Flow {
         case .todoRecordIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.todoRecordIsComplete)
             
-        case .todoTargetDateIsRequired(let todos):
-            return navigationToTodoTargetDate(todos: todos)
+        case .todoTargetDateIsRequired(let todos, let date):
+            return navigationToTodoTargetDate(todos: todos, date: date)
             
         case .todoTargetDateIsComplete:
             return popTodoTargetDate()
@@ -60,10 +60,11 @@ public final class TodoRecordFlow: Flow {
         ))
     }
     
-    private func navigationToTodoTargetDate(todos: [String]) -> FlowContributors {
+    private func navigationToTodoTargetDate(todos: [String], date: Date) -> FlowContributors {
         let reactor = TodoTargetDateReactor(
             useCase: injector.resolve(TodoUseCaseInterface.self),
-            todos: todos
+            todos: todos,
+            date: date
         )
         let viewController = TodoTargetDateViewController()
         viewController.reactor = reactor

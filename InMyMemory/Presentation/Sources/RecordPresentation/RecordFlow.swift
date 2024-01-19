@@ -23,9 +23,9 @@ public final class RecordFlow: Flow {
     
     private let injector: DependencyInjectorInterface
     
-    public init(injector: DependencyInjectorInterface) {
+    public init(injector: DependencyInjectorInterface, date: Date) {
         self.injector = injector
-        let reactor = RecordReactor()
+        let reactor = RecordReactor(date: date)
         let viewController = RecordViewController()
         viewController.reactor = reactor
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -44,14 +44,14 @@ public final class RecordFlow: Flow {
         case .recordIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
             
-        case .emotionRecordIsRequired:
-            return navigationToEmotionRecord()
+        case .emotionRecordIsRequired(let date):
+            return navigationToEmotionRecord(date: date)
             
         case .emotionRecordIsComplete:
             return popEmotionRecord()
             
-        case .memoryRecordIsRequired:
-            return navigationToMemoryRecord()
+        case .memoryRecordIsRequired(let date):
+            return navigationToMemoryRecord(date: date)
             
         case .memoryRecordIsComplete:
             return popMemoryRecord()
@@ -59,8 +59,8 @@ public final class RecordFlow: Flow {
         case .memoryRecordCompleteIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.recordIsComplete)
             
-        case .todoRecordIsRequired:
-            return navigationToTodoRecord()
+        case .todoRecordIsRequired(let date):
+            return navigationToTodoRecord(date: date)
             
         case .todoRecordIsComplete:
             return popTodoRecord()
@@ -80,39 +80,39 @@ public final class RecordFlow: Flow {
         ))
     }
     
-    private func navigationToEmotionRecord() -> FlowContributors {
-        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector)
+    private func navigationToEmotionRecord(date: Date) -> FlowContributors {
+        let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }
         
         return .one(flowContributor: .contribute(
             withNextPresentable: flow,
-            withNextStepper: OneStepper(withSingleStep: AppStep.emotionRecordIsRequired)
+            withNextStepper: OneStepper(withSingleStep: AppStep.emotionRecordIsRequired(date))
         ))
     }
     
-    private func navigationToMemoryRecord() -> FlowContributors {
-        let flow = injector.resolve(MemoryRecordBuildable.self).buildRecord(injector: injector)
+    private func navigationToMemoryRecord(date: Date) -> FlowContributors {
+        let flow = injector.resolve(MemoryRecordBuildable.self).buildRecord(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }
         
         return .one(flowContributor: .contribute(
             withNextPresentable: flow,
-            withNextStepper: OneStepper(withSingleStep: AppStep.memoryRecordIsRequired)
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryRecordIsRequired(date))
         ))
     }
     
-    private func navigationToTodoRecord() -> FlowContributors {
-        let flow = injector.resolve(TodoRecordBuildable.self).build(injector: injector)
+    private func navigationToTodoRecord(date: Date) -> FlowContributors {
+        let flow = injector.resolve(TodoRecordBuildable.self).build(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }
         
         return .one(flowContributor: .contribute(
             withNextPresentable: flow,
-            withNextStepper: OneStepper(withSingleStep: AppStep.todoRecordIsRequired)
+            withNextStepper: OneStepper(withSingleStep: AppStep.todoRecordIsRequired(date))
         ))
     }
     

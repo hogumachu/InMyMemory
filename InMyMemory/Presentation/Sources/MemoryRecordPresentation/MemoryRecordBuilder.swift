@@ -15,8 +15,8 @@ public final class MemoryRecordBuilder: MemoryRecordBuildable {
     
     public init() {}
     
-    public func buildRecord(injector: DependencyInjectorInterface) -> Flow {
-        return MemoryRecordFlow(injector: injector)
+    public func buildRecord(injector: DependencyInjectorInterface, date: Date) -> Flow {
+        return MemoryRecordFlow(injector: injector, date: date)
     }
     
     public func buildEdit(injector: DependencyInjectorInterface, memory: Memory) -> Flow {

@@ -27,11 +27,13 @@ final class EmotionRecordReactorTests: QuickSpec {
         var useCase: EmotionRecordUseCaseMock!
         var disposeBag: DisposeBag!
         var stepBinder: StepBinder!
+        var date: Date!
         
         describe("EmotionRecordReactor 테스트") {
             beforeEach {
                 useCase = .init()
-                sut = .init(useCase: useCase)
+                date = .init()
+                sut = .init(useCase: useCase, date: date)
                 disposeBag = .init()
                 stepBinder = .init()
                 sut.steps
@@ -49,10 +51,10 @@ final class EmotionRecordReactorTests: QuickSpec {
                 it("해당 감정을 가지고 라우팅 한다.") {
                     let step = try unwrap(stepBinder.steps.first as? AppStep)
                     expect {
-                        guard case .emotionRecordNoteIsRequired(let type) = step else {
+                        guard case .emotionRecordNoteIsRequired(let type, let date) = step else {
                             return .failed(reason: "올바르지 않은 라우팅")
                         }
-                        return type == emotionType ? .succeeded : .failed(reason: "올바르지 않은 감정 타입")
+                        return (type == emotionType && date == date) ? .succeeded : .failed(reason: "올바르지 않은 감정 타입")
                     }.to(succeed())
                 }
             }

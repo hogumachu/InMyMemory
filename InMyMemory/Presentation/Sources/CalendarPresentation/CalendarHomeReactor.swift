@@ -18,7 +18,7 @@ import ReactorKit
 final class CalendarHomeReactor: Reactor, Stepper {
     
     enum Action {
-        case viewDidLoad
+        case refresh
         case closeDidTap
         case searchDidTap
         case addDidTap
@@ -61,13 +61,13 @@ final class CalendarHomeReactor: Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .viewDidLoad:
+        case .refresh:
             let date = currentState.date
             return Observable.concat([
                 useCase.fetchDaysInMonth(year: date.year, month: date.month)
                     .map { Mutation.setDays($0) }
                     .asObservable(),
-                .just(.setSelectDay(date.day))
+                .just(.setSelectDay(currentState.selectDay ?? date.day))
             ])
             
         case .closeDidTap:
@@ -79,6 +79,9 @@ final class CalendarHomeReactor: Reactor, Stepper {
             return .empty()
             
         case .addDidTap:
+            guard let day = currentState.selectDay else { return .empty() }
+            let selectDate = currentState.date.replace(day: day)
+            steps.accept(AppStep.recordIsRequired(selectDate))
             return .empty()
             
         case .monthLeftDidTap:

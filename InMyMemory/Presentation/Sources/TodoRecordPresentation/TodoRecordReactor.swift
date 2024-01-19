@@ -36,6 +36,12 @@ final class TodoRecordReactor: Reactor, Stepper {
     var initialState: State = .init()
     let steps = PublishRelay<Step>()
     
+    private let date: Date
+    
+    init(date: Date) {
+        self.date = date
+    }
+    
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .closeDidTap:
@@ -43,7 +49,7 @@ final class TodoRecordReactor: Reactor, Stepper {
             return .empty()
             
         case .nextDidTap:
-            steps.accept(AppStep.todoTargetDateIsRequired(currentState.todos))
+            steps.accept(AppStep.todoTargetDateIsRequired(currentState.todos, date))
             return .empty()
             
         case .todoUpdated(let todo):

@@ -14,8 +14,8 @@ public final class RecordBuilder: RecordBuildable {
     
     public init() {}
     
-    public func build(injector: DependencyInjectorInterface) -> Flow {
-        return RecordFlow(injector: injector)
+    public func build(injector: DependencyInjectorInterface, date: Date) -> Flow {
+        return RecordFlow(injector: injector, date: date)
     }
     
 }

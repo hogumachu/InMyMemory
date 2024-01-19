@@ -41,16 +41,18 @@ final class EmotionRecordNoteReactor: Reactor, Stepper {
     var initialState: EmotionRecordNoteState
     let steps = PublishRelay<Step>()
     private var note: String?
+    private let date: Date
     private let useCase: EmotionRecordUseCaseInterface
     
-    init(emotionType: EmotionType, useCase: EmotionRecordUseCaseInterface) {
+    init(emotionType: EmotionType, date: Date, useCase: EmotionRecordUseCaseInterface) {
+        self.date = date
+        self.useCase = useCase
         self.initialState = .init(
             isEnabled: false,
             isLoading: false,
             note: nil,
             emotionType: emotionType
         )
-        self.useCase = useCase
     }
     
     func mutate(action: EmotionRecordNoteAction) -> Observable<EmotionRecordNoteMutation> {
@@ -68,7 +70,7 @@ final class EmotionRecordNoteReactor: Reactor, Stepper {
                 useCase.createEmotion(.init(
                     note: currentState.note ?? "",
                     emotionType: currentState.emotionType,
-                    date: Date()
+                    date: date
                 )).map { [weak self] _ in
                     self?.steps.accept(AppStep.emotionRecordCompleteIsRequired)
                     return Mutation.setLoading(false)

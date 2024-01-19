@@ -28,12 +28,14 @@ final class EmotionRecordNoteReactorTests: QuickSpec {
         var disposeBag: DisposeBag!
         var stepBinder: StepBinder!
         var emotionType: EmotionType!
+        var date: Date!
         
         describe("EmotionRecordNoteReactor 테스트") {
             beforeEach {
                 useCase = .init()
+                date = .init()
                 emotionType = .good
-                sut = .init(emotionType: emotionType, useCase: useCase)
+                sut = .init(emotionType: emotionType, date: date, useCase: useCase)
                 disposeBag = .init()
                 stepBinder = .init()
                 sut.steps

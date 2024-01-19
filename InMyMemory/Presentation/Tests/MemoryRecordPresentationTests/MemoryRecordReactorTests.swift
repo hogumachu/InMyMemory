@@ -25,11 +25,13 @@ final class MemoryRecordReactorTests: QuickSpec {
     override class func spec() {
         var sut: MemoryRecordReactor!
         var stepBinder: StepBinder!
+        var date: Date!
         var disposeBag: DisposeBag!
         
         describe("MemoryRecordReactor 테스트") {
             beforeEach {
-                sut = .init()
+                date = .init()
+                sut = .init(date: date)
                 stepBinder = .init()
                 disposeBag = .init()
                 sut.steps
@@ -81,10 +83,10 @@ final class MemoryRecordReactorTests: QuickSpec {
                     it("이미지를 가지고 memoryRecordNoteIsRequired로 라우팅한다") {
                         let step = try unwrap(stepBinder.steps.last as? AppStep)
                         expect {
-                            guard case .memoryRecordNoteIsRequired(let images) = step else {
+                            guard case .memoryRecordNoteIsRequired(let images, let date) = step else {
                                 return .failed(reason: "올바르지 않은 라우팅")
                             }
-                            return images == [imageData] ? .succeeded : .failed(reason: "올바르지 않은 이미지")
+                            return (images == [imageData] && date == date) ? .succeeded : .failed(reason: "올바르지 않은 이미지")
                         }.to(succeed())
                     }
                 }

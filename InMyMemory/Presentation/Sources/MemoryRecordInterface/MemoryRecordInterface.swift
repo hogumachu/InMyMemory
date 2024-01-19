@@ -11,6 +11,6 @@ import CoreKit
 import Entities
 
 public protocol MemoryRecordBuildable: AnyObject {
-    func buildRecord(injector: DependencyInjectorInterface) -> Flow
+    func buildRecord(injector: DependencyInjectorInterface, date: Date) -> Flow
     func buildEdit(injector: DependencyInjectorInterface, memory: Memory) -> Flow
 }

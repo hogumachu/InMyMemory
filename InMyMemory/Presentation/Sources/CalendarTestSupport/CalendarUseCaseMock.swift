@@ -21,7 +21,6 @@ public final class CalendarUseCaseMock: CalendarUseCaseInterface {
         fetchDaysInMonthYearMonthCallCount += 1
         fetchDaysInMonthYearMonthYear = year
         fetchDaysInMonthYearMonthMonth = month
-        print("#: \(fetchDaysInMonthYearMonthDays.flatMap(\.items).count)")
         return .just(fetchDaysInMonthYearMonthDays)
     }
     

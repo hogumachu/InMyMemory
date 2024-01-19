@@ -11,6 +11,7 @@ import CoreKit
 import Interfaces
 import BasePresentation
 import SearchInterface
+import RecordInterface
 import RxSwift
 import RxFlow
 
@@ -44,6 +45,12 @@ public final class CalendarHomeFlow: Flow {
         case .searchIsComplete:
             return popSearch()
             
+        case .recordIsRequired(let date):
+            return navigationToRecord(date: date)
+            
+        case .recordIsComplete:
+            return dismissRecord()
+            
         default:
             return .none
         }
@@ -69,6 +76,30 @@ public final class CalendarHomeFlow: Flow {
     
     private func popSearch() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
+        return .none
+    }
+    
+    private func navigationToRecord(date: Date) -> FlowContributors {
+        let flow = injector.resolve(RecordBuildable.self).build(injector: injector, date: date)
+        Flows.use(flow, when: .created) { [weak self] root in
+            root.modalPresentationStyle = .overFullScreen
+            self?.rootViewController.present(root, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.recordIsRequired(date))
+        ))
+    }
+    
+    private func dismissRecord() -> FlowContributors {
+        if let recordViewController = self.rootViewController.presentedViewController {
+            recordViewController.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    self?.rootViewController.refresh()
+                }
+            )
+        }
         return .none
     }
     
