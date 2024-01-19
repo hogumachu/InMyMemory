@@ -73,7 +73,7 @@ final class HomeReactor: Reactor, Stepper {
                 .just(.setLoading(false))
             ])
         case .recordDidTap:
-            steps.accept(AppStep.recordIsRequired)
+            steps.accept(AppStep.recordIsRequired(Date()))
             return .empty()
             
         case .calendarDidTap:

@@ -33,7 +33,7 @@ final class RecordReactor: Reactor, Stepper {
     
     private let date: Date
     
-    init(date: Date = .init()) {
+    init(date: Date) {
         self.date = date
     }
     

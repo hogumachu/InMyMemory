@@ -39,8 +39,8 @@ public final class HomeFlow: Flow {
         case .homeIsRequired:
             return navigationToHome()
             
-        case .recordIsRequired:
-            return navigationToRecord()
+        case .recordIsRequired(let date):
+            return navigationToRecord(date: date)
             
         case .recordIsComplete:
             return dismissRecord()
@@ -72,15 +72,15 @@ public final class HomeFlow: Flow {
         ))
     }
     
-    private func navigationToRecord() -> FlowContributors {
-        let flow = injector.resolve(RecordBuildable.self).build(injector: injector)
+    private func navigationToRecord(date: Date) -> FlowContributors {
+        let flow = injector.resolve(RecordBuildable.self).build(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
             root.modalPresentationStyle = .overFullScreen
             self?.rootViewController.present(root, animated: true)
         }
         return .one(flowContributor: .contribute(
             withNextPresentable: flow,
-            withNextStepper: OneStepper(withSingleStep: AppStep.recordIsRequired)
+            withNextStepper: OneStepper(withSingleStep: AppStep.recordIsRequired(date))
         ))
     }
     

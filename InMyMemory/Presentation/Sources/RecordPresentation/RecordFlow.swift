@@ -23,9 +23,9 @@ public final class RecordFlow: Flow {
     
     private let injector: DependencyInjectorInterface
     
-    public init(injector: DependencyInjectorInterface) {
+    public init(injector: DependencyInjectorInterface, date: Date) {
         self.injector = injector
-        let reactor = RecordReactor()
+        let reactor = RecordReactor(date: date)
         let viewController = RecordViewController()
         viewController.reactor = reactor
         let navigationController = UINavigationController(rootViewController: viewController)
