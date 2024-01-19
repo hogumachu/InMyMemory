@@ -8,6 +8,9 @@
 import UIKit
 import BasePresentation
 import DesignKit
+import RxSwift
+import RxCocoa
+import RxRelay
 import SnapKit
 import Then
 
@@ -19,6 +22,7 @@ final class MemoryHomeTodoView: BaseView {
     
     private let titleView = HomeTitleView()
     private let stackView = UIStackView()
+    fileprivate let tapRelay = PublishRelay<UUID>()
     
     func setup(model: MemoryHomeTodoViewModel) {
         stackView.subviews.forEach { $0.removeFromSuperview() }
@@ -31,6 +35,10 @@ final class MemoryHomeTodoView: BaseView {
             view.snp.makeConstraints { make in
                 make.height.equalTo(40)
             }
+            view.rx.recognizedTap
+                .map { item.id }
+                .bind(to: tapRelay)
+                .disposed(by: disposeBag)
         }
     }
     
@@ -60,6 +68,15 @@ final class MemoryHomeTodoView: BaseView {
             $0.distribution = .equalSpacing
             $0.spacing = 10
         }
+    }
+    
+}
+
+extension Reactive where Base: MemoryHomeTodoView {
+    
+    var todoID: ControlEvent<UUID> {
+        let source = base.tapRelay
+        return ControlEvent(events: source)
     }
     
 }

@@ -15,26 +15,28 @@ import RxRelay
 import SnapKit
 import Then
 
-struct MemoryHomeViewModel {
-    let pastWeekViewModel: MemoryHomePastWeekViewModel
-    let todoViewModel: MemoryHomeTodoViewModel
-}
-
 final class MemoryHomeViewController: UIViewController {
     
-    var viewModelBinder: Binder<MemoryHomeViewModel> {
+    var pastWeekViewModelBinder: Binder<MemoryHomePastWeekViewModel> {
         return Binder(self) { this, viewModel in
-            this.pastWeekView.setup(model: viewModel.pastWeekViewModel)
-            this.todoView.setup(model: viewModel.todoViewModel)
+            this.pastWeekView.setup(model: viewModel)
         }
     }
+    
+    var todoViewModelBinder: Binder<MemoryHomeTodoViewModel> {
+        return Binder(self) { this, viewModel in
+            this.todoView.setup(model: viewModel)
+        }
+    }
+    
     fileprivate let detailTapRelay = PublishRelay<UUID>()
+    fileprivate let todoTapRelay = PublishRelay<UUID>()
     private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     
-    private let recordView = MemoryHomeRecordView()
+    fileprivate let recordView = MemoryHomeRecordView()
     private let pastWeekView = MemoryHomePastWeekView()
     private let todoView = MemoryHomeTodoView()
     
@@ -89,6 +91,10 @@ final class MemoryHomeViewController: UIViewController {
         pastWeekView.rx.detailID
             .bind(to: detailTapRelay)
             .disposed(by: disposeBag)
+        
+        todoView.rx.todoID
+            .bind(to: todoTapRelay)
+            .disposed(by: disposeBag)
     }
     
 }
@@ -98,6 +104,15 @@ extension Reactive where Base: MemoryHomeViewController {
     var detailID: ControlEvent<UUID> {
         let source = base.detailTapRelay
         return ControlEvent(events: source)
+    }
+    
+    var todoID: ControlEvent<UUID> {
+        let source = base.todoTapRelay
+        return ControlEvent(events: source)
+    }
+    
+    var recordTap: ControlEvent<Void> {
+        return base.recordView.rx.recordTap
     }
     
 }

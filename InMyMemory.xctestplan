@@ -43,6 +43,13 @@
         "identifier" : "MemoryRecordPresentationTests",
         "name" : "MemoryRecordPresentationTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "HomePresentationTests",
+        "name" : "HomePresentationTests"
+      }
     }
   ],
   "version" : 1

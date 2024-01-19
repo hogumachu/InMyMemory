@@ -34,12 +34,17 @@ public final class HomeUseCase: HomeUseCaseInterface {
     
     public func fetchCurrentWeekTodos() -> Single<[Todo]> {
         let sevenDaysAgo = Date().daysAgo(value: 7).clipDate()
-        return todoRepository.read(greaterThan: sevenDaysAgo)
+        let sevenDaysAfter = Date().daysAgo(value: -7).clipDate()
+        return todoRepository.read(greaterOrEqualThan: sevenDaysAgo, lessThan: sevenDaysAfter)
     }
     
     public func fetchLastSevenDaysEmotions() -> Single<[Emotion]> {
         let sevenDaysAgo = Date().daysAgo(value: 7).clipDate()
         return emotionRepository.read(greaterThan: sevenDaysAgo)
+    }
+    
+    public func updateTodo(todo: Todo) -> Single<Void> {
+        return todoRepository.update(todo: todo)
     }
     
 }

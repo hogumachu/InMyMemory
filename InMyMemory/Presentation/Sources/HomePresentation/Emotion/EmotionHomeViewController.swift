@@ -31,7 +31,7 @@ final class EmotionHomeViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     
-    private let recordView = EmotionHomeRecordView()
+    fileprivate let recordView = EmotionHomeRecordView()
     private let pastWeekView = EmotionHomePastWeekView()
     fileprivate let graphView = EmotionHomeGraphView()
     
@@ -84,6 +84,10 @@ final class EmotionHomeViewController: UIViewController {
 }
 
 extension Reactive where Base: EmotionHomeViewController {
+    
+    var recordTap: ControlEvent<Void> {
+        return base.recordView.rx.recordTap
+    }
     
     var informationTap: ControlEvent<Void> {
         let source = base.graphView.rx.informationTap

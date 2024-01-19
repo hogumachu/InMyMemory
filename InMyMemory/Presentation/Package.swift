@@ -24,6 +24,10 @@ let package = Package(
             targets: ["HomePresentation"]
         ),
         .library(
+            name: "HomeTestSupport",
+            targets: ["HomeTestSupport"]
+        ),
+        .library(
             name: "RecordInterface",
             targets: ["RecordInterface"]
         ),
@@ -159,9 +163,21 @@ let package = Package(
                 "BasePresentation",
                 "RecordInterface",
                 "EmotionRecordInterface",
+                "MemoryRecordInterface",
                 "CalendarInterface",
                 "MemoryDetailInterface",
                 "DesignKit",
+                "HomeInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "HomeTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
                 "HomeInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
@@ -416,6 +432,19 @@ let package = Package(
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .testTarget(
+            name: "HomePresentationTests",
+            dependencies: [
+                "PresentationTestSupport",
+                "HomeTestSupport",
+                "HomePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                "Quick",
+                "Nimble"
             ]
         ),
         .testTarget(

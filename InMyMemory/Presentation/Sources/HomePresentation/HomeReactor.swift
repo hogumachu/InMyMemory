@@ -19,19 +19,24 @@ enum HomeAction {
     case refreshEmotion
     case refreshMemory
     case recordDidTap
+    case memoryRecordDidTap
+    case emotionRecordDidTap
     case calendarDidTap
     case memoryDidTap(UUID)
+    case todoDidTap(UUID)
 }
 
 struct HomeState {
     var isLoading: Bool
     var emotionViewModel: EmotionHomeViewModel?
-    var memoryViewModel: MemoryHomeViewModel?
+    var memoryPastWeekViewModel: MemoryHomePastWeekViewModel?
+    var todoViewModel: MemoryHomeTodoViewModel?
 }
 
 enum HomeMutation {
     case setLoading(Bool)
-    case setMemories([Memory], [Todo])
+    case setMemories([Memory])
+    case setTodos([Todo])
     case setEmotions([Emotion])
 }
 
@@ -76,6 +81,14 @@ final class HomeReactor: Reactor, Stepper {
             steps.accept(AppStep.recordIsRequired(Date()))
             return .empty()
             
+        case .memoryRecordDidTap:
+            steps.accept(AppStep.memoryRecordIsRequired(Date()))
+            return .empty()
+            
+        case .emotionRecordDidTap:
+            steps.accept(AppStep.emotionRecordIsRequired(Date()))
+            return .empty()
+            
         case .calendarDidTap:
             steps.accept(AppStep.calendarIsRequired)
             return .empty()
@@ -83,6 +96,14 @@ final class HomeReactor: Reactor, Stepper {
         case .memoryDidTap(let memoryID):
             steps.accept(AppStep.memoryDetailIsRequired(memoryID))
             return .empty()
+            
+        case .todoDidTap(let todoID):
+            return .concat([
+                updateTodo(todoID: todoID),
+                .just(.setLoading(true)),
+                refreshTodos(),
+                .just(.setLoading(false))
+            ])
         }
     }
     
@@ -92,12 +113,11 @@ final class HomeReactor: Reactor, Stepper {
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
             
-        case .setMemories(let memories, let todos):
-            let memoryViewModel = MemoryHomeViewModel(
-                pastWeekViewModel: makeWeekViewModel(memories),
-                todoViewModel: makeTodoViewModel(todos)
-            )
-            newState.memoryViewModel = memoryViewModel
+        case .setMemories(let memories):
+            newState.memoryPastWeekViewModel = makeWeekViewModel(memories)
+            
+        case .setTodos(let todos):
+            newState.todoViewModel = makeTodoViewModel(todos)
             
         case .setEmotions(let emotions):
             let emotionViewModel = EmotionHomeViewModel(
@@ -113,20 +133,26 @@ final class HomeReactor: Reactor, Stepper {
     private func refresh() -> Observable<HomeMutation> {
         return Observable.merge([
             refreshMemories(),
+            refreshTodos(),
             refreshEmotions()
         ])
     }
     
     private func refreshMemories() -> Observable<HomeMutation> {
-        return Observable.zip(
-            useCase.fetchLastSevenDaysMemories().asObservable(),
-            useCase.fetchCurrentWeekTodos().asObservable()
-        ).map { Mutation.setMemories($0.0, $0.1) }
+        return useCase.fetchLastSevenDaysMemories()
+            .map(Mutation.setMemories)
+            .asObservable()
     }
     
     private func refreshEmotions() -> Observable<HomeMutation> {
         return useCase.fetchLastSevenDaysEmotions()
-            .map { Mutation.setEmotions($0) }
+            .map(Mutation.setEmotions)
+            .asObservable()
+    }
+    
+    private func refreshTodos() -> Observable<HomeMutation> {
+        return useCase.fetchCurrentWeekTodos()
+            .map(Mutation.setTodos)
             .asObservable()
     }
     
@@ -169,9 +195,26 @@ final class HomeReactor: Reactor, Stepper {
     
     private func makeTodoViewModel(_ todos: [Todo]) -> MemoryHomeTodoViewModel {
         let items: [MemoryHomeTodoContentViewModel] = todos.prefix(10).map {
-            .init(todo: $0.note, isChecked: $0.isCompleted)
+            .init(id: $0.id, todo: $0.note, isChecked: $0.isCompleted, date: $0.date)
         }
         return .init(items: items)
+    }
+    
+    private func updateTodo(todoID: UUID) -> Observable<Mutation> {
+        guard let todoModel = currentState.todoViewModel?.items.first(where: { $0.id == todoID }) else {
+            return .empty()
+        }
+        return .concat([
+            .just(.setLoading(true)),
+            useCase.updateTodo(todo: .init(
+                id: todoID,
+                note: todoModel.todo,
+                isCompleted: !todoModel.isChecked,
+                date: todoModel.date
+            ))
+            .map { .setLoading(false) }
+            .asObservable()
+        ])
     }
     
 }
