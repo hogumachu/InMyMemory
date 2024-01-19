@@ -50,6 +50,13 @@
         "identifier" : "HomePresentationTests",
         "name" : "HomePresentationTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InMyMemory\/Domain",
+        "identifier" : "UseCaseTests",
+        "name" : "UseCaseTests"
+      }
     }
   ],
   "version" : 1
