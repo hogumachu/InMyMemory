@@ -14,8 +14,8 @@ public final class TodoRecordBuilder: TodoRecordBuildable {
     
     public init() {}
     
-    public func build(injector: DependencyInjectorInterface) -> Flow {
-        return TodoRecordFlow(injector: injector)
+    public func build(injector: DependencyInjectorInterface, date: Date) -> Flow {
+        return TodoRecordFlow(injector: injector, date: date)
     }
     
 }

@@ -48,10 +48,13 @@ final class TodoTargetDateReactor: Reactor, Stepper {
     private let useCase: TodoUseCaseInterface
     private let todos: [String]
     
-    init(useCase: TodoUseCaseInterface, todos: [String]) {
+    init(
+        useCase: TodoUseCaseInterface,
+        todos: [String],
+        date: Date
+    ) {
         self.useCase = useCase
         self.todos = todos
-        let date = Date()
         self.initialState = .init(
             date: date,
             monthTitle: "\(date.year)년 \(date.month)월",

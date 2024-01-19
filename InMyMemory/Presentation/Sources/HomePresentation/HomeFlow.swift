@@ -45,8 +45,8 @@ public final class HomeFlow: Flow {
         case .recordIsComplete:
             return dismissRecord()
             
-        case .emotionRecordIsRequired:
-            return navigationToEmotionRecord()
+        case .emotionRecordIsRequired(let date):
+            return navigationToEmotionRecord(date: date)
             
         case .calendarIsRequired:
             return navigationToCalendarHome()
@@ -84,7 +84,7 @@ public final class HomeFlow: Flow {
         ))
     }
     
-    private func navigationToEmotionRecord() -> FlowContributors {
+    private func navigationToEmotionRecord(date: Date) -> FlowContributors {
         let flow = injector.resolve(EmotionRecordBuildable.self).build(injector: injector)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.navigationController?.pushViewController(root, animated: true)
@@ -92,7 +92,7 @@ public final class HomeFlow: Flow {
         
         return .one(flowContributor: .contribute(
             withNextPresentable: flow,
-            withNextStepper: OneStepper(withSingleStep: AppStep.emotionRecordIsRequired)
+            withNextStepper: OneStepper(withSingleStep: AppStep.emotionRecordIsRequired(date))
         ))
     }
     

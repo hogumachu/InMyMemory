@@ -10,5 +10,5 @@ import RxFlow
 import CoreKit
 
 public protocol TodoRecordBuildable: AnyObject {
-    func build(injector: DependencyInjectorInterface) -> Flow
+    func build(injector: DependencyInjectorInterface, date: Date) -> Flow
 }

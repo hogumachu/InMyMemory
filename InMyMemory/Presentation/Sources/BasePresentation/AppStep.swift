@@ -18,7 +18,7 @@ public enum AppStep: Step {
     case recordIsComplete
     
     // emotionRecord
-    case emotionRecordIsRequired
+    case emotionRecordIsRequired(Date)
     case emotionRecordIsComplete
     case emotionRecordNoteIsRequired(EmotionType)
     case emotionRecordNoteIsComplete
@@ -26,7 +26,7 @@ public enum AppStep: Step {
     case emotionRecordCompleteIsComplete
     
     // memoryRecord
-    case memoryRecordIsRequired
+    case memoryRecordIsRequired(Date)
     case memoryRecordIsComplete
     case memoryRecordPhotoIsRequired
     case memoryRecordPhotoIsComplete
@@ -36,9 +36,9 @@ public enum AppStep: Step {
     case memoryRecordCompleteIsComplete
     
     // todoRecord
-    case todoRecordIsRequired
+    case todoRecordIsRequired(Date)
     case todoRecordIsComplete
-    case todoTargetDateIsRequired([String])
+    case todoTargetDateIsRequired([String], Date)
     case todoTargetDateIsComplete
     case todoRecordCompleteIsRequired
     case todoRecordCompleteIsComplete
