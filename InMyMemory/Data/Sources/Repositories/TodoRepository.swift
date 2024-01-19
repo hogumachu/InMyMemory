@@ -36,7 +36,7 @@ public final class TodoRepository: TodoRepositoryInterface {
         let predicate: Predicate<TodoModel> = #Predicate { model in
             model.date > date
         }
-        let sortBy: SortDescriptor<TodoModel> = .init(\.updatedAt, order: .forward)
+        let sortBy: SortDescriptor<TodoModel> = .init(\.date, order: .forward)
         return storage.read(predicate: predicate, sortBy: [sortBy])
             .map { $0.map { $0.toEntity() }}
     }
@@ -45,7 +45,7 @@ public final class TodoRepository: TodoRepositoryInterface {
         let predicate: Predicate<TodoModel> = #Predicate { model in
             return model.date >= greaterOrEqualDate && model.date < lessDate
         }
-        let sortBy: SortDescriptor<TodoModel> = .init(\.updatedAt, order: .forward)
+        let sortBy: SortDescriptor<TodoModel> = .init(\.date, order: .forward)
         return storage.read(predicate: predicate, sortBy: [sortBy])
             .map { $0.map { $0.toEntity() }}
     }
@@ -54,14 +54,18 @@ public final class TodoRepository: TodoRepositoryInterface {
         let predicate: Predicate<TodoModel> = #Predicate { model in
             return model.note.contains(keyword)
         }
-        let sortBy: SortDescriptor<TodoModel> = .init(\.updatedAt, order: .forward)
+        let sortBy: SortDescriptor<TodoModel> = .init(\.date, order: .forward)
         return storage.read(predicate: predicate, sortBy: [sortBy])
             .map { $0.map { $0.toEntity() }}
     }
     
     public func update(todo: Todo) -> Single<Void> {
+        let todoID = todo.id
+        let predicate: Predicate<TodoModel> = #Predicate { model in
+            return model.id == todoID
+        }
         let model = TodoModel(todo: todo)
-        return storage.insert(model: model)
+        return storage.upsert(model: model, predicate: predicate)
     }
     
     public func delete(todo: Todo) -> Single<Void> {

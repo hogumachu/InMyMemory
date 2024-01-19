@@ -42,4 +42,8 @@ public final class HomeUseCase: HomeUseCaseInterface {
         return emotionRepository.read(greaterThan: sevenDaysAgo)
     }
     
+    public func updateTodo(todo: Todo) -> Single<Void> {
+        return todoRepository.update(todo: todo)
+    }
+    
 }

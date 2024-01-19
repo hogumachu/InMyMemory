@@ -124,7 +124,12 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             .disposed(by: disposeBag)
         
         memoryViewController.rx.detailID
-            .map { Reactor.Action.memoryDidTap($0) }
+            .map(Reactor.Action.memoryDidTap)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        memoryViewController.rx.todoID
+            .map(Reactor.Action.todoDidTap)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -139,8 +144,12 @@ final class HomeViewController: BaseViewController<HomeReactor> {
             .bind(to: emotionViewController.viewModelBinder)
             .disposed(by: disposeBag)
         
-        reactor.state.compactMap(\.memoryViewModel)
-            .bind(to: memoryViewController.viewModelBinder)
+        reactor.state.compactMap(\.memoryPastWeekViewModel)
+            .bind(to: memoryViewController.pastWeekViewModelBinder)
+            .disposed(by: disposeBag)
+        
+        reactor.state.compactMap(\.todoViewModel)
+            .bind(to: memoryViewController.todoViewModelBinder)
             .disposed(by: disposeBag)
     }
     

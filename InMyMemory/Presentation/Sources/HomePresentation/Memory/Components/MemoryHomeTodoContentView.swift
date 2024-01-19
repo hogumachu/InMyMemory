@@ -12,8 +12,10 @@ import SnapKit
 import Then
 
 struct MemoryHomeTodoContentViewModel {
+    let id: UUID
     let todo: String
     let isChecked: Bool
+    let date: Date
 }
 
 final class MemoryHomeTodoContentView: BaseView {
