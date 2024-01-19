@@ -27,13 +27,15 @@ final class MemoryRecordNoteReactorTests: QuickSpec {
         var useCase: MemoryRecordUseCaseMock!
         var stepBinder: StepBinder!
         var disposeBag: DisposeBag!
+        var date: Date!
         var images: [Data]!
         
         describe("MemoryRecordNoteReactor 테스트") {
             beforeEach {
                 images = [Data(), Data()]
                 useCase = .init()
-                sut = .init(images: images, useCase: useCase)
+                date = .init()
+                sut = .init(images: images, date: date, useCase: useCase)
                 stepBinder = .init()
                 disposeBag = .init()
                 sut.steps

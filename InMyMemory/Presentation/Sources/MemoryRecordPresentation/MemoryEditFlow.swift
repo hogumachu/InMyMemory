@@ -29,7 +29,7 @@ public final class MemoryEditFlow: Flow {
     ) {
         self.injector = injector
         self.memory = memory
-        let reactor = MemoryRecordReactor(isPresent: true, memory: memory)
+        let reactor = MemoryRecordReactor(isPresent: true, memory: memory, date: memory.date)
         let viewController = MemoryRecordViewController()
         viewController.reactor = reactor
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -56,8 +56,8 @@ public final class MemoryEditFlow: Flow {
         case .memoryRecordPhotoIsComplete:
             return dismissPhotoProvider()
             
-        case .memoryRecordNoteIsRequired(let images):
-            return navigationToMemoryRecordNote(images: images)
+        case .memoryRecordNoteIsRequired(let images, let date):
+            return navigationToMemoryRecordNote(images: images, date: date)
             
         case .memoryRecordNoteIsComplete:
             return popMemoryRecordNote()
@@ -97,10 +97,11 @@ public final class MemoryEditFlow: Flow {
         return .none
     }
     
-    private func navigationToMemoryRecordNote(images: [Data]) -> FlowContributors {
+    private func navigationToMemoryRecordNote(images: [Data], date: Date) -> FlowContributors {
         let reactor = MemoryRecordNoteReactor(
             memory: memory,
             images: images,
+            date: date,
             useCase: injector.resolve(MemoryRecordUseCaseInterface.self)
         )
         let viewController = MemoryRecordNoteViewController()

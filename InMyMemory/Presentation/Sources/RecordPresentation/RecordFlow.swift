@@ -93,7 +93,7 @@ public final class RecordFlow: Flow {
     }
     
     private func navigationToMemoryRecord(date: Date) -> FlowContributors {
-        let flow = injector.resolve(MemoryRecordBuildable.self).buildRecord(injector: injector)
+        let flow = injector.resolve(MemoryRecordBuildable.self).buildRecord(injector: injector, date: date)
         Flows.use(flow, when: .created) { [weak self] root in
             self?.rootViewController.pushViewController(root, animated: true)
         }

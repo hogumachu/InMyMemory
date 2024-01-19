@@ -30,7 +30,7 @@ public enum AppStep: Step {
     case memoryRecordIsComplete
     case memoryRecordPhotoIsRequired
     case memoryRecordPhotoIsComplete
-    case memoryRecordNoteIsRequired([Data])
+    case memoryRecordNoteIsRequired([Data], Date)
     case memoryRecordNoteIsComplete
     case memoryRecordCompleteIsRequired
     case memoryRecordCompleteIsComplete

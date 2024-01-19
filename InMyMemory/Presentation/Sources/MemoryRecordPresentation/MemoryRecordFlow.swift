@@ -21,9 +21,9 @@ public final class MemoryRecordFlow: Flow {
     private let injector: DependencyInjectorInterface
     private let photoProvider: PhotoProviderInterface
     
-    public init(injector: DependencyInjectorInterface) {
+    public init(injector: DependencyInjectorInterface, date: Date) {
         self.injector = injector
-        let reactor = MemoryRecordReactor()
+        let reactor = MemoryRecordReactor(date: date)
         self.stepper = reactor
         self.rootViewController = MemoryRecordViewController()
         self.rootViewController.reactor = reactor
@@ -46,8 +46,8 @@ public final class MemoryRecordFlow: Flow {
         case .memoryRecordPhotoIsComplete:
             return dismissPhotoProvider()
             
-        case .memoryRecordNoteIsRequired(let images):
-            return navigationToMemoryRecordNote(images: images)
+        case .memoryRecordNoteIsRequired(let images, let date):
+            return navigationToMemoryRecordNote(images: images, date: date)
             
         case .memoryRecordNoteIsComplete:
             return popMemoryRecordNote()
@@ -81,9 +81,10 @@ public final class MemoryRecordFlow: Flow {
         return .none
     }
     
-    private func navigationToMemoryRecordNote(images: [Data]) -> FlowContributors {
+    private func navigationToMemoryRecordNote(images: [Data], date: Date) -> FlowContributors {
         let reactor = MemoryRecordNoteReactor(
             images: images,
+            date: date,
             useCase: injector.resolve(MemoryRecordUseCaseInterface.self)
         )
         let viewController = MemoryRecordNoteViewController()

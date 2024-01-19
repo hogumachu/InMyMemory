@@ -39,13 +39,16 @@ final class MemoryRecordReactor: Reactor, Stepper {
     var initialState: State
     let steps = PublishRelay<Step>()
     private let memory: Memory?
+    private let date: Date
     
     init(
         isPresent: Bool = false,
         memory: Memory? = nil,
-        imageSize: Int = 5
+        imageSize: Int = 5,
+        date: Date
     ) {
         self.memory = memory
+        self.date = date
         self.initialState = .init(
             images: memory?.images ?? [],
             title: "\(memory?.images.count ?? 0)/\(imageSize)",
@@ -76,7 +79,7 @@ final class MemoryRecordReactor: Reactor, Stepper {
             return .just(.removeImage(index: index))
             
         case .nextDidTap:
-            steps.accept(AppStep.memoryRecordNoteIsRequired(currentState.images))
+            steps.accept(AppStep.memoryRecordNoteIsRequired(currentState.images, date))
             return .empty()
         }
     }

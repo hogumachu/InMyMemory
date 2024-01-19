@@ -39,14 +39,17 @@ final class MemoryRecordNoteReactor: Reactor, Stepper {
     private let images: [Data]
     private let useCase: MemoryRecordUseCaseInterface
     private let memory: Memory?
+    private let date: Date
     
     init(
         memory: Memory? = nil,
         images: [Data],
+        date: Date,
         useCase: MemoryRecordUseCaseInterface
     ) {
         self.memory = memory
         self.images = images
+        self.date = date
         self.useCase = useCase
         self.initialState = .init(
             note: memory?.note,
@@ -71,7 +74,7 @@ final class MemoryRecordNoteReactor: Reactor, Stepper {
                     id: memory?.id ?? UUID(),
                     images: images,
                     note: currentState.note ?? "",
-                    date: memory?.date ?? Date()
+                    date: date
                 )).map { [weak self] _ in
                     self?.steps.accept(AppStep.memoryRecordCompleteIsRequired)
                     return Mutation.setLoading(false)
