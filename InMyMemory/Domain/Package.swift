@@ -24,6 +24,8 @@ let package = Package(
         .package(path: "../Shared"),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.6.0")),
         .package(url: "https://github.com/Swinject/Swinject.git", .upToNextMajor(from: "2.8.4")),
+        .package(url: "https://github.com/Quick/Quick.git", from: "7.3.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "13.1.2"),
     ],
     targets: [
         .target(
@@ -45,6 +47,18 @@ let package = Package(
                 "Entities",
                 "Interfaces",
                 .product(name: "CoreKit", package: "Shared"),
+            ]
+        ),
+        .testTarget(
+            name: "UseCaseTests",
+            dependencies: [
+                "UseCases",
+                "Entities",
+                "Interfaces",
+                "RxSwift",
+                .product(name: "CoreKit", package: "Shared"),
+                "Quick",
+                "Nimble"
             ]
         ),
     ]
