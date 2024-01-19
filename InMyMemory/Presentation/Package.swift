@@ -435,6 +435,19 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "HomePresentationTests",
+            dependencies: [
+                "PresentationTestSupport",
+                "HomeTestSupport",
+                "HomePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                "Quick",
+                "Nimble"
+            ]
+        ),
+        .testTarget(
             name: "CalendarPresentationTests",
             dependencies: [
                 "PresentationTestSupport",
