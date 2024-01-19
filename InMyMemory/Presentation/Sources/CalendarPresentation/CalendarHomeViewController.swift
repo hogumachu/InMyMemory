@@ -74,9 +74,13 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
         bindState(reactor)
     }
     
+    override func refresh() {
+        reactor?.action.onNext(.refresh)
+    }
+    
     private func bindAction(_ reactor: Reactor) {
         rx.viewDidLoad
-            .map { Reactor.Action.viewDidLoad }
+            .map { Reactor.Action.refresh }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

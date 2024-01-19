@@ -18,7 +18,7 @@ import ReactorKit
 final class CalendarHomeReactor: Reactor, Stepper {
     
     enum Action {
-        case viewDidLoad
+        case refresh
         case closeDidTap
         case searchDidTap
         case addDidTap
@@ -61,7 +61,7 @@ final class CalendarHomeReactor: Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .viewDidLoad:
+        case .refresh:
             let date = currentState.date
             return Observable.concat([
                 useCase.fetchDaysInMonth(year: date.year, month: date.month)

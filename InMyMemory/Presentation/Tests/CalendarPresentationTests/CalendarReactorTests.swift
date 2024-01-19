@@ -40,7 +40,7 @@ final class CalendarReactorTests: QuickSpec {
                 }
             }
             
-            context("ViewDidLoad가 되면") {
+            context("refresh가 되면") {
                 let selectDay = 10
                 let emotionNote = "emotionNote"
                 let memoryNote = "memoryNote"
@@ -62,7 +62,7 @@ final class CalendarReactorTests: QuickSpec {
                         ])
                     ]
                     useCase.fetchDaysInMonthYearMonthDays = mockDays
-                    sut.action.onNext(.viewDidLoad)
+                    sut.action.onNext(.refresh)
                 }
                 
                 it("UseCase를 통해 Day 정보를 가져온다.") {
