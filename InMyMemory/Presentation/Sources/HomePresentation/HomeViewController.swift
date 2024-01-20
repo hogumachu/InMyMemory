@@ -21,6 +21,7 @@ final class HomeViewController: BaseViewController<HomeReactor> {
     private let tabMenuView = HomeTabMenuView()
     private let sideView = HomeSideView()
     private let emotionGraphInformationView = EmotionHomeGraphInformationView()
+    private let loadingView = LoadingView()
     
     private let memoryViewController = MemoryHomeViewController()
     private let emotionViewController = EmotionHomeViewController()
@@ -66,6 +67,11 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         
         view.addSubview(emotionGraphInformationView)
         emotionGraphInformationView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
@@ -150,6 +156,10 @@ final class HomeViewController: BaseViewController<HomeReactor> {
         
         reactor.state.compactMap(\.todoViewModel)
             .bind(to: memoryViewController.todoViewModelBinder)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isLoading)
+            .bind(to: loadingView.isLoading)
             .disposed(by: disposeBag)
     }
     
