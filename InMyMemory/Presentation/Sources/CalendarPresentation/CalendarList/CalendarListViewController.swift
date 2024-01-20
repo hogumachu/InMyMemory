@@ -18,6 +18,8 @@ import SnapKit
 
 final class CalendarListViewController: EmptyBaseViewController {
     
+    typealias Identifiers = CalendarAccessibilityIdentifiers.List
+    
     private var sections: [CalendarListSection] = []
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
@@ -53,6 +55,7 @@ final class CalendarListViewController: EmptyBaseViewController {
         
         collectionView.do {
             $0.showsVerticalScrollIndicator = false
+            $0.accessibilityIdentifier = Identifiers.collectionView
             $0.delegate = self
             $0.dataSource = self
             $0.register(CalendarTodoListCell.self)
@@ -63,6 +66,7 @@ final class CalendarListViewController: EmptyBaseViewController {
         
         emptyLabel.do {
             $0.text = "기록이 없어요"
+            $0.accessibilityIdentifier = Identifiers.emptyLabel
             $0.font = .gmarketSans(type: .light, size: 21)
             $0.textColor = .orange1
             $0.isHidden = true

@@ -14,6 +14,8 @@ import Then
 
 public final class CalendarMonthView: BaseView {
     
+    typealias Identifiers = BasePresentationAccessibilityIdentifiers.Calendar.MonthView
+    
     fileprivate let titleLabel = UILabel()
     fileprivate let leftButton = UIButton()
     fileprivate let rightButton = UIButton()
@@ -51,11 +53,13 @@ public final class CalendarMonthView: BaseView {
         }
         
         leftButton.do {
+            $0.accessibilityIdentifier = Identifiers.leftButton
             $0.setImage(.chevronLeft.withRenderingMode(.alwaysTemplate), for: .normal)
             $0.tintColor = .orange1
         }
         
         rightButton.do {
+            $0.accessibilityIdentifier = Identifiers.rightButton
             $0.setImage(.chevronRight.withRenderingMode(.alwaysTemplate), for: .normal)
             $0.tintColor = .orange1
         }

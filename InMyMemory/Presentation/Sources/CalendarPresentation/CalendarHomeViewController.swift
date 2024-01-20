@@ -17,6 +17,8 @@ import SnapKit
 
 final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> {
     
+    typealias Identifiers = CalendarAccessibilityIdentifiers.Home
+    
     private let navigationView = NavigationView()
     private let calendarViewController = CalendarViewController()
     private let calendarListViewController = CalendarListViewController()
@@ -58,6 +60,7 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
         
         navigationView.do {
             $0.backgroundColor = .background
+            $0.accessibilityIdentifier = Identifiers.navigationView
             $0.setup(model: .init(
                 leftButtonType: .back,
                 rightButtonTypes: [.search, .plus]
