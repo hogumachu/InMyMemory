@@ -58,6 +58,7 @@ final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> 
         
         navigationView.do {
             $0.backgroundColor = .background
+            $0.accessibilityIdentifier = Identifiers.navigationView
             $0.setup(model: .init(
                 leftButtonType: .back,
                 rightButtonTypes: [.search, .plus]

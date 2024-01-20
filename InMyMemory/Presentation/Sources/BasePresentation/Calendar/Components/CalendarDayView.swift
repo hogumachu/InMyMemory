@@ -31,6 +31,8 @@ public struct CalendarDayViewModel {
 
 public final class CalendarDayView: BaseView {
     
+    typealias Identifiers = BasePresentationAccessibilityIdentifiers.Calendar.DayView
+    
     private let containerView = UIView()
     private let dayLabel = UILabel()
     private let emotionView = UIView()
@@ -41,7 +43,7 @@ public final class CalendarDayView: BaseView {
             return
         }
         dayLabel.text = "\(model.day)"
-        
+        accessibilityIdentifier = Identifiers.view(day: model.day)
         if model.isToday {
             containerView.backgroundColor = model.isSelected ? .reverseBackground : .background
             dayLabel.textColor = model.isSelected ? .background : .reverseBackground
