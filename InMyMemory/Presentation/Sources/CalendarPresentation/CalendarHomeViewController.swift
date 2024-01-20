@@ -17,6 +17,8 @@ import SnapKit
 
 final class CalendarHomeViewController: BaseViewController<CalendarHomeReactor> {
     
+    typealias Identifiers = CalendarAccessibilityIdentifiers.Home
+    
     private let navigationView = NavigationView()
     private let calendarViewController = CalendarViewController()
     private let calendarListViewController = CalendarListViewController()

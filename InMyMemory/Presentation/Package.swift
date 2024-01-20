@@ -115,6 +115,7 @@ let package = Package(
         .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", .upToNextMajor(from: "5.0.2")),
         .package(url: "https://github.com/Quick/Quick.git", from: "7.3.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "13.1.2"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.12.0"),
     ],
     targets: [
         .target(
@@ -456,8 +457,11 @@ let package = Package(
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
+                .product(name: "UseCases", package: "Domain"),
+                .product(name: "DomainTestSupport", package: "Domain"),
                 "Quick",
-                "Nimble"
+                "Nimble",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ]
         ),
         .testTarget(
