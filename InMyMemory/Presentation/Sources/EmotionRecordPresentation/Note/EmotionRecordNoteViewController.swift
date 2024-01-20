@@ -21,6 +21,7 @@ final class EmotionRecordNoteViewController: BaseViewController<EmotionRecordNot
     private let titleLabel = UILabel()
     private let noteView = UITextView()
     private let nextButton = ActionButton()
+    private let loadingView = LoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,11 @@ final class EmotionRecordNoteViewController: BaseViewController<EmotionRecordNot
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(nextButton.snp.top).offset(-15)
         }
+        
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     override func setupAttributes() {
@@ -93,6 +99,29 @@ final class EmotionRecordNoteViewController: BaseViewController<EmotionRecordNot
     }
     
     override func bind(reactor: EmotionRecordNoteReactor) {
+        bindState(reactor)
+        bindAction(reactor)
+    }
+    
+    private func bindState(_ reactor: Reactor) {
+        reactor.state.map(\.note)
+            .bind(to: noteView.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isEnabled)
+            .bind(to: nextButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.emotionType)
+            .bind(to: emotionTypeBinder)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map(\.isLoading)
+            .bind(to: loadingView.isLoading)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindAction(_ reactor: Reactor) {
         navigationView.rx.leftButtonDidTap
             .map { Reactor.Action.closeDidTap }
             .bind(to: reactor.action)
@@ -106,14 +135,6 @@ final class EmotionRecordNoteViewController: BaseViewController<EmotionRecordNot
         nextButton.rx.tap
             .map { Reactor.Action.nextDidTap }
             .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        reactor.state.map(\.isEnabled)
-            .bind(to: nextButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        reactor.state.map(\.emotionType)
-            .bind(to: emotionTypeBinder)
             .disposed(by: disposeBag)
     }
     
