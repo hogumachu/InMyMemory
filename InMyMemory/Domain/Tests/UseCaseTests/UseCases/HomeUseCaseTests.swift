@@ -7,6 +7,7 @@
 
 @testable import UseCases
 import Entities
+import DomainTestSupport
 import XCTest
 import Quick
 import Nimble

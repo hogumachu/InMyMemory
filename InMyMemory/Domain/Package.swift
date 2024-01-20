@@ -19,6 +19,10 @@ let package = Package(
             name: "UseCases",
             targets: ["UseCases"]
         ),
+        .library(
+            name: "DomainTestSupport",
+            targets: ["DomainTestSupport"]
+        ),
     ],
     dependencies: [
         .package(path: "../Shared"),
@@ -43,6 +47,15 @@ let package = Package(
             name: "UseCases",
             dependencies: [
                 "RxSwift",
+                "Entities",
+                "Interfaces",
+                .product(name: "CoreKit", package: "Shared"),
+            ]
+        ),
+        .target(
+            name: "DomainTestSupport",
+            dependencies: [
+                "RxSwift",
                 "Swinject",
                 "Entities",
                 "Interfaces",
@@ -55,6 +68,7 @@ let package = Package(
                 "UseCases",
                 "Entities",
                 "Interfaces",
+                "DomainTestSupport",
                 "RxSwift",
                 .product(name: "CoreKit", package: "Shared"),
                 "Quick",
