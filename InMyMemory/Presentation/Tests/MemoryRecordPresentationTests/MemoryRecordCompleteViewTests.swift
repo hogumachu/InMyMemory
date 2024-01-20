@@ -34,6 +34,7 @@ final class MemoryRecordCompleteViewTests: XCTestCase {
         // given
         let reactor = MemoryRecordCompleteReactor()
         let sut = MemoryRecordCompleteViewController()
+        sut.reactor = reactor
         
         // when
         sut.viewDidLoad()
