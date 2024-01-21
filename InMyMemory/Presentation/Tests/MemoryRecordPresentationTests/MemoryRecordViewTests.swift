@@ -30,103 +30,103 @@ final class MemoryRecordViewTests: XCTestCase {
         useCase = MemoryRecordUseCase(memoryRepository: repository)
     }
     
-//    func test_isPresent가_true일_때_화면() {
-//        // given
-//        let reactor = MemoryRecordReactor(
-//            isPresent: true,
-//            date: .init()
-//        )
-//        let sut = MemoryRecordViewController()
-//        sut.reactor = reactor
-//        
-//        // when
-//        sut.viewDidLoad()
-//        
-//        // then
-//        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-//    }
-//    
-//    func test_이미지가_없을_때_화면() {
-//        // given
-//        let reactor = MemoryRecordReactor(
-//            isPresent: false,
-//            memory: nil,
-//            imageSize: 5,
-//            date: .init()
-//        )
-//        let sut = MemoryRecordViewController()
-//        sut.reactor = reactor
-//        
-//        // when
-//        sut.viewDidLoad()
-//        
-//        // then
-//        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-//    }
-//    
-//    func test_이미지가_한개_있을_때_화면() {
-//        // given
-//        let reactor = MemoryRecordReactor(
-//            isPresent: false,
-//            memory: .init(images: [
-//                UIImage.checkmark.pngData()!
-//            ], note: "Test Note", date: .init()),
-//            imageSize: 5,
-//            date: .init()
-//        )
-//        let sut = MemoryRecordViewController()
-//        sut.reactor = reactor
-//        
-//        // when
-//        sut.viewDidLoad()
-//        
-//        // then
-//        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-//    }
-//    
-//    func test_이미지가_두개_있을_때_화면() {
-//        // given
-//        let reactor = MemoryRecordReactor(
-//            isPresent: false,
-//            memory: .init(images: [
-//                UIImage.checkmark.pngData()!,
-//                UIImage.checkmark.pngData()!,
-//            ], note: "Test Note", date: .init()),
-//            imageSize: 5,
-//            date: .init()
-//        )
-//        let sut = MemoryRecordViewController()
-//        sut.reactor = reactor
-//        
-//        // when
-//        sut.viewDidLoad()
-//        
-//        // then
-//        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-//    }
-//    
-//    func test_이미지가_다섯개_있을_때_화면() {
-//        // given
-//        let reactor = MemoryRecordReactor(
-//            isPresent: false,
-//            memory: .init(images: [
-//                UIImage.checkmark.pngData()!,
-//                UIImage.checkmark.pngData()!,
-//                UIImage.checkmark.pngData()!,
-//                UIImage.checkmark.pngData()!,
-//                UIImage.checkmark.pngData()!,
-//            ], note: "Test Note", date: .init()),
-//            imageSize: 5,
-//            date: .init()
-//        )
-//        let sut = MemoryRecordViewController()
-//        sut.reactor = reactor
-//        
-//        // when
-//        sut.viewDidLoad()
-//        
-//        // then
-//        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-//    }
+    func test_isPresent가_true일_때_화면() {
+        // given
+        let reactor = MemoryRecordReactor(
+            isPresent: true,
+            date: .init()
+        )
+        let sut = MemoryRecordViewController()
+        sut.reactor = reactor
+        
+        // when
+        sut.viewDidLoad()
+        
+        // then
+        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
+    }
+    
+    func test_이미지가_없을_때_화면() {
+        // given
+        let reactor = MemoryRecordReactor(
+            isPresent: false,
+            memory: nil,
+            imageSize: 5,
+            date: .init()
+        )
+        let sut = MemoryRecordViewController()
+        sut.reactor = reactor
+        
+        // when
+        sut.viewDidLoad()
+        
+        // then
+        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
+    }
+    
+    func test_이미지가_한개_있을_때_화면() {
+        // given
+        let reactor = MemoryRecordReactor(
+            isPresent: false,
+            memory: .init(images: [
+                .init()
+            ], note: "Test Note", date: .init()),
+            imageSize: 5,
+            date: .init()
+        )
+        let sut = MemoryRecordViewController()
+        sut.reactor = reactor
+        
+        // when
+        sut.viewDidLoad()
+        
+        // then
+        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
+    }
+    
+    func test_이미지가_두개_있을_때_화면() {
+        // given
+        let reactor = MemoryRecordReactor(
+            isPresent: false,
+            memory: .init(images: [
+                .init(),
+                .init(),
+            ], note: "Test Note", date: .init()),
+            imageSize: 5,
+            date: .init()
+        )
+        let sut = MemoryRecordViewController()
+        sut.reactor = reactor
+        
+        // when
+        sut.viewDidLoad()
+        
+        // then
+        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
+    }
+    
+    func test_이미지가_다섯개_있을_때_화면() {
+        // given
+        let reactor = MemoryRecordReactor(
+            isPresent: false,
+            memory: .init(images: [
+                .init(),
+                .init(),
+                .init(),
+                .init(),
+                .init(),
+            ], note: "Test Note", date: .init()),
+            imageSize: 5,
+            date: .init()
+        )
+        let sut = MemoryRecordViewController()
+        sut.reactor = reactor
+        
+        // when
+        sut.viewDidLoad()
+        
+        // then
+        assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
+    }
     
 }
