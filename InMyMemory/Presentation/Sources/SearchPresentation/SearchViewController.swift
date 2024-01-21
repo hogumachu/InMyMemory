@@ -72,10 +72,6 @@ final class SearchViewController: BaseViewController<SearchReactor> {
             $0.registerHeader(TextOnlyCollectionHeaderView.self)
         }
         
-        loadingView.do {
-            $0.isHidden = true
-        }
-        
         emptyLabel.do {
             $0.text = "검색 결과가 없어요"
             $0.textColor = .orange1
