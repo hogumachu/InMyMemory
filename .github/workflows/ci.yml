@@ -22,8 +22,8 @@ jobs:
     - name: SPM Cache
       uses: actions/cache@v3
       with:
-        path: InMyMemory.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        path: ~/Library/Developer/Xcode/DerivedData/InMyMemory*/SourcePackages/
+        key: ${{ runner.os }}-spm-${{ hashFiles('InMyMemory.xcodeproj/project.xcworkspace/xcshareddata/swiftpm//Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-spm-
         
