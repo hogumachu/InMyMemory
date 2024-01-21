@@ -545,5 +545,20 @@ let package = Package(
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ]
         ),
+        .testTarget(
+            name: "TodoRecordPresentationTests",
+            dependencies: [
+                "PresentationTestSupport",
+                "TodoRecordPresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                .product(name: "UseCases", package: "Domain"),
+                .product(name: "DomainTestSupport", package: "Domain"),
+                "Quick",
+                "Nimble",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
+        ),
     ]
 )

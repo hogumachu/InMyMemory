@@ -71,6 +71,13 @@
         "identifier" : "SearchPresentationTests",
         "name" : "SearchPresentationTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InMyMemory\/Presentation",
+        "identifier" : "TodoRecordPresentationTests",
+        "name" : "TodoRecordPresentationTests"
+      }
     }
   ],
   "version" : 1
