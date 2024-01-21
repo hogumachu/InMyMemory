@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: macos-13
     env:
-      PROJECT: InMyMemory.xcodeproj
+      PROJECT: InMyMemory.xcworkspace
       SCHEME: InMyMemory
       DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=latest
     steps:
