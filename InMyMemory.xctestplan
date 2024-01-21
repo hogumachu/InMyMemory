@@ -57,6 +57,13 @@
         "identifier" : "UseCaseTests",
         "name" : "UseCaseTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InMyMemory\/Presentation",
+        "identifier" : "RecordPresentationTests",
+        "name" : "RecordPresentationTests"
+      }
     }
   ],
   "version" : 1
