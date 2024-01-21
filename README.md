@@ -21,3 +21,9 @@ InMyMemory는 자신의 기억을 저장할 수 있는 앱입니다.
 * Domain: Entity, Interface, UseCase
 * Data: DB, Repository (Implementation)
 * Presentation: View, Reactor, etc (UI)
+
+### 테스팅
+
+* XCTest
+* Quick, Nimble
+* SnapshotTesting
