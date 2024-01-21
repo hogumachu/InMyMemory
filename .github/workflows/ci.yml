@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: macos-13
     env:
-      PROJECT: InMyMemory.xcworkspace
+      WORKSPACE: InMyMemory.xcworkspace
       SCHEME: InMyMemory
       DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=latest
     steps:
@@ -30,7 +30,7 @@ jobs:
     - name: Build and Test
       run: |
         xcodebuild test \
-        -project "$PROJECT" \
+        -workspace "$WORKSPACE" \
         -scheme "$SCHEME" \
         -clonedSourcePackagesDirPath SourcePackages \
         -destination "$DESTINATION" \
