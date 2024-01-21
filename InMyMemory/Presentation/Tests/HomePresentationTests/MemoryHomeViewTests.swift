@@ -21,8 +21,11 @@ import RxSwift
 
 final class MemoryHomeViewTests: XCTestCase {
     
+    private var dateFactory: DateFactory!
+    
     override func setUp() {
         super.setUp()
+        dateFactory = .init()
     }
     
     func test_데이터_없을_때_화면() {
@@ -56,7 +59,7 @@ final class MemoryHomeViewTests: XCTestCase {
     
     func test_할일_데이터_있을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 12, day: 25)!
+        let date = dateFactory.makeDate(year: 2023, month: 12, day: 25)!
         let sut = MemoryHomeViewController()
         let viewModel: MemoryHomeTodoViewModel = .init(items: [
             .init(id: .init(), todo: "Test 1", isChecked: true, date: date),
@@ -70,14 +73,6 @@ final class MemoryHomeViewTests: XCTestCase {
         
         // then
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-    }
-    
-    private func makeDate(year: Int, month: Int, day: Int) -> Date? {
-        return Calendar.current.date(from: .init(
-            year: year,
-            month: month,
-            day: day
-        ))
     }
     
 }

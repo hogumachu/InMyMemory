@@ -25,12 +25,14 @@ final class CalendarViewTests: XCTestCase {
     private var emotionRepository: EmotionRepositoryMock!
     private var memoryRepository: MemoryRepositoryMock!
     private var todoRepository: TodoRepositoryMock!
+    private var dateFactory: DateFactory!
     
     override func setUp() {
         super.setUp()
         emotionRepository = .init()
         memoryRepository = .init()
         todoRepository = .init()
+        dateFactory = .init()
         useCase = CalendarUseCase(
             emotionRepository: emotionRepository,
             memoryRepository: memoryRepository,
@@ -40,7 +42,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_2023년12월25일_데이터_없을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 12, day: 25)!
+        let date = dateFactory.makeDate(year: 2023, month: 12, day: 25)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -54,7 +56,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_2024년1월4일_데이터_없을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -68,7 +70,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_감정기록_데이터_있을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -87,7 +89,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_기억기록_데이터_있을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -106,7 +108,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_할일기록_데이터_있을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -125,7 +127,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_이전_달로_이동하는_버튼_눌렀을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -140,7 +142,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_다음_달로_이동하는_버튼_눌렀을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -155,7 +157,7 @@ final class CalendarViewTests: XCTestCase {
     
     func test_날짜_10일을_눌렀을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 1, day: 4)!
+        let date = dateFactory.makeDate(year: 2023, month: 1, day: 4)!
         let reactor = CalendarHomeReactor(useCase: useCase, date: date)
         let sut = CalendarHomeViewController()
         sut.reactor = reactor
@@ -166,10 +168,6 @@ final class CalendarViewTests: XCTestCase {
         
         // then
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-    }
-    
-    private func makeDate(year: Int, month: Int, day: Int) -> Date? {
-        return Calendar.current.date(from: .init(year: year, month: month, day: day))
     }
     
 }

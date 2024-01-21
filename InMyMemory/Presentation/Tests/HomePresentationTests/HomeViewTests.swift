@@ -25,12 +25,14 @@ final class HomeViewTests: XCTestCase {
     private var emotionRepository: EmotionRepositoryMock!
     private var memoryRepository: MemoryRepositoryMock!
     private var todoRepository: TodoRepositoryMock!
+    private var dateFactory: DateFactory!
     
     override func setUp() {
         super.setUp()
         emotionRepository = .init()
         memoryRepository = .init()
         todoRepository = .init()
+        dateFactory = .init()
         useCase = HomeUseCase(
             emotionRepository: emotionRepository,
             memoryRepository: memoryRepository,
@@ -76,7 +78,7 @@ final class HomeViewTests: XCTestCase {
     
     func test_할일_데이터가_있을_때_화면() {
         // given
-        let date = makeDate(year: 2023, month: 12, day: 25)!
+        let date = dateFactory.makeDate(year: 2023, month: 12, day: 25)!
         let reactor = HomeReactor(useCase: useCase)
         let sut = HomeViewController()
         reactor.isStubEnabled = true
@@ -113,14 +115,6 @@ final class HomeViewTests: XCTestCase {
         
         // then
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-    }
-    
-    private func makeDate(year: Int, month: Int, day: Int) -> Date? {
-        return Calendar.current.date(from: .init(
-            year: year,
-            month: month,
-            day: day
-        ))
     }
     
 }
