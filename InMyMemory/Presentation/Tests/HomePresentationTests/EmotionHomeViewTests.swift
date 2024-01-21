@@ -21,8 +21,11 @@ import RxSwift
 
 final class EmotionHomeViewTests: XCTestCase {
     
+    private var dateFactory: DateFactory!
+    
     override func setUp() {
         super.setUp()
+        dateFactory = .init()
     }
     
     func test_데이터_없을_때_화면() {
@@ -62,14 +65,6 @@ final class EmotionHomeViewTests: XCTestCase {
         
         // then
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
-    }
-    
-    private func makeDate(year: Int, month: Int, day: Int) -> Date? {
-        return Calendar.current.date(from: .init(
-            year: year,
-            month: month,
-            day: day
-        ))
     }
     
 }
