@@ -64,7 +64,7 @@ final class MemoryRecordViewTests: XCTestCase {
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
     }
     
-    func test_이미지가_1개_있을_때_화면() {
+    func test_이미지가_한개_있을_때_화면() {
         // given
         let reactor = MemoryRecordReactor(
             isPresent: false,
@@ -84,7 +84,7 @@ final class MemoryRecordViewTests: XCTestCase {
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
     }
     
-    func test_이미지가_2개_있을_때_화면() {
+    func test_이미지가_두개_있을_때_화면() {
         // given
         let reactor = MemoryRecordReactor(
             isPresent: false,
@@ -105,7 +105,7 @@ final class MemoryRecordViewTests: XCTestCase {
         assertSnapshots(of: sut, as: [.image(on: .iPhone13)])
     }
     
-    func test_이미지가_5개_있을_때_화면() {
+    func test_이미지가_다섯개_있을_때_화면() {
         // given
         let reactor = MemoryRecordReactor(
             isPresent: false,
