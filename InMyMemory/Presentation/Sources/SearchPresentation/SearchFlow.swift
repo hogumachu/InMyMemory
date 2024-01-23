@@ -10,6 +10,7 @@ import BasePresentation
 import RxFlow
 import CoreKit
 import Interfaces
+import MemoryDetailInterface
 
 public final class SearchFlow: Flow {
     
@@ -35,6 +36,12 @@ public final class SearchFlow: Flow {
         case .searchIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.searchIsComplete)
             
+        case .memoryDetailIsRequired(let memoryID):
+            return navigationToMemoryDetail(memoryID: memoryID)
+            
+        case .memoryDetailIsComplete:
+            return popMemoryDetail()
+            
         default:
             return .none
         }
@@ -45,6 +52,23 @@ public final class SearchFlow: Flow {
             withNextPresentable: rootViewController,
             withNextStepper: stepper
         ))
+    }
+    
+    private func navigationToMemoryDetail(memoryID: UUID) -> FlowContributors {
+        let flow = injector.resolve(MemoryDetailBuildable.self).build(memoryID: memoryID, injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.navigationController?.pushViewController(root, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.memoryDetailIsRequired(memoryID))
+        ))
+    }
+    
+    private func popMemoryDetail() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
+        rootViewController.refresh()
+        return .none
     }
     
 }

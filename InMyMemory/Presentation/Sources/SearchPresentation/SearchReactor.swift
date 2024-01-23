@@ -65,7 +65,19 @@ final class SearchReactor: Reactor, Stepper {
             return .empty()
             
         case .itemDidTap(let indexPath):
-            print(indexPath)
+            guard let item = currentState.sections[safe: indexPath.section]?.items[safe: indexPath.row] else {
+                return .empty()
+            }
+            switch item {
+            case .emotion(let model):
+                print("Emotion Did Tap")
+                
+            case .memory(let model):
+                steps.accept(AppStep.memoryDetailIsRequired(model.id))
+                
+            case .todo(let model):
+                print("Todo Did Tap")
+            }
             return .empty()
         }
     }
