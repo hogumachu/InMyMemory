@@ -18,18 +18,21 @@ import Then
 final class SearchReactor: Reactor, Stepper {
     
     enum Action {
-        case search(String)
+        case search
+        case updateKeyword(String?)
         case closeDidTap
         case itemDidTap(IndexPath)
     }
     
     struct State {
+        var keyword: String?
         var isLoading: Bool = false
         var isEmpty: Bool = true
         var sections: [SearchSection] = []
     }
     
     enum Mutation {
+        case setKeyword(String?)
         case setLoading(Bool)
         case setSections([Memory], [Emotion], [Todo])
     }
@@ -53,12 +56,16 @@ final class SearchReactor: Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .search(let keyword):
+        case .search:
+            guard let keyword = currentState.keyword else { return .empty() }
             return .concat([
                 .just(.setLoading(true)),
                 search(keyword: keyword),
                 .just(.setLoading(false))
             ])
+            
+        case .updateKeyword(let keyword):
+            return .just(.setKeyword(keyword))
             
         case .closeDidTap:
             steps.accept(AppStep.searchIsComplete)
@@ -85,6 +92,9 @@ final class SearchReactor: Reactor, Stepper {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case .setKeyword(let keyword):
+            newState.keyword = keyword
+            
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
             

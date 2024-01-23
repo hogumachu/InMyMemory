@@ -81,9 +81,13 @@ final class SearchViewController: BaseViewController<SearchReactor> {
     }
     
     override func bind(reactor: SearchReactor) {
-        bindAction(reactor)
         bindState(reactor)
+        bindAction(reactor)
         bindETC(reactor)
+    }
+    
+    override func refresh() {
+        reactor?.action.onNext(.search)
     }
     
     private func bindAction(_ reactor: SearchReactor) {
@@ -92,8 +96,13 @@ final class SearchViewController: BaseViewController<SearchReactor> {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        searchInputView.rx.text
+            .map { Reactor.Action.updateKeyword($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         searchInputView.rx.searchDidTap
-            .map { Reactor.Action.search($0) }
+            .map { _ in Reactor.Action.search }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
