@@ -402,6 +402,7 @@ let package = Package(
                 "BasePresentation",
                 "DesignKit",
                 "SearchInterface",
+                "MemoryDetailInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),
