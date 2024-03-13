@@ -85,6 +85,13 @@
         "identifier" : "PresentationTestSupportTests",
         "name" : "PresentationTestSupportTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:InMyMemory\/Presentation",
+        "identifier" : "EmotionDetailPresentationTests",
+        "name" : "EmotionDetailPresentationTests"
+      }
     }
   ],
   "version" : 1

@@ -10,6 +10,7 @@ import BasePresentation
 import RxFlow
 import CoreKit
 import Interfaces
+import EmotionDetailInterface
 import MemoryDetailInterface
 
 public final class SearchFlow: Flow {
@@ -35,6 +36,12 @@ public final class SearchFlow: Flow {
             
         case .searchIsComplete:
             return .end(forwardToParentFlowWithStep: AppStep.searchIsComplete)
+            
+        case .emotionDetailIsRequired(let emotionID):
+            return navigationToEmotionDetail(emotionID: emotionID)
+            
+        case .emotionDetailIsComplete:
+            return popEmotionDetail()
             
         case .memoryDetailIsRequired(let memoryID):
             return navigationToMemoryDetail(memoryID: memoryID)
@@ -65,7 +72,24 @@ public final class SearchFlow: Flow {
         ))
     }
     
+    private func navigationToEmotionDetail(emotionID: UUID) -> FlowContributors {
+        let flow = injector.resolve(EmotionDetailBuildable.self).build(emotionID: emotionID, injector: injector)
+        Flows.use(flow, when: .created) { [weak self] root in
+            self?.rootViewController.navigationController?.pushViewController(root, animated: true)
+        }
+        return .one(flowContributor: .contribute(
+            withNextPresentable: flow,
+            withNextStepper: OneStepper(withSingleStep: AppStep.emotionDetailIsRequired(emotionID))
+        ))
+    }
+    
     private func popMemoryDetail() -> FlowContributors {
+        rootViewController.navigationController?.popViewController(animated: true)
+        rootViewController.refresh()
+        return .none
+    }
+    
+    private func popEmotionDetail() -> FlowContributors {
         rootViewController.navigationController?.popViewController(animated: true)
         rootViewController.refresh()
         return .none

@@ -15,6 +15,7 @@ import CalendarPresentation
 import RecordPresentation
 import MemoryDetailPresentation
 import MemoryRecordPresentation
+import EmotionDetailPresentation
 import EmotionRecordPresentation
 import TodoRecordPresentation
 import SearchPresentation
@@ -32,6 +33,7 @@ enum CompositionRoot {
             RecordAssembly(),
             MemoryDetailAssembly(),
             MemoryRecordAssembly(),
+            EmotionDetailAssembly(),
             EmotionRecordAssembly(),
             SearchAssembly(),
             TodoRecordAssembly()

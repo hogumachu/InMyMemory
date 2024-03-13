@@ -17,4 +17,5 @@ public protocol EmotionRepositoryInterface: AnyObject {
     func read(keyword: String) -> Single<[Emotion]>
     func update(emotion: Emotion) -> Single<Void>
     func delete(emotion: Emotion) -> Single<Void>
+    func delete(emotionID: UUID) -> Single<Void>
 }

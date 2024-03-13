@@ -76,4 +76,12 @@ public final class EmotionRepositoryMock: EmotionRepositoryInterface {
         return .just(())
     }
     
+    public var deleteEmotionIDCallCount = 0
+    public var deleteEmotionIDEmotionID: UUID?
+    public func delete(emotionID: UUID) -> Single<Void> {
+        deleteEmotionIDCallCount += 1
+        deleteEmotionIDEmotionID = emotionID
+        return .just(())
+    }
+    
 }

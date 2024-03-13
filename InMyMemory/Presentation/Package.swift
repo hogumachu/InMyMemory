@@ -36,6 +36,18 @@ let package = Package(
             targets: ["RecordPresentation"]
         ),
         .library(
+            name: "EmotionDetailInterface",
+            targets: ["EmotionDetailInterface"]
+        ),
+        .library(
+            name: "EmotionDetailPresentation",
+            targets: ["EmotionDetailPresentation"]
+        ),
+        .library(
+            name: "EmotionDetailTestSupport",
+            targets: ["EmotionDetailTestSupport"]
+        ),
+        .library(
             name: "EmotionRecordInterface",
             targets: ["EmotionRecordInterface"]
         ),
@@ -214,6 +226,44 @@ let package = Package(
             ]
         ),
         .target(
+            name: "EmotionDetailInterface",
+            dependencies: [
+                "RxSwift",
+                "RxFlow",
+                "BasePresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "EmotionDetailPresentation",
+            dependencies: [
+                "RxSwift",
+                "ReactorKit",
+                "RxFlow",
+                .product(name: "RxCocoa", package: "RxSwift"),
+                "Then",
+                "BasePresentation",
+                "DesignKit",
+                "EmotionDetailInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
+            name: "EmotionDetailTestSupport",
+            dependencies: [
+                "RxSwift",
+                "BasePresentation",
+                "EmotionDetailInterface",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+            ]
+        ),
+        .target(
             name: "EmotionRecordInterface",
             dependencies: [
                 "RxSwift",
@@ -402,6 +452,7 @@ let package = Package(
                 "BasePresentation",
                 "DesignKit",
                 "SearchInterface",
+                "EmotionDetailInterface",
                 "MemoryDetailInterface",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
@@ -474,6 +525,22 @@ let package = Package(
                 "PresentationTestSupport",
                 "EmotionRecordTestSupport",
                 "EmotionRecordPresentation",
+                .product(name: "CoreKit", package: "Shared"),
+                .product(name: "Entities", package: "Domain"),
+                .product(name: "Interfaces", package: "Domain"),
+                .product(name: "UseCases", package: "Domain"),
+                .product(name: "DomainTestSupport", package: "Domain"),
+                "Quick",
+                "Nimble",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
+        ),
+        .testTarget(
+            name: "EmotionDetailPresentationTests",
+            dependencies: [
+                "PresentationTestSupport",
+                "EmotionDetailTestSupport",
+                "EmotionDetailPresentation",
                 .product(name: "CoreKit", package: "Shared"),
                 .product(name: "Entities", package: "Domain"),
                 .product(name: "Interfaces", package: "Domain"),

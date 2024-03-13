@@ -15,6 +15,8 @@
 		F15C61162B40246A00241C10 /* UseCases in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61152B40246A00241C10 /* UseCases */; };
 		F15C61182B40262100241C10 /* HomePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F15C61172B40262100241C10 /* HomePresentation */; };
 		F15C611B2B402C9900241C10 /* CoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = F15C611A2B402C9900241C10 /* CoreKit */; };
+		F197A8032BA1E7B000A27D80 /* EmotionDetailInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F197A8022BA1E7B000A27D80 /* EmotionDetailInterface */; };
+		F197A8052BA1E7B000A27D80 /* EmotionDetailPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F197A8042BA1E7B000A27D80 /* EmotionDetailPresentation */; };
 		F1D11D092B54DE84008FF7BB /* SearchInterface in Frameworks */ = {isa = PBXBuildFile; productRef = F1D11D082B54DE84008FF7BB /* SearchInterface */; };
 		F1D11D0B2B54DE84008FF7BB /* SearchPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F1D11D0A2B54DE84008FF7BB /* SearchPresentation */; };
 		F1D11D0D2B54DEA2008FF7BB /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D11D0C2B54DEA2008FF7BB /* CompositionRoot.swift */; };
@@ -78,6 +80,7 @@
 				F139C6E12B401F9900D38162 /* DesignKit in Frameworks */,
 				F15C61122B40246A00241C10 /* Entities in Frameworks */,
 				F1EC5A172B4020BC0079E84E /* PersistentStorages in Frameworks */,
+				F197A8052BA1E7B000A27D80 /* EmotionDetailPresentation in Frameworks */,
 				F15C61182B40262100241C10 /* HomePresentation in Frameworks */,
 				F1E372C52B53D411005483CD /* MemoryRecordPresentation in Frameworks */,
 				F1D11D102B54F485008FF7BB /* Differentiator in Frameworks */,
@@ -94,6 +97,7 @@
 				F1E372BD2B53D411005483CD /* CalendarPresentation in Frameworks */,
 				F1F2E3572B3F110C00D607F1 /* RxFlow in Frameworks */,
 				F1E372BF2B53D411005483CD /* EmotionRecordPresentation in Frameworks */,
+				F197A8032BA1E7B000A27D80 /* EmotionDetailInterface in Frameworks */,
 				F1F2E3512B3F10E200D607F1 /* RxRelay in Frameworks */,
 				F1F2E35D2B3F114100D607F1 /* Swinject in Frameworks */,
 				F1F2E35A2B3F112900D607F1 /* Then in Frameworks */,
@@ -236,6 +240,8 @@
 				F1D11D132B565081008FF7BB /* TodoRecordInterface */,
 				F1D11D152B565082008FF7BB /* TodoRecordPresentation */,
 				F1F5D5B52B57BFB500D15A46 /* CalendarTestSupport */,
+				F197A8022BA1E7B000A27D80 /* EmotionDetailInterface */,
+				F197A8042BA1E7B000A27D80 /* EmotionDetailPresentation */,
 			);
 			productName = InMyMemory;
 			productReference = F1F2E3232B3F07E900D607F1 /* InMyMemory.app */;
@@ -611,6 +617,14 @@
 		F15C611A2B402C9900241C10 /* CoreKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CoreKit;
+		};
+		F197A8022BA1E7B000A27D80 /* EmotionDetailInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmotionDetailInterface;
+		};
+		F197A8042BA1E7B000A27D80 /* EmotionDetailPresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmotionDetailPresentation;
 		};
 		F1D11D082B54DE84008FF7BB /* SearchInterface */ = {
 			isa = XCSwiftPackageProductDependency;
