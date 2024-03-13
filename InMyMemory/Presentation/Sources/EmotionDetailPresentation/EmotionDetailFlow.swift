@@ -22,7 +22,10 @@ public final class EmotionDetailFlow: Flow {
     
     public init(emotionID: UUID, injector: DependencyInjectorInterface) {
         self.injector = injector
-        let reactor = EmotionDetailReactor(emotionID: emotionID)
+        let reactor = EmotionDetailReactor(
+            emotionID: emotionID,
+            useCase: injector.resolve(EmotionDetailUseCaseInterface.self)
+        )
         self.stepper = reactor
         self.rootViewController = EmotionDetailViewController()
         self.rootViewController.reactor = reactor

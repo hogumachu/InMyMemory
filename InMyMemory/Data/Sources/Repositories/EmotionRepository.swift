@@ -69,4 +69,11 @@ public final class EmotionRepository: EmotionRepositoryInterface {
         return storage.remove(model: model)
     }
     
+    public func delete(emotionID: UUID) -> Single<Void> {
+        let predicate: Predicate<EmotionModel> = #Predicate { model in
+            return model.id == emotionID
+        }
+        return storage.remove(model: EmotionModel.self, predicate: predicate)
+    }
+    
 }

@@ -69,12 +69,11 @@ final class EmotionDetailViewController: BaseViewController<EmotionDetailReactor
         emotionLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view).inset(20)
-            make.bottom.equalToSuperview().offset(-50)
         }
         
         scrollView.addSubview(separator)
         separator.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(20)
+            make.top.equalTo(emotionLabel.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view).inset(20)
             make.height.equalTo(1)
         }
@@ -180,6 +179,16 @@ final class EmotionDetailViewController: BaseViewController<EmotionDetailReactor
         
         navigationView.rx.leftButtonDidTap
             .map { Reactor.Action.closeDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        editButton.rx.tap
+            .map { Reactor.Action.editDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        removeButton.rx.tap
+            .map { Reactor.Action.removeDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }

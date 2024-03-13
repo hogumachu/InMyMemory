@@ -19,6 +19,8 @@ final class EmotionDetailReactor: Reactor, Stepper {
     
     enum Action {
         case refresh
+        case removeDidTap
+        case editDidTap
         case closeDidTap
     }
     
@@ -37,22 +39,47 @@ final class EmotionDetailReactor: Reactor, Stepper {
     let steps = PublishRelay<Step>()
     
     private let emotionID: UUID
+    private let useCase: EmotionDetailUseCaseInterface
     private let formatter: DateFormatter
     
     init(
         emotionID: UUID,
+        useCase: EmotionDetailUseCaseInterface,
         formatter: DateFormatter = DateFormatter().with {
             $0.dateFormat = "yyyy년 MM월 dd일 E요일"
             $0.locale = Locale(identifier: "ko_KR")
         }
     ) {
         self.emotionID = emotionID
+        self.useCase = useCase
         self.formatter = formatter
     }
     
-    func mutate(action: Action) -> Observable<State> {
+    func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .refresh:
+            return .concat([
+                .just(.setLoading(true)),
+                useCase.emotion(id: emotionID)
+                    .map { Mutation.setEmotion($0) }
+                    .asObservable(),
+                .just(.setLoading(false))
+            ])
+            
+        case .removeDidTap:
+            return .concat([
+                .just(.setLoading(true)),
+                useCase.remove(emotionID: emotionID)
+                    .map { [weak self] _ in
+                        self?.steps.accept(AppStep.emotionDetailIsComplete)
+                        return Mutation.setLoading(true)
+                    }
+                    .asObservable()
+            ])
+            
+        case .editDidTap:
+            guard let emotion = currentState.emotion else { return .empty() }
+            // TODO: - Emotion Edit
             return .empty()
             
         case .closeDidTap:
