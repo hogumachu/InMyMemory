@@ -30,6 +30,12 @@ final class EmotionDetailReactor: Reactor, Stepper {
     var initialState: EmotionDetailState = .init()
     let steps = PublishRelay<Step>()
     
+    private let emotionID: UUID
+    
+    init(emotionID: UUID) {
+        self.emotionID = emotionID
+    }
+    
     func mutate(action: EmotionDetailAction) -> Observable<EmotionDetailAction> {
         
     }

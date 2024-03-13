@@ -77,7 +77,7 @@ final class SearchReactor: Reactor, Stepper {
             }
             switch item {
             case .emotion(let model):
-                print("Emotion Did Tap")
+                steps.accept(AppStep.emotionDetailIsRequired(model.id))
                 
             case .memory(let model):
                 steps.accept(AppStep.memoryDetailIsRequired(model.id))

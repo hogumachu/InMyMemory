@@ -20,9 +20,9 @@ public final class EmotionDetailFlow: Flow {
     private let stepper: Stepper
     private let injector: DependencyInjectorInterface
     
-    public init(injector: DependencyInjectorInterface) {
+    public init(emotionID: UUID, injector: DependencyInjectorInterface) {
         self.injector = injector
-        let reactor = EmotionDetailReactor()
+        let reactor = EmotionDetailReactor(emotionID: emotionID)
         self.stepper = reactor
         self.rootViewController = EmotionDetailViewController()
         self.rootViewController.reactor = reactor
@@ -30,7 +30,24 @@ public final class EmotionDetailFlow: Flow {
     
     public func navigate(to step: Step) -> FlowContributors {
         guard let appStep = step as? AppStep else { return .none }
-        return .none
+        
+        switch appStep {
+        case .emotionDetailIsRequired:
+            return navigationToEmotionDetail()
+            
+        case .emotionDetailIsComplete:
+            return .end(forwardToParentFlowWithStep: AppStep.emotionDetailIsComplete)
+            
+        default:
+            return .none
+        }
+    }
+    
+    private func navigationToEmotionDetail() -> FlowContributors {
+        return .one(flowContributor: .contribute(
+            withNextPresentable: rootViewController,
+            withNextStepper: stepper
+        ))
     }
     
 }

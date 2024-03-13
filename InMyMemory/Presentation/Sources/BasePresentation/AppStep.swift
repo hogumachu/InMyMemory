@@ -47,6 +47,10 @@ public enum AppStep: Step {
     case calendarIsRequired
     case calendarIsComplete
     
+    // emotionDetail
+    case emotionDetailIsRequired(UUID)
+    case emotionDetailIsComplete
+    
     // memoryDetail
     case memoryDetailIsRequired(UUID)
     case memoryDetailIsComplete

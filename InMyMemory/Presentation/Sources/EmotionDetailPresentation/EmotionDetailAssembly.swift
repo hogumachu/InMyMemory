@@ -14,6 +14,9 @@ public struct EmotionDetailAssembly: Assembly {
     public init() {}
     
     public func assemble(container: Container) {
-        
+        container.register(EmotionDetailBuildable.self) { _ in
+            EmotionDetailBuilder()
+        }
     }
+    
 }

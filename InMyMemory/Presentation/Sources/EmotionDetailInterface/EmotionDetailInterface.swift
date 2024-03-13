@@ -10,5 +10,5 @@ import RxFlow
 import CoreKit
 
 public protocol EmotionDetailBuildable: AnyObject {
-    func build(injector: DependencyInjectorInterface) -> Flow
+    func build(emotionID: UUID, injector: DependencyInjectorInterface) -> Flow
 }

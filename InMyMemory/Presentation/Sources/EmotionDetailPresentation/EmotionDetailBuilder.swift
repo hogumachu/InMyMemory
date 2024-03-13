@@ -14,8 +14,8 @@ public final class EmotionDetailBuilder: EmotionDetailBuildable {
     
     public init() {}
     
-    public func build(injector: DependencyInjectorInterface) -> Flow {
-        return EmotionDetailFlow(injector: injector)
+    public func build(emotionID: UUID, injector: DependencyInjectorInterface) -> Flow {
+        return EmotionDetailFlow(emotionID: emotionID, injector: injector)
     }
     
 }
