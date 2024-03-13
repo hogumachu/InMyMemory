@@ -14,30 +14,76 @@ import RxRelay
 import ReactorKit
 import RxFlow
 
-enum EmotionDetailAction {
-    
-}
-
-struct EmotionDetailState {
-    
-}
 
 final class EmotionDetailReactor: Reactor, Stepper {
     
-    typealias Action = EmotionDetailAction
-    typealias State = EmotionDetailState
+    enum Action {
+        case refresh
+        case closeDidTap
+    }
     
-    var initialState: EmotionDetailState = .init()
+    struct State {
+        var emotion: Emotion?
+        var viewModel: EmotionDetailViewModel?
+        var isLoading: Bool = false
+    }
+    
+    enum Mutation {
+        case setEmotion(Emotion?)
+        case setLoading(Bool)
+    }
+    
+    var initialState: State = .init()
     let steps = PublishRelay<Step>()
     
     private let emotionID: UUID
+    private let formatter: DateFormatter
     
-    init(emotionID: UUID) {
+    init(
+        emotionID: UUID,
+        formatter: DateFormatter = DateFormatter().with {
+            $0.dateFormat = "yyyy년 MM월 dd일 E요일"
+            $0.locale = Locale(identifier: "ko_KR")
+        }
+    ) {
         self.emotionID = emotionID
+        self.formatter = formatter
     }
     
-    func mutate(action: EmotionDetailAction) -> Observable<EmotionDetailAction> {
+    func mutate(action: Action) -> Observable<State> {
+        switch action {
+        case .refresh:
+            return .empty()
+            
+        case .closeDidTap:
+            steps.accept(AppStep.emotionDetailIsComplete)
+            return .empty()
+        }
+    }
+    
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        switch mutation {
+        case .setEmotion(let emotion):
+            newState.emotion = emotion
+            newState.viewModel = makeViewModel(emotion)
+            
+        case .setLoading(let isLoading):
+            newState.isLoading = isLoading
+        }
         
+        return newState
+    }
+    
+    private func makeViewModel(_ emotion: Emotion?) -> EmotionDetailViewModel? {
+        guard let emotion else {
+            return nil
+        }
+        return .init(
+            date: formatter.string(from: emotion.date),
+            note: emotion.note,
+            emotionType: emotion.emotionType
+        )
     }
     
 }
