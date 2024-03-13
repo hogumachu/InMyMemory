@@ -158,8 +158,14 @@ final class SearchReactorTests: QuickSpec {
                         sut.action.onNext(.itemDidTap(emotionIndexPath))
                     }
                     
-                    it("라우팅이 호출되지 않는다") {
-                        expect { stepBinder.steps.isEmpty } == true
+                    it("emotionDetailIsRequired로 라우팅된다") {
+                        let step = try unwrap(stepBinder.steps.last as? AppStep)
+                        expect {
+                            guard case .emotionDetailIsRequired(let id) = step else {
+                                return .failed(reason: "올바르지 않은 라우팅")
+                            }
+                            return id == emotionID ? .succeeded : .failed(reason: "올바르지 않은 ID")
+                        }.to(succeed())
                     }
                 }
                 
