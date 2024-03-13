@@ -17,10 +17,11 @@ public final class EmotionDetailUseCaseMock: EmotionDetailUseCaseInterface {
     
     public var emotionIDCallCount = 0
     public var emotionIDID: UUID?
+    public var emotionIDEmotion: Emotion?
     public func emotion(id: UUID) -> Single<Emotion?> {
         emotionIDCallCount += 1
         emotionIDID = id
-        return .just(nil)
+        return .just(emotionIDEmotion)
     }
     
     public var removeEmotionIDCallCount = 0
